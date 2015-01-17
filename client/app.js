@@ -5,6 +5,11 @@ _.extend(App, {
 });
 
 App.helpers = {
+    
+    isEq: function (v1, v2) {
+        return (v1===v2);
+    },
+
     getSessionValue: function(name) {
         return Session.get(name);
     },

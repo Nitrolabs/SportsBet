@@ -62,11 +62,13 @@ var schema = new SimpleSchema({
         optional:true
     },
     "outcomes.$.text": {
-        type: String
+        type: String,
+        optional:true
     },
     "outcomes.$.odds": {
         type: Number,
         decimal: true,
+        optional:true,
     }
 
 });

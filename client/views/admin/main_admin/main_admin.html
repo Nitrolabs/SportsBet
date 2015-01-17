@@ -51,19 +51,21 @@
                                 </tbody>
                             </table>
                         </div>
+                        <button class='btn-large' id="newBetButton">New</button>
                     </div>
                 </div>
                 <div class="col-lg-8" name="AdmitActiveBetArea">
                 {{#with getActiveBet}}
+                <form id="bet_form">
                     <div class="well">
                         <div class="row">
                             ID: {{_id}}
                         </div>
                         <div class="row">
-                            Name: <input type="text" value="{{title}}"/>
+                            Name: <input type="text" id="bet_title" value="{{title}}"/>
                         </div>
                         <div class="row">
-                            Question: <textarea name="active_bet_question" id=active_bet_question rows="3px" cols="60">{{question}}</textarea>
+                            Question: <textarea name="active_bet_question" id=active_bet_question rows="3" cols="60">{{question}}</textarea>
                         </div>
                         <div class="row">
                             Status: <b>{{status}}</b>
@@ -83,7 +85,36 @@
                             Option 4: <input size="50" type="text" name="option4_text" id="option4_text" value="{{getOutcomeData 3 'text'}}"/>&nbsp; &nbsp; &nbsp; <input type="text" name="option4_odds" size="4" id="option4_odds" value="{{getOutcomeData 3 'odds'}}" /> : 1
                         </div>
 
+                        <br>
+                        <div class="row">
+                            Actual Result: <input size="10" type="text" name="actual_result" id="actual_result" value="{{actual_result}}"/>
+                        </div>
+                        <div class="row">
+                            Status update: <input type="text" name="status_update" id="status_update" value="{{status_update}}" />
+                        </div>
+                        <br>
+                        <div class="row">
+                            Submitted at: <b>{{submitted_at}}</b><br>
+                            Activated at: <b>{{activated_at}}</b><br>
+                            Closed at:    <b>{{closed_at}}</b><br>
+                            Resolved at:  <b>{{resolved_at}}</b>
+                        </div>
+                        <br>
+                        <div class="row">
+                            {{#if isNewBet}}
+                                <button class='btn-large' id="createNewBet">Create</button>
+                                <br>
+                            {{else}}
+                                <button class='btn-large' id="saveBet">Save</button>
+                                <button class='btn-large' id="activateBet">Activate</button>
+                                <button class='btn-large' id="closeBet">Close</button>
+                                <button class='btn-large' id="resolveBet">Resolve</button>
+                                <br>
+                            {{/if}}
+                            
+                        </div>
                     </div>
+                </form>
                 {{/with}}
                 </div>
                 
