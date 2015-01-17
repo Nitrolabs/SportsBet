@@ -34,8 +34,8 @@
                                 <tbody>
                                     {{#each betsForThisGame}}
                                     <tr>
-                                        <td style="vertical-align:middle;text-align: center;">
-                                            <p style="margin-top: 3px;margin-bottom: 3px;">{{status}}</p>
+                                        <td style="vertical-align:middle;">
+                                            <span style="margin-top: 3px;margin-bottom: 3px;" class="label label-{{getStatusLabelType status}}">{{status}}</span>
                                         </td>
                                         <td style="vertical-align:middle;">
                                             <p style="margin-top: 3px;margin-bottom: 3px;">{{prettifyDate submitted_at}}</p>

@@ -135,10 +135,10 @@ var extractBetDataFromAdminForm = function() {
                 
             outcomes: 
             [
-                {text: $('#option1_text').val(), odds: $('#option1_odds').val()},
-                {text: $('#option2_text').val(), odds: $('#option2_odds').val()},
-                {text: $('#option3_text').val(), odds: $('#option3_odds').val()},
-                {text: $('#option4_text').val(), odds: $('#option4_odds').val()}
+                {text: $('#option1_text').val() || " ", odds: $('#option1_odds').val() || 1},
+                {text: $('#option2_text').val() || " ", odds: $('#option2_odds').val() || 1},
+                {text: $('#option3_text').val() || " ", odds: $('#option3_odds').val() || 1},
+                {text: $('#option4_text').val() || " ", odds: $('#option4_odds').val() || 1}
             ]
         };
         
@@ -176,7 +176,16 @@ Template.MainAdmin.helpers({
    
    isNewBet: function() {
        return Session.get('admin_active_bet') == undefined || Session.get('admin_active_bet') == "";
-   }
+   },
+   
+   getStatusLabelType: function(st) {
+       if (st == "HIDDEN") return "default";
+       if (st == "ACTIVE") return "success";
+       if (st == "CLOSED") return "warning";
+       if (st == "RESOLVED") return "info";
+       return "default";
+       
+    }
    
 });
 
