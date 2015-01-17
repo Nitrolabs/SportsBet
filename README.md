@@ -24,6 +24,8 @@ Packages
 * Meteoric [github](https://github.com/meteoric/meteor-ionic) for the UI
 * iron:router [github](https://github.com/EventedMind/iron-router) for navigation
 * accounts-facebook [docs](http://docs.meteor.com/#/full/accounts_api) for social
+* meteor-collection2 [github](https://github.com/aldeed/meteor-collection2) for models
+
  
 Privacy Policy
 --------------
