@@ -23,9 +23,9 @@ App.helpers = {
         var today = new Date(Date.now()).setHours(0,0,0,0);
 
         if (day ===  today)
-            return "Today at " + dateFormat(d, "h:MM TT");
+            return "Today at " + moment(d).format('h:mm:ss a');
         else
-            return "on " + dateFormat(d, "mm/dd/yyyy");
+            return moment(d).format('ddd MM/DD, h:mm a');
     }
 };
 

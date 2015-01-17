@@ -33,7 +33,7 @@ Template.MainAdmin.events({
         
         var new_bet = extractBetDataFromAdminForm();
         new_bet.status = "HIDDEN";
-        new_bet.created_at = new Date();
+        new_bet.submitted_at = new Date();
         
         console.log(new_bet);
         
@@ -93,6 +93,7 @@ Template.MainAdmin.events({
    'click #resolveBet': function(e,tmpl) {
 
         e.preventDefault();
+        
         var new_bet = extractBetDataFromAdminForm();
         
         new_bet.resolved_at = new Date();
