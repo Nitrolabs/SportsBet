@@ -34,11 +34,11 @@
                                 <tbody>
                                     {{#each betsForThisGame}}
                                     <tr>
-                                        <td style="vertical-align:middle;text-align: center;">
-                                            <p style="margin-top: 3px;margin-bottom: 3px;">{{status}}</p>
+                                        <td style="vertical-align:middle;">
+                                            <span style="margin-top: 3px;margin-bottom: 3px;" class="label label-{{getStatusLabelType status}}">{{status}}</span>
                                         </td>
                                         <td style="vertical-align:middle;">
-                                            <p style="margin-top: 3px;margin-bottom: 3px;">{{submitted_at}}</p>
+                                            <p style="margin-top: 3px;margin-bottom: 3px;">{{prettifyDate submitted_at}}</p>
                                         </td>
                                         <td style="vertical-align:middle;">
                                             <p style="margin-top: 3px;margin-bottom: 3px;"><a href="#" name="selectActiveBet">{{title}}</a></p>
@@ -51,39 +51,62 @@
                                 </tbody>
                             </table>
                         </div>
+                        <button class='btn-large' id="newBetButton">New</button>
                     </div>
                 </div>
                 <div class="col-lg-8" name="AdmitActiveBetArea">
                 {{#with getActiveBet}}
+                <form id="bet_form">
                     <div class="well">
+                        <table>
+                            <tr><td>ID: </td><td>{{_id}}</td></tr>
+                            <tr><td>Status:   </td><td><b>{{status}}</b></td></tr>
+                            <br>
+                            <tr><td>Title: </td><td><input type="text" id="bet_title" value="{{title}}"/></td></tr>
+                            <tr><td>Question: </td><td><textarea name="active_bet_question" id=active_bet_question rows="3" cols="60">{{question}}</textarea></td></tr>
+                            <br>
+                            <tr><td>Option 1:</td><td>
+                                <input size="50" type="text" name="option1_text" id="option1_text" value="{{getOutcomeData 0 'text'}}"/>&nbsp; &nbsp; &nbsp; <input type="text" name="option1_odds" size="4" id="option1_odds" value="{{getOutcomeData 0 'odds'}}" /> : 1
+                            </td></tr>
+                            <tr><td>Option 2:</td><td>
+                                <input size="50" type="text" name="option2_text" id="option2_text" value="{{getOutcomeData 1 'text'}}"/>&nbsp; &nbsp; &nbsp; <input type="text" name="option2_odds" size="4" id="option2_odds" value="{{getOutcomeData 1 'odds'}}" /> : 1
+                            </td></tr>
+                            <tr><td>Option 3:</td><td>
+                                <input size="50" type="text" name="option3_text" id="option3_text" value="{{getOutcomeData 2 'text'}}"/>&nbsp; &nbsp; &nbsp; <input type="text" name="option3_odds" size="4" id="option3_odds" value="{{getOutcomeData 2 'odds'}}" /> : 1
+                            </td></tr>
+                            <tr><td>Option 4:</td><td>
+                                <input size="50" type="text" name="option4_text" id="option4_text" value="{{getOutcomeData 3 'text'}}"/>&nbsp; &nbsp; &nbsp; <input type="text" name="option4_odds" size="4" id="option4_odds" value="{{getOutcomeData 3 'odds'}}" /> : 1
+                            </td></tr>
+                            <br>
+                            <tr><td>Actual Result:</td><td>
+                                <input size="10" type="text" name="actual_result" id="actual_result" value="{{actual_result}}"/>
+                            </td></tr>
+                            <tr><td>Status update:</td><td>
+                                <input type="text" name="status_update" id="status_update" value="{{status_update}}" />
+                            </td></tr>
+                            <br>
+                            <tr><td>Submitted at:</td><td><b>{{prettifyDate submitted_at}}</b></td></tr>
+                            <tr><td>Activated at: </td><td><b>{{prettifyDate activated_at}}</b> </td></tr>
+                            <tr><td>Closed at: </td><td><b>{{prettifyDate closed_at}}</b> </td></tr>
+                            <tr><td>Resolved at: </td><td><b>{{prettifyDate resolved_at}}</b> </td></tr>
+                        </table>     
+                        
+                        <br>
                         <div class="row">
-                            ID: {{_id}}
+                            {{#if isNewBet}}
+                                <button class="btn btn-primary" id="createNewBet">Create</button>
+                                <br>
+                            {{else}}
+                                <button class="btn btn-default" id="saveBet">Save</button>
+                                <button class="btn btn-success" id="activateBet">Activate</button>
+                                <button class="btn btn-warning" id="closeBet">Close</button>
+                                <button class="btn btn-info" id="resolveBet">Resolve</button>
+                                <br>
+                            {{/if}}
+                            
                         </div>
-                        <div class="row">
-                            Name: <input type="text" value="{{title}}"/>
-                        </div>
-                        <div class="row">
-                            Question: <textarea name="active_bet_question" id=active_bet_question rows="3px" cols="60">{{question}}</textarea>
-                        </div>
-                        <div class="row">
-                            Status: <b>{{status}}</b>
-                        </div>
-                        <div class="row">
-                            Option 1: <input size="50" type="text" name="option1_text" id="option1_text" value="{{getOutcomeData 0 'text'}}"/>&nbsp; &nbsp; &nbsp; <input type="text" name="option1_odds" size="4" id="option1_odds" value="{{getOutcomeData 0 'odds'}}" /> : 1
-                        </div>
-                        <div class="row">
-                            Option 2: <input size="50" type="text" name="option2_text" id="option2_text" value="{{getOutcomeData 1 'text'}}"/>&nbsp; &nbsp; &nbsp; <input type="text" name="option2_odds" size="4" id="option2_odds" value="{{getOutcomeData 1 'odds'}}" /> : 1
-                        </div>
-
-                        <div class="row">
-                            Option 3: <input size="50" type="text" name="option3_text" id="option3_text" value="{{getOutcomeData 2 'text'}}"/>&nbsp; &nbsp; &nbsp; <input type="text" name="option3_odds" size="4" id="option3_odds" value="{{getOutcomeData 2 'odds'}}" /> : 1
-                        </div>
-
-                        <div class="row">
-                            Option 4: <input size="50" type="text" name="option4_text" id="option4_text" value="{{getOutcomeData 3 'text'}}"/>&nbsp; &nbsp; &nbsp; <input type="text" name="option4_odds" size="4" id="option4_odds" value="{{getOutcomeData 3 'odds'}}" /> : 1
-                        </div>
-
                     </div>
+                </form>
                 {{/with}}
                 </div>
                 

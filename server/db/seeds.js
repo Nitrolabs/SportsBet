@@ -47,12 +47,4 @@ Meteor.startup(function () {
 	    });
 	}
 	
-	var b = Bets.findOne();
-	
-	console.log(b);
-	console.log(b.question);
-	console.log(b.outcomes);
-	console.log(b.outcomes[0]);
-	console.log(b.outcomes[0].text);
-	console.log(b.outcomes[0].odds);
 });
