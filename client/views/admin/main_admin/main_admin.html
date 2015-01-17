@@ -1,5 +1,6 @@
 <template name="MainAdmin">
-
+{{#ionView}}
+{{#ionContent overflow-scroll=true }}
     <!--{{#if currentUser}}-->
         {{#if LoggingIn}}
             Loading...
@@ -119,4 +120,6 @@
         {{> loginButtons}}
     </div>
     <!--{{/if}}-->
+{{/ionContent}}
+{{/ionView}}
 </template>
