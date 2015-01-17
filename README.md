@@ -13,7 +13,7 @@ git clone https://github.com/NitroLabs/SportsBet.git
 
 # Run the app
 cd sportsbet
-meteor
+meteor --settings config/development/settings.json
 
 # The app might fail to build the first time
 # Press ctrl+c to kill it and then run meteor again
