@@ -12,3 +12,5 @@ meteoric:ionic-sass
 iron:router
 aldeed:collection2
 mizzao:bootstrap-3
+accounts-ui
+accounts-facebook

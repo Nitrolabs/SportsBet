@@ -59,7 +59,14 @@ var schema = new SimpleSchema({
     outcomes:{
         type:[Object],
         label:"An array of possble outcomes",
-        optional:true,
+        optional:true
+    },
+    "outcomes.$.text": {
+        type: String
+    },
+    "outcomes.$.odds": {
+        type: Number,
+        decimal: true,
     }
 
 });

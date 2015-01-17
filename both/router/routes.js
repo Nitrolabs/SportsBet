@@ -12,3 +12,4 @@ Router.configure({
  *  Router.route('/', {name: 'home'});
 */
 Router.route('/', {name: 'game'});
+Router.route('/admin', {name: 'main.admin'});

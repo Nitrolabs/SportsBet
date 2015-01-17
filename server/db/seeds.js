@@ -1,4 +1,3 @@
-
 NOW = new Date()
 
 Meteor.startup(function () {
@@ -21,7 +20,7 @@ Meteor.startup(function () {
   		game = Games.findOne();
   		console.log(game)
   		Bets.insert({
-  			game_id:game._id,
+  			game_id:game._id, 
 	    	question:"Do you think the last play in the game will be ...",
 	    	title:"Last Play",
 	    	status:"HIDDEN",
@@ -47,4 +46,13 @@ Meteor.startup(function () {
 	    	]
 	    });
 	}
+	
+	var b = Bets.findOne();
+	
+	console.log(b);
+	console.log(b.question);
+	console.log(b.outcomes);
+	console.log(b.outcomes[0]);
+	console.log(b.outcomes[0].text);
+	console.log(b.outcomes[0].odds);
 });
