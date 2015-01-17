@@ -11,5 +11,6 @@ Router.configure({
  *  Example:
  *  Router.route('/', {name: 'home'});
 */
-Router.route('/', {name: 'game'});
+Router.route('/', {name: 'mobile.landing', layoutTemplate:'MobileLayout'});
+Router.route('/game/:_id', {name: 'mobile.game', layoutTemplate:'MobileLayout'});
 Router.route('/admin', {name: 'main.admin'});

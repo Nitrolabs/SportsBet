@@ -1,9 +1,63 @@
-<template name="Game">
-	<h1>Lets just list the bets:</h1>
- 	{{#each bets }}
-	  	<h1>Bet example</h1>
-	  	<p>title:{{ title }}</p>
-	  	<p>status:{{ status }}</p>
-	  	<p>status_message:{{ status_message }}</p>
-	{{/each}}
+<template name="MobileGame">
+
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-positive" text=false}}
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+    <button class="button button-clear pull-right button-positive" data-action="share-product" data-product-id="{{product._id}}">
+      {{> ionIcon icon='navicon'}}
+    </button>
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">{{ game.title }}</h1>
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}
+
+ 	{{#with current_bet }}
+ 		<div class="card">
+		  <div class="item item-divider">
+		    {{ question }}
+		  </div>
+		  <div class="item item-text-wrap">
+		  	  {{#each outcomes }}
+			  	<div class="item item-divider bet-option-button">
+			  		{{ text }}
+			  		<p class='clearfix'>
+			  			<span class='pull-left'>{{ odds }}:1</span>
+			  			<span class='pull-right'>+600</span>
+			  			<!-- ASSAF: I NEED A 'MONEY' DATA ATTRIBUTE HERE -->
+			  		</p>
+				</div>
+			  {{/each}}
+			  <br>
+			  <a href="#" class='bet-skip-button'>skip</a>
+			  <br>
+		<!-- END QUESTION -->
+		</div>
+		</div>
+
+		<div>
+			<div class="text-center">
+			  <br>
+			  <div class="bet-user-bank">
+			  	<!-- ASSAF: I NEED A BANK ATTRIBUTE ON THE USER -->
+			  	<h2>
+			  		{{ user.bank }}
+			  		$12,800
+			  	</h2>
+			  </div>
+			  <div class="bet-status-message">
+			  	<!-- ASSAF: I REALLY DON"T KNOW HOW TO UPDATE THE STATUS MESSAGE -->
+			  	<p>{{ status_message }} We are going to put the status message here</p>
+			  </div>
+		  </div>
+		</div>
+	{{/with}}
+
+    {{/ionContent}}
+  {{/ionView}}
 </template>

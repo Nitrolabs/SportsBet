@@ -1,0 +1,48 @@
+<template name="MobileLanding">
+
+  {{#contentFor "headerButtonRight"}}
+    <button class="button button-clear pull-right button-positive" data-action="share-product" data-product-id="{{product._id}}">
+      {{> ionIcon icon='navicon'}}
+    </button>
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">Games</h1>
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}
+
+      <div class="game-list">
+        {{#with featured_game }}
+        	<a href="{{pathFor route='mobile.game'}}">
+        		<button class="button button-block button-positive">
+  				    {{title}}
+				</button>
+        	</a>
+        {{/with}}
+
+        <div class="row">
+	        {{#each active_games }}
+	        	<div class="col col-50">
+		        	<a href="{{pathFor route='mobile.game'}}">
+		        		<button class="button button-block button-balanced">
+		  				    {{title}}
+						</button>
+		        	</a>
+	        	</div>
+	        {{/each}}
+	    </div>
+
+        {{#each upcoming_games }}
+            <a href="{{pathFor route='mobile.game'}}">
+        		<button class="button button-block button-positive">
+  				    {{title}}
+				</button>
+        	</a>
+        {{/each}}
+      </div>
+
+    {{/ionContent}}
+  {{/ionView}}
+</template>
