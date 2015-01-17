@@ -13,6 +13,21 @@ Meteor.startup(function () {
 		  title:"Rebels vs Cats",
 		  start_datetime:NOW   
 		});
+
+		Games.insert({
+		  title:"Panthers vs Lions",
+		  start_datetime:NOW   
+		});
+
+		Games.insert({
+		  title:"Tigers vs Trees",
+		  start_datetime:NOW   
+		});
+
+		Games.insert({
+		  title:"Whales vs Fish",
+		  start_datetime:NOW   
+		});
 	}
 
 	// Insert two bets
