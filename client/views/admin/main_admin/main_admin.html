@@ -1,0 +1,99 @@
+<template name="MainAdmin">
+
+    <!--{{#if currentUser}}-->
+        {{#if LoggingIn}}
+            Loading...
+        {{else}}
+            
+            <div name="main_admin_div" class="main">
+                <div class="row">
+                    <div class="alert alert-info" name="GameName">
+                        <h4>{{getActiveGameName}}</h4>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div name="ListOfBetsForGame" class="well">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <h4 style="margin-top: 15px; margin-bottom: 5px;">Status</h4>
+                                        </th>
+                                        <th>
+                                            <h4 style="margin-top: 15px; margin-bottom: 5px;">Date/Time</h4>
+                                        </th>
+                                        <th>
+                                            <h4 style="margin-top: 15px; margin-bottom: 5px;">Short Name</h4>
+                                        </th>
+                                        <th>
+                                            <h4 style="margin-top: 15px; margin-bottom: 5px;">...</h4>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each betsForThisGame}}
+                                    <tr>
+                                        <td style="vertical-align:middle;text-align: center;">
+                                            <p style="margin-top: 3px;margin-bottom: 3px;">{{status}}</p>
+                                        </td>
+                                        <td style="vertical-align:middle;">
+                                            <p style="margin-top: 3px;margin-bottom: 3px;">{{submitted_at}}</p>
+                                        </td>
+                                        <td style="vertical-align:middle;">
+                                            <p style="margin-top: 3px;margin-bottom: 3px;"><a href="#" name="selectActiveBet">{{title}}</a></p>
+                                        </td>
+                                        <td style="vertical-align:middle;">
+                                            <p style="margin-top: 3px;margin-bottom: 3px;">...</p>
+                                        </td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8" name="AdmitActiveBetArea">
+                {{#with getActiveBet}}
+                    <div class="well">
+                        <div class="row">
+                            ID: {{_id}}
+                        </div>
+                        <div class="row">
+                            Name: <input type="text" value="{{title}}"/>
+                        </div>
+                        <div class="row">
+                            Question: <textarea name="active_bet_question" id=active_bet_question rows="3px" cols="60">{{question}}</textarea>
+                        </div>
+                        <div class="row">
+                            Status: <b>{{status}}</b>
+                        </div>
+                        <div class="row">
+                            Option 1: <input size="50" type="text" name="option1_text" id="option1_text" value="{{getOutcomeData 0 'text'}}"/>&nbsp; &nbsp; &nbsp; <input type="text" name="option1_odds" size="4" id="option1_odds" value="{{getOutcomeData 0 'odds'}}" /> : 1
+                        </div>
+                        <div class="row">
+                            Option 2: <input size="50" type="text" name="option2_text" id="option2_text" value="{{getOutcomeData 1 'text'}}"/>&nbsp; &nbsp; &nbsp; <input type="text" name="option2_odds" size="4" id="option2_odds" value="{{getOutcomeData 1 'odds'}}" /> : 1
+                        </div>
+
+                        <div class="row">
+                            Option 3: <input size="50" type="text" name="option3_text" id="option3_text" value="{{getOutcomeData 2 'text'}}"/>&nbsp; &nbsp; &nbsp; <input type="text" name="option3_odds" size="4" id="option3_odds" value="{{getOutcomeData 2 'odds'}}" /> : 1
+                        </div>
+
+                        <div class="row">
+                            Option 4: <input size="50" type="text" name="option4_text" id="option4_text" value="{{getOutcomeData 3 'text'}}"/>&nbsp; &nbsp; &nbsp; <input type="text" name="option4_odds" size="4" id="option4_odds" value="{{getOutcomeData 3 'odds'}}" /> : 1
+                        </div>
+
+                    </div>
+                {{/with}}
+                </div>
+                
+            </div>
+            
+        {{/if}}
+    <!--{{else}}-->
+    <div class="row">
+        No user
+        {{> loginButtons}}
+    </div>
+    <!--{{/if}}-->
+</template>
