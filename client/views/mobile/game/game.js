@@ -2,6 +2,10 @@
 /* Game: Event Handlers
 /*****************************************************************************/
 Template.MobileGame.events({
+  'click #side-menu-button':function(){
+    //IonSideMenu.snapper.open();
+  },
+
   'click #buy-chips-button': function (event, template) {
      var userId = Meteor.userId();
      var balance = Meteor.user().bank_account + 100;

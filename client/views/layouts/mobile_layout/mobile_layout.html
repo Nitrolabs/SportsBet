@@ -5,10 +5,50 @@
 </head>
 
 <template name="mobileLayout">
-  {{#ionBody}}
-    {{> ionNavBar class="bar-dark"}}
-    {{#ionNavView}}
-      {{> yield}}
-    {{/ionNavView}}
-  {{/ionBody}}
+	{{#ionBody}}
+	  {{#ionSideMenuContainer side="right"}}
+	    {{#ionSideMenus}}
+	      {{#ionSideMenu side="right"}}
+	        {{>sideMenuContent}}
+	      {{/ionSideMenu}}
+	    {{/ionSideMenus}}
+	    {{#ionSideMenuContent}}
+		    {{> ionNavBar class="bar-dark"}}
+		    {{#ionNavView}}
+		      {{> yield}}
+		    {{/ionNavView}}
+		{{/ionSideMenuContent}}
+	  {{/ionSideMenuContainer}}
+	{{/ionBody}}
 </template>
+
+<template name="sideMenuContent">
+	<div class="list">
+	  <a class="item item-icon-left" href="#">
+	    <i class="icon ion-ribbon-a"></i>
+	    Leaderboard
+	  </a>
+
+	  <a class="item item-icon-left" href="#">
+	    <i class="icon ion-person-stalker"></i>
+	    Friends
+	  </a>
+
+	  <a class="item item-icon-left" href="#">
+	    <i class="icon ion-ios-americanfootball"></i>
+	    Prizes
+	   	<span class="badge badge-assertive">4</span>
+	  </a>
+
+	  <a class="item item-icon-left" href="#">
+	    <i class="icon ion-ios-person"></i>
+	    Profile
+	  </a>
+
+	  <a class="item item-icon-left" href="{{ pathFor route="mobile.logout"}}">
+	    <i class="icon ion-power"></i>
+	    Logout
+	  </a>
+	</div>
+</template>
+
