@@ -20,11 +20,24 @@ Template.MainAdmin.events({
         console.log("new_active_bet_id:" + new_active_bet_id);
    },
    
-   'click #newBetButton' : function(e,tmpl) {
+   'click [name=newBetButton]' : function(e,tmpl) {
        
         Session.set('admin_active_bet', null);
         $('#bet_form')[0].reset();
+        
+        var idx = e.currentTarget.getAttribute('data-sel-idx');
+
         $('#bet_title').val("Bet " + moment().format('h:mm:ss'));
+        
+        var preset_data = [
+/*BLANK       */ {option1_text: "", option2_text: ""},
+/*NEXT PLAY   */ {option1_text: "Touchdown", option2_text: "Intercept"},
+/*QTR RES     */ {option1_text: "Home Team", option2_text: "Away Team"},
+/*FINAL SCORE */ {option1_text: "Over 100", option2_text: "Under 100"}
+            
+        ];
+        $('#option1_text').val(preset_data[idx].option1_text);
+        
    },
    
    'click #createNewBet' : function(e,tmpl) {
