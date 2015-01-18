@@ -2,6 +2,15 @@ MobileGameController = RouteController.extend({
   waitOn: function () {
   },
 
+  onBeforeAction: function (route) {
+    if (!Meteor.userId() && !Meteor.loggingIn()) {
+      Session.set('next_page',route.url);
+      Router.go('mobile.login');
+    }
+    this.next();
+  },
+  
+
   data: function () {
   	// ASSAF: Filter the bets by game ect
   	// ASSAF: Properly select the current_bet

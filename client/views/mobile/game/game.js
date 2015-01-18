@@ -55,8 +55,10 @@ Template.MobileGame.events({
 });
 
 Template.MobileGame.helpers({
-    
-    
+    // Return the bet amount
+    bet_amount:function(){
+        return Session.get('bet_amount');
+    }
 });
 
 /*****************************************************************************/
