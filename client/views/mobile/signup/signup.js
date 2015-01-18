@@ -14,6 +14,8 @@ Template.MobileSignup.events({
       $("[name='password2']").text('');
       onError({message:'Passwords did not match'})
     } else {
+      // We need to sign out the current user before another account is created
+      Meteor.logout();
       Accounts.createUser({
         username:username,
         email:email,
@@ -44,3 +46,7 @@ Template.MobileSignup.events({
     }
   }
 });
+
+// We should sign the current user out if they 
+Template.MobileLanding.created = function () {
+};

@@ -20,10 +20,11 @@
     
  	{{#with current_bet }}
 
- 		<button id='wager-button' class="button button-energized">
- 	 		{{ bet_amount }} 123
+ 		<button id="bet-amount-button" class="button button-energized">
+ 	 		<p class="bet-amount-value">{{ formatted_bet_amount }}</p>
+ 	 		<p class="bet-amount-label">Bet amount</p>
 		</button>
- 	
+	
  		<div class="card">
 		  <div class="item item-divider">
 		    {{#if question}}
@@ -41,8 +42,7 @@
 			  		{{ text }}
 			  		<p class='clearfix'>
 			  			<span class='pull-left'>{{ odds }}:1</span>
-			  			<span class='pull-right'>+600</span>
-			  			<!-- ASSAF: I NEED A 'MONEY' DATA ATTRIBUTE HERE -->
+			  			<span class='pull-right'>{{ formatted_win_value }}</span>
 			  		</p>
 				</div>
 				{{/if}}
@@ -55,7 +55,6 @@
 	            <!--TODO: add a leaderboard here-->
 	        {{/if}}
 		    </div>
-		    
 		</div> <!-- END QUESTION -->
 
         
@@ -63,11 +62,9 @@
 		<div>
 			<div class="text-center">
 			  <br>
-			  <div class="bet-user-bank">
-			  	
+			  <div class="bet-user-bank">  	
 			  	<h2>
-			  		{{ cuurentUser.bank_account }}
-			  		$12,800
+			  		{{ formatted_bank_account }}
 			  	</h2>
 			  </div>
 			  <div class="bet-status-message">

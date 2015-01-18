@@ -17,3 +17,5 @@ accounts-ui
 accounts-facebook
 mrt:momentjs
 accounts-password
+numeral:numeral
+meteorhacks:fast-render
