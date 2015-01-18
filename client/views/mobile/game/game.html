@@ -19,11 +19,16 @@
 
     
  	{{#with current_bet }}
-
- 		<button id="bet-amount-button" class="button button-energized">
- 	 		<p class="bet-amount-value">{{ formatted_bet_amount }}</p>
- 	 		<p class="bet-amount-label">Bet amount</p>
-		</button>
+ 		{{#if is_user_bankrupt }}
+	 		<button id="buy-chips-button" class="button button-balanced">
+	 	 		<p>Buy More Credits</p>
+			</button>
+		{{ else }}
+			<button id="bet-amount-button" class="button button-energized">
+	 	 		<p class="bet-amount-value">{{ formatted_bet_amount }}</p>
+	 	 		<p class="bet-amount-label">Bet amount</p>
+			</button>
+		{{/if}}
 	
  		<div class="card">
 		  <div class="item item-divider">

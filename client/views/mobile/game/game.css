@@ -9,10 +9,20 @@
 	padding: 30px !important;
 }
 
+#buy-chips-button {
+	margin: 10px auto;
+	width: 160px;
+	display: block;
+	font-size: 16px;
+	line-height: 16px;
+}
+#buy-chips-button p {
+	margin: 5px 0;
+}
 
 #bet-amount-button {
 	margin: 10px auto;
-	width: 100px;
+	width: 140px;
 	display: block;
 }
 

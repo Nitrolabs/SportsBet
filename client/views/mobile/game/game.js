@@ -1,7 +1,13 @@
 /*****************************************************************************/
-/* Game: Event Handlers and Helpersss .js*/
+/* Game: Event Handlers
 /*****************************************************************************/
 Template.MobileGame.events({
+  'click #buy-chips-button': function (event, template) {
+     var userId = Meteor.userId();
+     var balance = Meteor.user().bank_account + 100;
+     Meteor.users.update(userId, {$set:{bank_account:balance}});
+  },
+
   'click #bet-amount-button': function (event, template) {
      Blaze.render(Template.BetAmount,document.body)
      $(event.target).attr('disabled',true);
@@ -46,6 +52,10 @@ Template.MobileGame.events({
  }
 });
 
+/*****************************************************************************/
+/* Game: Helpers */
+/*****************************************************************************/
+
 Template.MobileGame.helpers({
     // Return the bet amount
     formatted_bet_amount:function(){
@@ -59,6 +69,9 @@ Template.MobileGame.helpers({
     formatted_win_value:function(){
         var win = this.odds*Session.get('bet_amount');
         return '+'+win;
+    },
+    is_user_bankrupt:function(){
+        return Meteor.user().bank_account<=0;
     }
 });
 
