@@ -72,6 +72,21 @@ Template.MobileGame.helpers({
     },
     is_user_bankrupt:function(){
         return Meteor.user().bank_account<=0;
+    },
+    number_bets:function(){
+        var uid = Meteor.userId();
+        // TODO: Only select active bets
+        return UserBets.find({user_id:uid}).count()
+    },
+    value_bets:function(){
+        // TODO: Only select active bets
+        var value = 0;
+        var uid = Meteor.userId();
+        var bets = UserBets.find({user_id:uid});
+        bets.forEach(function(bet){
+            value += bet.wager;
+        })
+        return value;
     }
 });
 
