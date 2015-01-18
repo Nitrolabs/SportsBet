@@ -3,10 +3,12 @@ LandingController = RouteController.extend({
   },
 
   onBeforeAction: function (route) {
-    if (!Meteor.userId() && !Meteor.loggingIn()) {
-      Session.set('next_page',route.url);
-      Router.go('mobile.login');
-    }
+    Tracker.autorun(function(){
+      if (!Meteor.userId() && !Meteor.loggingIn())  {
+        Session.set('next_page',route.url);
+        Router.go('mobile.login');
+      }
+    });
     this.next();
   },
 

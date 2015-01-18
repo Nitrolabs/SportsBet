@@ -4,3 +4,10 @@
 #bet-amount-h1 {
 	line-height: 1.7;
 }
+
+#bet-amount-slider {
+	margin: 60px -15px;
+}
+#bet-amount-slider .icon-wide {
+	min-width: 48px;
+}
