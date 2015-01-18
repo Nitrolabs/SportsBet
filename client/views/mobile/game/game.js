@@ -16,7 +16,7 @@ Template.MobileGame.events({
  	
  	var new_user_bet = {
  	    user_id: Meteor.userId() || "TODO", //TODO:remove this once we have proper users!!!
-        bet_id: this._id, 
+        bet_id: Session.get("user_current_bet_id"), 
         
         wager: user_bet_amount,
         answer: user_selected_answer,
@@ -27,7 +27,7 @@ Template.MobileGame.events({
         submitted_at: new Date()
     };
     console.log(new_user_bet);
-    Meteor.users.update(Meteor.userId(), {$dec: {bank_account: -user_bet_amount}});
+    Meteor.users.update(Meteor.userId(), {$inc: {bank_account: -user_bet_amount}});
     UserBets.insert(new_user_bet);
  },
  'click .bet-skip-button':function(event){
@@ -59,6 +59,8 @@ Template.MobileGame.events({
 });
 
 Template.MobileGame.helpers({
+    
+    
 });
 
 /*****************************************************************************/
