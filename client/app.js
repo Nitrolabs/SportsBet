@@ -6,6 +6,11 @@ _.extend(App, {
 
 App.helpers = {
     
+    addIndexesToArray: function(arr) {
+    
+       return _.map(arr, function(x, index) {return _.extend(x, {index_for_ref: index})})   
+    },
+    
     isEq: function (v1, v2) {
         return (v1===v2);
     },

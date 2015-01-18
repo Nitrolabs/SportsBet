@@ -17,14 +17,21 @@
   {{#ionView}}
     {{#ionContent}}
 
+    
  	{{#with current_bet }}
  		<div class="card">
 		  <div class="item item-divider">
-		    {{ question }}
+		    {{#if question}}
+		        {{ question }}
+		    {{else}}
+		        Waiting for the next avilable bet... <br>
+		        In the mean time, check the leaderboard below! :)
+		    {{/if}}
 		  </div>
 		  <div class="item item-text-wrap">
-		  	  {{#each outcomes }}
-			  	<div class="item item-divider bet-option-button">
+		  {{#if status }} <!-- crude way to check whether there's a status, i.e. there's a bet-->
+		  	  {{#each addIndexesToArray outcomes }}
+			  	<div class="item item-divider bet-option-button" data-index-for-ref="{{index_for_ref}}">
 			  		{{ text }}
 			  		<p class='clearfix'>
 			  			<span class='pull-left'>{{ odds }}:1</span>
@@ -36,17 +43,23 @@
 			  <br>
 			  <a href="#" class='bet-skip-button'>skip</a>
 			  <br>
-		<!-- END QUESTION -->
-		</div>
-		</div>
+		    {{else}} <!--  No current bet-->
+	            <h4>Nothing to bet on at the moment...</h4>
+	            <!--TODO: add a leaderboard here-->
+	        {{/if}}
+		    </div>
+		    
+		</div> <!-- END QUESTION -->
+
+        
 
 		<div>
 			<div class="text-center">
 			  <br>
 			  <div class="bet-user-bank">
-			  	<!-- ASSAF: I NEED A BANK ATTRIBUTE ON THE USER -->
+			  	
 			  	<h2>
-			  		{{ user.bank }}
+			  		{{ cuurentUser.bank_account }}
 			  		$12,800
 			  	</h2>
 			  </div>
@@ -57,7 +70,7 @@
 		  </div>
 		</div>
 	{{/with}}
-
+	
     {{/ionContent}}
   {{/ionView}}
 </template>

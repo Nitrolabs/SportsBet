@@ -108,17 +108,17 @@ Template.MainAdmin.events({
         var relevantUserBets = UserBets.find({bet_id: bet_id, skipped: false});
         
         relevantUserBets.forEach(function (userBet) {
-            var user = Users.find(userBet.user_id);
+            var user = Meteor.users.find(userBet.user_id);
             
             if (userBet.answer == new_bet.actual_result) {
                 
                 var money_to_add = userBet.wager * new_bet.outcomes[new_bet.actual_result - 1].odds;
-                // TODO: update user by adding money
-                //Users.update({_id: user._id}, {$inc: {'???': money_to_add}});
+                // update user by adding money
+                Meteor.users.update({_id: user._id}, {$inc: {bank_account: money_to_add}});
             }
            
            // TODO: update User by adding new message to his/her queue 
-            Users.update({_id: user._id}, {
+            Meteor.users.update({_id: user._id}, {
                 $push: {'messages_queue': {
                     mid: bet_id, 
                     text: (userBet.answer == new_bet.actual_result ? "WIN! " : "LOSE... ") + new_bet.status_update}
