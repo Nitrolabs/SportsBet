@@ -69,6 +69,12 @@ var schema = new SimpleSchema({
         type: Number,
         decimal: true,
         optional:true,
+    },
+    statistics: {
+        type: Object,
+        optional: true,
+        blackbox: true
+    
     }
 
 });

@@ -31,6 +31,7 @@
 		  <div class="item item-text-wrap">
 		  {{#if status }} <!-- crude way to check whether there's a status, i.e. there's a bet-->
 		  	  {{#each addIndexesToArray outcomes }}
+		  	    {{#if notEmptyString text}}
 			  	<div class="item item-divider bet-option-button" data-index-for-ref="{{index_for_ref}}">
 			  		{{ text }}
 			  		<p class='clearfix'>
@@ -39,6 +40,7 @@
 			  			<!-- ASSAF: I NEED A 'MONEY' DATA ATTRIBUTE HERE -->
 			  		</p>
 				</div>
+				{{/if}}
 			  {{/each}}
 			  <br>
 			  <a href="#" class='bet-skip-button'>skip</a>

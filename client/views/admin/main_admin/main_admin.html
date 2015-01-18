@@ -98,10 +98,25 @@
                                 <button class="btn btn-primary" id="createNewBet">Create</button>
                                 <br>
                             {{else}}
+                                {{#unless isEq status "RESOLVED"}}
                                 <button class="btn btn-default" id="saveBet">Save</button>
+                                {{/unless}}
+                                {{#if isEq status "HIDDEN"}}
                                 <button class="btn btn-success" id="activateBet">Activate</button>
+                                {{/if}}
+                                {{#if isEq status "ACTIVE"}}
                                 <button class="btn btn-warning" id="closeBet">Close</button>
+                                {{/if}}
+                                {{#if isEq status "CLOSED"}}
                                 <button class="btn btn-info" id="resolveBet">Resolve</button>
+                                {{/if}}
+                                {{#if isEq status "RESOLVED"}}
+                                    {{#if statistics}}
+                                        <b>{{statistics.numberOfWinners}} / {{statistics.numberOfBets}}&nbsp;&nbsp;&nbsp; {{statistics.house_profit}}$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
+                                    {{/if}}
+                                    Bet is resolved and cannot be changed<br>
+                                {{/if}}
+                                
                                 <br>
                             {{/if}}
                             

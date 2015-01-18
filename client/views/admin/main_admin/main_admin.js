@@ -24,6 +24,7 @@ Template.MainAdmin.events({
        
         Session.set('admin_active_bet', null);
         $('#bet_form')[0].reset();
+        $('#bet_title').val("Bet " + moment().format('h:mm:ss'));
    },
    
    'click #createNewBet' : function(e,tmpl) {
@@ -67,27 +68,6 @@ Template.MainAdmin.events({
             Session.get('admin_active_bet'), 
             {$set: new_bet}
             );
-        //     {
-                
-        //         title: new_bet.title,
-        //         question: new_bet.question,
-            
-        //         status: new_bet.status,
-                
-        //         activated_at: new_bet.activated_at,
-            
-        //         closed_at: new_bet.closed_at,
-                    
-        //         resolved_at: new_bet.resolved_at,
-                    
-        //         status_update: new_bet.status_update,
-                    
-        //         actual_result: new_bet.actual_result
-                    
-        //         outcomes: new_bet.outcomes
-        //     }
-        // );
-        
    },
    
    'click #resolveBet': function(e,tmpl) {
@@ -100,22 +80,27 @@ Template.MainAdmin.events({
         new_bet.resolved_at = new Date();
         new_bet.status = "RESOLVED";
         
-        Bets.update(
-            bet_id, 
-            {$set: new_bet}
-        );
-        
         var relevantUserBets = UserBets.find({bet_id: bet_id, skipped: false});
         
+        var statistics = {
+         numberOfBets: 0,
+         numberOfWinners: 0,
+         house_profit: 0
+        }
+        
         relevantUserBets.forEach(function (userBet) {
+            statistics.numberOfBets++;
             var user = Meteor.users.find(userBet.user_id);
             
             if (userBet.answer == new_bet.actual_result) {
-                
                 var money_to_add = userBet.wager * new_bet.outcomes[new_bet.actual_result - 1].odds;
                 // update user by adding money
                 Meteor.users.update({_id: user._id}, {$inc: {bank_account: money_to_add}});
+                
+                statistics.numberOfWinners++;
+                statistics.house_profit -= money_to_add;
             }
+           statistics.house_profit += userBet.wager;
            
            // TODO: update User by adding new message to his/her queue 
             Meteor.users.update({_id: user._id}, {
@@ -123,6 +108,12 @@ Template.MainAdmin.events({
                     mid: bet_id, 
                     text: (userBet.answer == new_bet.actual_result ? "WIN! " : "LOSE... ") + new_bet.status_update}
                 }});
+            
+            new_bet.statistics = statistics;    
+            Bets.update(
+                bet_id, 
+                {$set: new_bet}
+        );
         });
         
    }
