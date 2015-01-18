@@ -95,14 +95,36 @@ Template.MainAdmin.events({
         e.preventDefault();
         
         var new_bet = extractBetDataFromAdminForm();
+        var bet_id = Session.get('admin_active_bet');
         
         new_bet.resolved_at = new Date();
         new_bet.status = "RESOLVED";
         
         Bets.update(
-            Session.get('admin_active_bet'), 
+            bet_id, 
             {$set: new_bet}
         );
+        
+        var relevantUserBets = UserBets.find({bet_id: bet_id, skipped: false});
+        
+        relevantUserBets.forEach(function (userBet) {
+            var user = Users.find(userBet.user_id);
+            
+            if (userBet.answer == new_bet.actual_result) {
+                
+                var money_to_add = userBet.wager * new_bet.outcomes[new_bet.actual_result - 1].odds;
+                // TODO: update user by adding money
+                //Users.update({_id: user._id}, {$inc: {'???': money_to_add}});
+            }
+           
+           // TODO: update User by adding new message to his/her queue 
+            Users.update({_id: user._id}, {
+                $push: {'messages_queue': {
+                    mid: bet_id, 
+                    text: (userBet.answer == new_bet.actual_result ? "WIN! " : "LOSE... ") + new_bet.status_update}
+                }});
+        });
+        
    }
    
    

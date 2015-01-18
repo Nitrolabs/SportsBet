@@ -19,8 +19,8 @@ var schema = new SimpleSchema({
         min:0
     },
     answer: {
-        type: String,
-        label: "Question",
+        type: Number,
+        label: "Index of the selected answer (1-4) or 0 if skipped",
         max: 300
     },
     skipped:{

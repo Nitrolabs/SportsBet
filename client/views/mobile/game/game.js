@@ -2,12 +2,33 @@
 /* Game: Event Handlers and Helpersss .js*/
 /*****************************************************************************/
 Template.MobileGame.events({
- 'click .bet-option-button':function(event){
+ 'click .bet-option-button':function(tmpl, event){
  	// ASSAF: Impliment the logic here
  	// We need to create a new user-bet, with correct bet_id and user_id
  	alert('choose option')
  	console.log(event);
+ 	console.log(tmpl);
  	console.log(this);
+ 	
+ 	var user_bet_amount = Session.get('bet_amount') || 2; //TODO - update this once we have a bar
+ 	
+ 	var user_selected_answer = 0;
+ 	
+ 	var new_user_bet = {
+ 	    user_id: Meteor.userId() || "TODO", //TODO:remove this once we have proper users!!!
+        bet_id: this._id, 
+        
+        wager: user_bet_amount,
+        answer: user_selected_answer,
+        
+        skipped: false,
+        was_result_displayed: false,
+        
+        submitted_at: new Date()
+    };
+    console.log(new_user_bet);
+    Meteor.users.update(Meteor.userId(), {$dec: {bank_account: -user_bet_amount}});
+    UserBets.insert(new_user_bet);
  },
  'click .bet-skip-button':function(event){
  	// ASSAF: Impliment the logic here
@@ -15,6 +36,25 @@ Template.MobileGame.events({
  	alert('choose skipped');
  	console.log(event);
  	console.log(this);
+ 	
+ 	var new_user_bet = {
+ 	    user_id: Meteor.userId() || "TODO", //TODO:remove this once we have proper users!!!
+        bet_id: this._id, 
+        
+        wager: 0,
+        answer: 0,
+        
+        skipped: true,
+        was_result_displayed: false,
+        
+        submitted_at: new Date()
+    };
+    
+    console.log("new_user_bet");
+    console.log(new_user_bet);
+    
+ 	UserBets.insert(new_user_bet);
+ 	
  }
 });
 
