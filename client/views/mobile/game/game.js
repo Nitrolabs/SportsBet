@@ -5,14 +5,12 @@ Template.MobileGame.events({
  'click .bet-option-button':function(tmpl, event){
  	
  	// We need to create a new user-bet, with correct bet_id and user_id
- 	
  	var user_bet_amount = Session.get('bet_amount') || 2; //TODO - update this once we have a bar
  	
  	var user_selected_answer = this.index_for_ref + 1;
-//  	console.log(user_selected_answer);
- 	
+
  	var new_user_bet = {
- 	    user_id: Meteor.userId() || "TODO", //TODO:remove this once we have proper users!!!
+ 	    user_id: Meteor.userId(),
         bet_id: Session.get("user_current_bet_id"), 
         
         wager: user_bet_amount,
@@ -30,14 +28,11 @@ Template.MobileGame.events({
  },
  
  'click .bet-skip-button':function(event){
- 	// ASSAF: Impliment the logic here
- 	// We need to create a new user-bet, and set the skipped flag to true
- 	alert('choose skipped');
- 	console.log(event);
- 	console.log(this);
- 	
+
+ 	// create a new user-bet, and set the skipped flag to true
+
  	var new_user_bet = {
- 	    user_id: Meteor.userId() || "TODO", //TODO:remove this once we have proper users!!!
+ 	    user_id: Meteor.userId(),
         bet_id: this._id, 
         
         wager: 0,
@@ -55,10 +50,8 @@ Template.MobileGame.events({
 });
 
 Template.MobileGame.helpers({
-    // Return the bet amount
-    bet_amount:function(){
-        return Session.get('bet_amount');
-    }
+    
+    
 });
 
 /*****************************************************************************/
