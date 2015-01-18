@@ -16,7 +16,7 @@ Template.MobileLanding.helpers({
   // Note: Even at this prototype stage we really need to handle games, because
   // they are fundemental to the /mobile/game/game_id/ page.
   featured_game:function(){
-    var now = new Date
+    var now = new Date();
     return Games.findOne({start_datetime:{$lte:now}});
   },
 
@@ -24,7 +24,7 @@ Template.MobileLanding.helpers({
   active_games:function(){
     // Assaf: This is a bit nasty, can you come up with a better way to do this??
     var games;
-    var now = new Date
+    var now = new Date();
     var featured = Template.MobileLanding.__helpers[" featured_game"]();
     if (featured){
       games = Games.find({
@@ -41,7 +41,7 @@ Template.MobileLanding.helpers({
 
   // Games that will be played in the future
   upcoming_games:function(){
-    var now = new Date
+    var now = new Date();
     return Games.find({start_datetime:{$gte:now}});
   }
 });
