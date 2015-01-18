@@ -97,7 +97,7 @@ Template.MobileGame.helpers({
 Template.MobileGame.created = function () {
     // Set the session variable for the bet size
     Tracker.autorun(function(){
-        if (Meteor.user()){
+        if (Meteor.user() && !Meteor.loggingIn()){
             var bet_amount = Meteor.user().profile.bet_amount || 10;
             Session.setDefault('bet_amount',bet_amount);
         }
