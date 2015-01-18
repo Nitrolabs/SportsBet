@@ -2,11 +2,10 @@ MainAdminController = RouteController.extend({
   waitOn: function () {
   },
 
-  
-  onBeforeAction: function (pause) {
+  onBeforeAction: function (route) {
     if (!Meteor.userId() && !Meteor.loggingIn())  {
-      Session.set('next_page','admin');
-      Router.go('login');
+      Session.set('next_page',route.url);
+      Router.go('mobile.login');
     }
     this.next();
   },
