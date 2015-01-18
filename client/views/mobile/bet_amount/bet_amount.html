@@ -1,0 +1,20 @@
+
+<template name="BetAmount">
+	<div id='bet-amount-ui'>
+		<div class="card">
+			<div class="item item-divider item-energized text-center">
+		    	Set Your Bet
+		  	</div>
+		  	<div class="item item-text-wrap text-center">
+		  		<h1 id='bet-amount-h1'>{{ formatted_bet_amount }}</h1>
+		  	</div>
+		  	<div class="item item-text-wrap">
+		  	  	<div id='bet-amount-slider' class="range">
+					<i class="icon">$&nbsp;</i>
+					<input id='bet-amount-range' type="range" name="volume">
+					<i class="icon">$$$</i>
+				</div>
+		  	</div>
+		</div>
+	</div>	 
+</template>
