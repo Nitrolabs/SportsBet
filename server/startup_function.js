@@ -17,7 +17,7 @@ Meteor.startup(function ()
         else
             user.profile = {};    
         user.profile.message_queue = [];
-        user.profile.bet_amount;
+        user.profile.bet_amount = 10;
         user.bank_account = 100;
         return user;
     });

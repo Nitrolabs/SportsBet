@@ -9,7 +9,6 @@ MobileGameController = RouteController.extend({
     }
     this.next();
   },
-  
 
   data: function () {
   	// ASSAF: Filter the bets by game ect
@@ -17,7 +16,7 @@ MobileGameController = RouteController.extend({
   	var game = Games.findOne({_id: this.params._id});
   	var bets = Bets.find();
   	var myPrevBets = UserBets.find(
-  	    {}, //TODO: should be {user_id: Meteor.userId()}, 
+  	    {user_id: Meteor.userId()}, 
   	    {fields: {bet_id: 1}}
   	    ).fetch();
   	myPrevBets = _.map(myPrevBets, function(x) {return x.bet_id});
