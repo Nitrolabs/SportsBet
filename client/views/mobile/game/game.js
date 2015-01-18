@@ -3,16 +3,13 @@
 /*****************************************************************************/
 Template.MobileGame.events({
  'click .bet-option-button':function(tmpl, event){
- 	// ASSAF: Impliment the logic here
+ 	
  	// We need to create a new user-bet, with correct bet_id and user_id
- 	alert('choose option')
- 	console.log(event);
- 	console.log(tmpl);
- 	console.log(this);
  	
  	var user_bet_amount = Session.get('bet_amount') || 2; //TODO - update this once we have a bar
  	
- 	var user_selected_answer = 0;
+ 	var user_selected_answer = this.index_for_ref + 1;
+//  	console.log(user_selected_answer);
  	
  	var new_user_bet = {
  	    user_id: Meteor.userId() || "TODO", //TODO:remove this once we have proper users!!!
@@ -29,7 +26,9 @@ Template.MobileGame.events({
     console.log(new_user_bet);
     Meteor.users.update(Meteor.userId(), {$inc: {bank_account: -user_bet_amount}});
     UserBets.insert(new_user_bet);
+    console.log("Done! Bet placed successfully! :)" );
  },
+ 
  'click .bet-skip-button':function(event){
  	// ASSAF: Impliment the logic here
  	// We need to create a new user-bet, and set the skipped flag to true
@@ -49,9 +48,6 @@ Template.MobileGame.events({
         
         submitted_at: new Date()
     };
-    
-    console.log("new_user_bet");
-    console.log(new_user_bet);
     
  	UserBets.insert(new_user_bet);
  	

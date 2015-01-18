@@ -54,7 +54,7 @@ var schema = new SimpleSchema({
         optional:true,
         label:"The index of the winning outcome",
         min:0,
-        max:3
+        max:4
     },
     outcomes:{
         type:[Object],
@@ -69,6 +69,12 @@ var schema = new SimpleSchema({
         type: Number,
         decimal: true,
         optional:true,
+    },
+    statistics: {
+        type: Object,
+        optional: true,
+        blackbox: true
+    
     }
 
 });
