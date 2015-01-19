@@ -14,33 +14,41 @@
     {{#ionContent}}
 
       <div class="game-list">
-        {{#with featured_game }}
-        	<a href="{{pathFor route='mobile.game'}}">
-        		<button class="button button-block button-positive">
-  				    {{title}}
-				</button>
-        	</a>
-        {{/with}}
+        <div class="featured-game-wrapper">
+          {{#with featured_game }}
+            <div class="featured-game col col-100">
+            	<a href="{{pathFor route='mobile.game'}}">
+            		<button class="button button-block button-positive">
+      				    {{title}}
+    				    </button>
+            	</a>
+            </div>
+          {{/with}}
+        </div>
 
-        <div class="row">
+        <div class="active-game-wrapper">
 	        {{#each active_games }}
-	        	<div class="col col-50">
-		        	<a href="{{pathFor route='mobile.game'}}">
+            <div class="active-game col col-50">
+	        		<a href="{{pathFor route='mobile.game'}}">
 		        		<button class="button button-block button-balanced">
 		  				    {{title}}
-						</button>
+						    </button>
 		        	</a>
-	        	</div>
+            </div>
 	        {{/each}}
-	    </div>
+	      </div>
 
-        {{#each upcoming_games }}
-            <a href="{{pathFor route='mobile.game'}}">
-        		<button class="button button-block button-positive">
-  				    {{title}}
-				</button>
-        	</a>
+        <div class="upcoming-game-wrapper">
+          {{#each upcoming_games }}
+            <div class="active-game col col-50">
+              <a href="{{pathFor route='mobile.game'}}">
+        		    <button class="button button-block button-royal">
+  				       {{title}}
+				        </button>
+        	  </a>
+          </div>
         {{/each}}
+        </div>
       </div>
 
     {{/ionContent}}

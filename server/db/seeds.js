@@ -1,4 +1,5 @@
-NOW = new Date()
+NOW = new Date();
+SOON = new Date(+NOW+60*60*1000); // 60 min from now
 
 Meteor.startup(function () {
 
@@ -26,7 +27,27 @@ Meteor.startup(function () {
 
 		Games.insert({
 		  title:"Whales vs Fish",
-		  start_datetime:NOW   
+		  start_datetime:SOON   
+		});
+
+		Games.insert({
+		  title:"Cowboys vs Patriots",
+		  start_datetime:SOON   
+		});
+
+		Games.insert({
+		  title:"Eagels vs 49ers",
+		  start_datetime:SOON   
+		});
+
+		Games.insert({
+		  title:"Sehawks vs Cowboys",
+		  start_datetime:SOON   
+		});
+
+		Games.insert({
+		  title:"49ers vs Eagles",
+		  start_datetime:SOON   
 		});
 	}
 
