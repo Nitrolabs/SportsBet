@@ -1,3 +1,22 @@
 /*****************************************************************************/
 /* Landing: Style */
 /*****************************************************************************/
+
+
+.featured-game-wrapper button {
+	height: 100px;
+	font-size: 30px;
+}
+
+.active-game-wrapper .col,
+.upcoming-game-wrapper .col {
+	float: left;
+}
+
+.active-game-wrapper button,
+.upcoming-game-wrapper button {
+	font-size: 14px;
+}
+
+
+

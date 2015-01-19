@@ -22,7 +22,7 @@ Template.MobileLanding.helpers({
 
   // Other games that are being played right now
   active_games:function(){
-    // Assaf: This is a bit nasty, can you come up with a better way to do this??
+    // ASSAF: This is a bit nasty, can you come up with a better way to do this??
     var games;
     var now = new Date();
     var featured = Template.MobileLanding.__helpers[" featured_game"]();

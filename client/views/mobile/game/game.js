@@ -2,6 +2,10 @@
 /* Game: Event Handlers
 /*****************************************************************************/
 Template.MobileGame.events({
+  'click #side-menu-button':function(){
+    //IonSideMenu.snapper.open();
+  },
+
   'click #buy-chips-button': function (event, template) {
      var userId = Meteor.userId();
      var balance = Meteor.user().bank_account + 100;
@@ -94,6 +98,26 @@ Template.MobileGame.helpers({
         return value;
     }
 });
+
+/*****************************************************************************/
+/* Game: Collection Hooks */
+/*****************************************************************************/
+
+/*
+ * https://github.com/matb33/meteor-collection-hooks
+ * Meteor.users.after.update(function(userId, doc, fieldNames, modifier, options){
+ *       if (money went up){
+ *           MAX: Write UI code
+ *       } else
+ *           MAX: Write UI code
+ *       });
+ *
+ *       if (status_message_changed){
+ *            MAX: Write UI code
+ *       }
+ * })
+
+
 
 
 /*****************************************************************************/
