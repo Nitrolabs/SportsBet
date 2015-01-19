@@ -64,7 +64,6 @@ Template.MobileGame.events({
 /*****************************************************************************/
 /* Game: Helpers */
 /*****************************************************************************/
-
 Template.MobileGame.helpers({
     // Return the bet amount
     formatted_bet_amount:function(){
@@ -83,19 +82,11 @@ Template.MobileGame.helpers({
         return Meteor.user().bank_account<=0;
     },
     number_bets:function(){
-        var uid = Meteor.userId();
-        // TODO: Only select active bets
-        return UserBets.find({user_id:uid}).count()
+        var s = Meteor.user().user_stats;
+        return (s.total_number_of_bets_placed - s.total_number_of_bets_resolved);
     },
     value_bets:function(){
-        // TODO: Only select active bets
-        var value = 0;
-        var uid = Meteor.userId();
-        var bets = UserBets.find({user_id:uid});
-        bets.forEach(function(bet){
-            value += bet.wager;
-        })
-        return value;
+        return Meteor.user().user_stats.money_on_the_table;
     }
 });
 
