@@ -7,9 +7,7 @@ Template.MobileGame.events({
   },
 
   'click #buy-chips-button': function (event, template) {
-     var userId = Meteor.userId();
-     var balance = Meteor.user().bank_account + 100;
-     Meteor.users.update(userId, {$set:{bank_account:balance}});
+     Meteor.users.update(Meteor.userId(), {$inc:{bank_account:100}});
   },
 
   'click #bet-amount-button': function (event, template) {
@@ -94,19 +92,51 @@ Template.MobileGame.helpers({
 /* Game: Collection Hooks */
 /*****************************************************************************/
 
-/*
- * https://github.com/matb33/meteor-collection-hooks
- * Meteor.users.after.update(function(userId, doc, fieldNames, modifier, options){
- *       if (money went up){
- *           MAX: Write UI code
- *       } else
- *           MAX: Write UI code
- *       });
- *
- *       if (status_message_changed){
- *            MAX: Write UI code
- *       }
- * })
+
+// https://github.com/matb33/meteor-collection-hooks
+Meteor.users.after.update(function(userId, doc, fieldNames, modifier, options) {
+    
+    /********************************************************************************************************************************/
+    /* IMPORTANT COMMENT! WHEN CHANGING bank_account, we should use $inc and not $set (otherwise we cannot tell if it's up or down) */
+    /********************************************************************************************************************************/
+    
+    // If money changed (up or down...)
+    if (Meteor.userId() == userId) {
+        // Session.set('debug_fieldNames', fieldNames);
+        // Session.set('debug_doc', doc);
+        if (fieldNames.filter(function(f) {return (f == "bank_account");}).length > 0) {
+            
+            // up or down will be based on the modifier
+            if ((modifier && modifier.$inc && modifier.$inc.bank_account)
+                // || (modifier && modifier.$inc && modifier.$set.bank_account)
+                ) {
+                if ((modifier.$inc && modifier.$inc.bank_account > 0)  
+                    // || (modifier.$set && modifier.$set.bank_account > ?)
+                    ) {
+                    console.log("user money went up! " + modifier.$inc.bank_account);
+                    // MAX: Write UI code
+                }
+                else {
+                    console.log("user money went down! " + modifier.$inc.bank_account);
+                    // MAX: Write UI code
+                }
+            }
+            
+            // Session.set('debug_modifier', modifier);
+        }
+    }
+    
+
+    // TODO ASSAF: implement this part after Jialu makes his change
+    //   if (status_message_changed){
+    //         MAX: Write UI code
+    //   }
+    // console.log(userId);
+    // console.log(doc);
+    // console.log(fieldNames);
+    // console.log(modifier);
+    // console.log(options);
+ });
 
 
 
