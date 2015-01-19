@@ -56,8 +56,7 @@
 			  <a href="#" class='bet-skip-button'>skip</a>
 			  <br>
 		    {{else}} <!--  No current bet-->
-	            <h4>Nothing to bet on at the moment...</h4>
-	            <!--TODO: add a leaderboard here-->
+	            {{> Leaderboard}}
 	        {{/if}}
 		    </div>
 		</div> <!-- END QUESTION -->
@@ -84,4 +83,8 @@
 	
     {{/ionContent}}
   {{/ionView}}
+</template>
+
+<template name="Leaderboard">
+    test123
 </template>

@@ -60,7 +60,44 @@ var schema_for_user = new SimpleSchema({
         type: Boolean,
         optional:true,
         label:"Did the user see the message?"
-    }
+    },
+    user_stats: {
+        type: Object,
+        optional: true,
+        label: "Overall user stats, from all games"
+    },
+    "user_stats.money_on_the_table": {
+        type: Number,
+        decimal: true,
+        optional: true,
+        label:"Total money on the table"
+    },
+    "user_stats.total_number_of_bets_placed": {
+        type: Number,
+        optional: true,
+        label:"Total # of bets placed"
+    },
+    "user_stats.total_number_of_bets_resolved": {
+        type: Number,
+        optional: true,
+        label:"Total # of bets resolved"
+    },
+    "user_stats.total_wins_in_a_row": {
+        type: Number,
+        optional: true,
+        label:"total number of wins in a row"
+    },
+    "user_stats.total_number_of_bets_won": {
+        type: Number,
+        optional: true,
+        label:"Total # of bets won"
+    },
+    "user_stats.bets_won_percentage": {
+        type: Number,
+        decimal: true,
+        optional: true,
+        label:"User available currency"
+    },
     
 });
 

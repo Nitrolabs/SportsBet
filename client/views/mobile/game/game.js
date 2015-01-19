@@ -29,7 +29,12 @@ Template.MobileGame.events({
         was_result_displayed: false,
         submitted_at: new Date()
     };
-    Meteor.users.update(Meteor.userId(), {$inc: {bank_account: -user_bet_amount}});
+    Meteor.users.update(Meteor.userId(), 
+    {
+        $inc: {bank_account: -user_bet_amount,
+               "user_stats.money_on_the_table": user_bet_amount,
+               "user_stats.total_number_of_bets_placed": 1}
+    });
     UserBets.insert(new_user_bet);
     console.log("Done! Bet placed successfully! :)" );
  },

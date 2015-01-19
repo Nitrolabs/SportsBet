@@ -32,9 +32,9 @@ Template.MainAdmin.events({
         
         var preset_data = [
 /*BLANK       */ {option1_text: "", option2_text: "",option3_text: "",option4_text: "",title:"",question:""},
-/*NEXT PLAY   */ {option1_text: "Touchdown", option2_text: "Intercept", option3_text: "Field Goal",option4_text: "Neither",title:"Next Play",question:"What's going to be the next play?"},
-/*QTR RES     */ {option1_text: "Home Team", option2_text: "Away Team", option3_text: "",option4_text: "",title:"Next Q Res",question:"Who is going to win this quarter?"},
-/*FINAL SCORE */ {option1_text: "Over 100", option2_text: "Under 100", option3_text: "Field Goal",option4_text: "Neither",title:"Final Score",question:"What's going to be the final score?"}
+/*NEXT PLAY   */ {option1_text: "Touchdown", option2_text: "Intercept", option3_text: "Field Goal",option4_text: "Neither",title:"Next Play",question:"What's going to be the next play?", odds1:5,odds2:2,odds3:4,odds4:2},
+/*QTR RES     */ {option1_text: "Home Team", option2_text: "Away Team", option3_text: "",option4_text: "",title:"Next Q Res",question:"Who is going to win this quarter?", odds1:5,odds2:2},
+/*FINAL SCORE */ {option1_text: "Over 100", option2_text: "Under 100", option3_text: "Field Goal",option4_text: "Neither",title:"Final Score",question:"What's going to be the final score?", odds1:5,odds2:2,odds3:4,odds4:2}
             
         ];
         $('#bet_title').val(preset_data[idx].title + " " + currTime);
@@ -43,6 +43,10 @@ Template.MainAdmin.events({
         $('#option2_text').val(preset_data[idx].option2_text);
         $('#option3_text').val(preset_data[idx].option3_text);
         $('#option4_text').val(preset_data[idx].option4_text);
+        if(preset_data[idx].odds1) $('#option1_odds').val(preset_data[idx].odds1); 
+        if(preset_data[idx].odds2) $('#option2_odds').val(preset_data[idx].odds2); 
+        if(preset_data[idx].odds3) $('#option3_odds').val(preset_data[idx].odds3); 
+        if(preset_data[idx].odds4) $('#option4_odds').val(preset_data[idx].odds4);
         
    },
    
@@ -107,36 +111,56 @@ Template.MainAdmin.events({
          house_profit: 0
         }
         
+        // Go over each of the bets that users placed
         relevantUserBets.forEach(function (userBet) {
-            statistics.numberOfBets++;
+            
             var user = Meteor.users.findOne(userBet.user_id);
             
-            if (userBet.answer == new_bet.actual_result) {
+            var money_to_add = 0;
+            var didWin = (userBet.answer == new_bet.actual_result) ? 1 : 0;
             
-                var money_to_add = userBet.wager * new_bet.outcomes[new_bet.actual_result - 1].odds;
-                // update user by adding money
-                Meteor.users.update({_id: user._id}, {$inc: {bank_account: money_to_add}});
+            // If the user won, find how much money he/she should get and update the statistics
+            if (didWin) {
+            
+                money_to_add = userBet.wager * new_bet.outcomes[new_bet.actual_result - 1].odds;
                 
                 statistics.numberOfWinners++;
                 statistics.house_profit -= money_to_add;
             }
            statistics.house_profit += userBet.wager;
+           statistics.numberOfBets++;
            
-           // update User by adding new message to his/her queue 
-            Meteor.users.update({_id: user._id}, {
-                $push: {'messages_queue': {
+           var new_success_ratio = ((user.user_stats.total_number_of_bets_won || 0) + didWin) / ((user.user_stats.total_number_of_bets_resolved || 0) + 1);
+           var updateQuery = {
+             $inc: {
+                bank_account: money_to_add, 
+                "user_stats.total_number_of_bets_resolved": 1,
+                "user_stats.money_on_the_table": -userBet.wager,
+                "user_stats.total_number_of_bets_won": didWin},
+             $set: {"user_stats.bets_won_percentage": new_success_ratio},
+             $push: {'messages_queue': {
                     mid: bet_id, 
-                    text: (userBet.answer == new_bet.actual_result ? "WIN! " : "LOSE... ") + new_bet.status_update + 
-                    "(" + (userBet.answer == new_bet.actual_result ? (" +$" + money_to_add) : (" -$" + userBet.wager)) + ")"}
-                }});
+                    text: (didWin ? "WIN! " : "LOSE... ") + new_bet.status_update + 
+                    "(" + (didWin ? (" +$" + money_to_add) : (" -$" + userBet.wager)) + ")"}
+                    }
+            };
             
-            new_bet.statistics = statistics;    
-            Bets.update(
-                bet_id, 
-                {$set: new_bet}
-        );
+            if (didWin) 
+                _.extend(updateQuery.$inc, {"user_stats.total_wins_in_a_row": 1});
+            else
+                _.extend(updateQuery.$set, {"user_stats.total_wins_in_a_row": 0});
+            
+            console.log("updateQuery");        
+            console.log(updateQuery);
+            
+            // update User by adding new message to his/her queue 
+            Meteor.users.update({_id: user._id}, updateQuery);
+            
         });
         
+        // Update the bet with the calculated statistics
+        new_bet.statistics = statistics;    
+        Bets.update(bet_id, {$set: new_bet});
    }
    
    
