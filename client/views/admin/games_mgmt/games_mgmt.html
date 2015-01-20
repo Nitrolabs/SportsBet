@@ -1,0 +1,99 @@
+<template name="GamesMgmt">
+{{#ionView class="admin" }}
+{{#ionContent overflow-scroll=true }}
+
+    <div name="main_admin_div" class="main">
+        
+        <div class="col-lg-4">
+            <div class="row">
+                <div class="alert alert-warning" name="GameName">
+                    <h4>Games Management</h4>
+                </div>
+            </div>
+            <div name="ListOfGames" class="well">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <h4>Status</h4>
+                                </th>
+                                <th>
+                                    <h4>Game Time</h4>
+                                </th>
+                                <th>
+                                    <h4>Title</h4>
+                                </th>
+                                <th>
+                                    <h4>...</h4>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each allGames}}
+                            <tr>
+                                <td style="vertical-align:middle;">
+                                    <span style="margin-top: 3px;margin-bottom: 3px;" class="label">{{status}}</span>
+                                </td>
+                                <td style="vertical-align:middle;">
+                                    <p style="margin-top: 3px;margin-bottom: 3px;">{{prettifyDate start_datetime}}</p>
+                                </td>
+                                <td style="vertical-align:middle;">
+                                    <p style="margin-top: 3px;margin-bottom: 3px;"><a href="#" name="selectGame">{{title}}</a></p>
+                                </td>
+                                <td style="vertical-align:middle;">
+                                    <p style="margin-top: 3px;margin-bottom: 3px;">...</p>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8" name="AdminGameEditArea">
+        <div class="row">
+          <button type="button" name="newGameButton" class="btn btn-default">New Game</button>
+        </div>
+        {{#with getActiveGame}}
+        <form id="game_edit_form">
+            <div class="well">
+                <table>
+                    <tr><td colspan="2">
+                    {{#if getSessionValue 'admin_active_game'}}
+                        <h4><a href="{{pathFor 'main.admin'}}">Go to game!</a></h4>
+                    {{/if}}        
+                    </td></tr>
+                    <tr><td>ID: </td><td>{{_id}}</td></tr>
+                    <tr><td>Status:   </td><td><b>{{status}}</b></td></tr>
+                    <br>
+                    <tr><td>Title: </td><td><input type="text" id="game_title" value="{{title}}"/></td></tr>
+                    <br>
+                    
+                    <tr><td>Start Date/Time:</td><td>
+                        <input type="datetime-local" id="game_start_datetime" value="{{showStartDateTime start_datetime}}"/>
+                    </td></tr>
+                    
+                </table>     
+                
+                <br>
+                <div class="row">
+                    {{#if getSessionValue 'admin_active_game'}}
+                        <button class="btn btn-primary" id="saveGame">Update</button>
+                        <br>
+                    {{else}}
+                        <button class="btn btn-default" id="createNewGame">Create</button>
+                        <br>
+                    {{/if}}
+                    
+                </div>
+            </div>
+        </form>
+        {{/with}}
+        </div>
+        
+    </div>
+    
+{{/ionContent}}
+{{/ionView}}
+</template>

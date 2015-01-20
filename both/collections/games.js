@@ -11,6 +11,11 @@ var schema = new SimpleSchema({
         type: Date,
         label: "Time when the game starts",
         optional: false
+    },
+    status: {
+        type: String,
+        label: "Status of the game: one of ACTIVE, INACTIVE",
+        optional: true
     }
 });
 

@@ -63,6 +63,10 @@ Template.MobileGame.events({
 /* Game: Helpers */
 /*****************************************************************************/
 Template.MobileGame.helpers({
+    current_status_message:function(){
+        return Session.get('current_status_message')
+    },
+
     // Return the bet amount
     formatted_bet_amount:function(){
         var bet_amount = Session.get('bet_amount');
@@ -92,11 +96,14 @@ Template.MobileGame.helpers({
 /* Game: Collection Hooks */
 /*****************************************************************************/
 
+function onStatusChange(){
+    console.log('status changed')
+}
 
 // https://github.com/matb33/meteor-collection-hooks
 Meteor.users.after.update(function(userId, doc, fieldNames, modifier, options) {
     
-    /********************************************************************************************************************************/
+    /*******************************************************************************************************************************
     /* IMPORTANT COMMENT! WHEN CHANGING bank_account, we should use $inc and not $set (otherwise we cannot tell if it's up or down) */
     /********************************************************************************************************************************/
     
@@ -139,13 +146,23 @@ Meteor.users.after.update(function(userId, doc, fieldNames, modifier, options) {
  });
 
 
-
-
 /*****************************************************************************/
 /* Game: Lifecycle Hooks */
 /*****************************************************************************/
 Template.MobileGame.created = function () {
     // Set the session variable for the bet size
+    setInterval(function(){
+        // This will run every 5000 ms and update the session
+        if (Meteor.user().messages_queue.shift()){
+            onStatusChange()
+            var message = Meteor.user().messages_queue.shift().text
+            Session.set('current_status_message',message)
+            Meteor.users.update({_id: Meteor.userId()}, { $pop: { messages_queue: -1 } } )
+        } else {
+            Session.set('current_status_message',"no msg now")
+        }
+    },5000);
+
     Tracker.autorun(function(){
         if (Meteor.user() && !Meteor.loggingIn()){
             var bet_amount = Meteor.user().profile.bet_amount || 10;
