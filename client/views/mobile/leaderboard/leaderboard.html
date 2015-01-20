@@ -1,0 +1,34 @@
+<template name="Leaderboard">
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Photo</th>
+                <th>Name</th>
+                <th>Bank Account</th>
+                <th>% Success</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each getUserLeaderboard}}
+            <tr class="{{#if highlightMyselfOnTable}}info{{/if}}" style="{{#if highlightMyselfOnTable}}font-size: larger; font-weight: bolder; {{/if}}">
+                <td></td>
+                <td></td>
+                <td>{{username}}</td>
+                <td>{{bank_account}}</td>
+                <td>{{user_stats.bets_won_percentage}}</td>
+            </tr>
+            {{/each}}
+            
+            {{#unless getSessionValue 'LeaderboardAmIinTop10'}}
+            <tr class="info" style="font-size: larger; font-weight: bolder;">
+                <td>N/A</td>
+                <td></td> <!-- TODO: add the photo here -->
+                <td>{{currentUser.username}}</td>
+                <td>{{currentUser.bank_account}}</td>
+                <td>{{currentUser.user_stats.bets_won_percentage}}</td>
+            </tr>
+            {{/unless}}
+        </tbody>
+    </table>
+</template>
