@@ -11,13 +11,9 @@ Template.MainAdmin.events({
    
    'click [name=selectActiveBet]': function (e, tmpl) {
 
-        console.log(this)
-
         var new_active_bet_id = this._id;
         
         Session.set('admin_active_bet', new_active_bet_id);
-        
-        console.log("new_active_bet_id:" + new_active_bet_id);
    },
    
    'click [name=newBetButton]' : function(e,tmpl) {
