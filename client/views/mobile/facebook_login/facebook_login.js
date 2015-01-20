@@ -8,7 +8,6 @@ Template.MobileFacebookLogin.events({
   },
 
   'click #facebook-login-button':function(){
-    alert()
     var options = {loginStyle:'redirect'}
     Meteor.loginWithFacebook(options,onLogin)
     

@@ -42,7 +42,6 @@ Template.MobileLanding.helpers({
   // Games that will be played in the future
   upcoming_games:function(){
     var now = new Date();
-    window.alert(Meteor.userId())
     return Games.find({start_datetime:{$gte:now}});
   }
 });
