@@ -1,7 +1,10 @@
 {
   "private": {
-      "facebookAppId":  "593114514155899",
-      "facebookSecret": "a1c87351a5fbbf0e36ef82ba1abd3d57"
+      "facebookAppId":  "627149540747653",
+      "facebookSecret": "e37cdbd2886075defec95c0bb5f3752c"
+  },
+  "public":{
+  	  "root_url":"http://maxkferg.koding.io/"
   }
-}
 
+}

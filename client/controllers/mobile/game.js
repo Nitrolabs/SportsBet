@@ -6,7 +6,7 @@ MobileGameController = RouteController.extend({
     Tracker.autorun(function(){
       if (!Meteor.userId() && !Meteor.loggingIn())  {
         Session.set('next_page',route.url);
-        Router.go('mobile.login');
+        Router.go('mobile.facebook.login');
       }
     });
     this.next();

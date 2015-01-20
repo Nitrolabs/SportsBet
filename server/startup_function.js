@@ -14,14 +14,10 @@ Meteor.startup(function ()
 
 // Add properties to our new users
 Accounts.onCreateUser(function(options, user) {
-
     user.profile = options.profile || {};
-
     user.bet_amount = 10;  
     user.bank_account = 100;
     user.messages_queue = [];
-
     return user;
-
 });
 

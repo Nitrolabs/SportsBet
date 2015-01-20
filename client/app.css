@@ -1,3 +1,19 @@
 /*****************************************************************************/
 /* Global CSS Styles */
 /*****************************************************************************/
+
+
+.button.em {
+	font-size:1.3em; 
+}
+
+.bar-dark { 
+	color:red !important;
+	background-color: rgb(31, 31, 31) !important;
+	border-top: 1px solid #2D2D2D !important;
+}
+
+.bar-dark .button-clear:active {
+	color: #ccc !important;
+	background-color: rgb(40, 40, 40) !important;
+}
