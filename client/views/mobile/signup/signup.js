@@ -41,7 +41,7 @@ Template.MobileSignup.events({
 
     function onError(error){
       console.log(error)
-      $('#error').show();
+      $('#error').show().css({visibility:'visible'});
       $('#error .message').text(error.reason);
     }
   }

@@ -1,0 +1,20 @@
+/*****************************************************************************/
+/* FacebookLogin: Style */
+/*****************************************************************************/
+
+.mobile.view {
+	background-color: black;
+}
+
+#error {
+	visibility:hidden;
+}
+
+#login-button-wrapper {
+	margin-top: 40px
+}
+
+#facebook-login-button:active {
+	background-color: #8a6de9;
+	color: white;
+}
