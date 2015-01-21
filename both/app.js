@@ -1,8 +1,9 @@
 /*****************************************************************************/
 /* Set the ROOT_URL to koding for facebook-login  */
 /*****************************************************************************/
-Meteor.absoluteUrl.defaultOptions.rootUrl = Meteor.settings.public.root_url
-
+if (Meteor.settings.public.root_url){
+	Meteor.absoluteUrl.defaultOptions.rootUrl = Meteor.settings.public.root_url
+}
 
 
 /*****************************************************************************/
