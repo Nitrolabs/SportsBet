@@ -3,6 +3,20 @@ Bets = new Mongo.Collection("bets");
 
 
 var schema = new SimpleSchema({
+    users_in_bet: {
+        type: [Object],
+        optional: true
+    },
+    "users_in_bet.$.selection": {
+        type: Number,
+        optional:true,
+        label:"Bet Selection"
+    },
+    "users_in_bet.$.userid": {
+        type: String,
+        optional:true,
+        label:"User ID"
+    },
     game_id: {
         type: String,
         label: "Game ID",
@@ -74,7 +88,6 @@ var schema = new SimpleSchema({
         type: Object,
         optional: true,
         blackbox: true
-    
     }
 
 });

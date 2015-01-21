@@ -22,6 +22,11 @@ Template.MobileGame.events({
  	
  	var user_selected_answer = this.index_for_ref + 1;
 
+    var user_in_bet = {
+        selection: user_selected_answer,
+        userid: Meteor.userId(),
+    }
+
  	var new_user_bet = {
  	    user_id: Meteor.userId(),
         bet_id: Session.get("user_current_bet_id"), 
@@ -31,6 +36,10 @@ Template.MobileGame.events({
         was_result_displayed: false,
         submitted_at: new Date()
     };
+
+    Bets.update({_id: Session.get("user_current_bet_id")}, 
+        { $push: { users_in_bet: user_in_bet} })
+
     Meteor.users.update(Meteor.userId(), 
     {
         $inc: {bank_account: -user_bet_amount,
@@ -62,7 +71,13 @@ Template.MobileGame.events({
 /*****************************************************************************/
 /* Game: Helpers */
 /*****************************************************************************/
+
 Template.MobileGame.helpers({
+    users_in_bet:function(){
+        // Jialu: don't know how to write correctly
+        return Bets.find({_id:Session.get('user_current_bet_id')}).users_in_bet
+    },
+
     current_status_message:function(){
         return Session.get('current_status_message')
     },
