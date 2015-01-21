@@ -1,3 +1,29 @@
 /*****************************************************************************/
 /* Leaderboard: Style */
 /*****************************************************************************/
+
+.leaderboard-tick {
+	color: rgb(0, 190, 0);
+	font-size: 20px;
+	text-align: center;
+	display: block;
+}
+.leaderboard-money {
+	color: rgb(0, 150, 0);
+	font-size: 20px;
+	text-align: left;
+	display: block;
+}
+.leaderboard-person {
+	color: rgb(0, 180, 187);
+	font-size: 20px;
+	text-align: left;
+	display: block;
+}
+.profile-pic {
+	width: 14px;
+	height: 14px;
+	border-radius: 7px;
+	border: 1px solid #999;
+	margin: 0 10px;
+}

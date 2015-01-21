@@ -2,6 +2,9 @@
 /* Global CSS Styles */
 /*****************************************************************************/
 
+.mobile {
+	background-color: black !important;
+}
 
 .button.em {
 	font-size:1.3em; 

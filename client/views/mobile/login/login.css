@@ -5,3 +5,13 @@
 #error {
 	display: none;
 }
+
+#login-form .item {
+	background-color: #fff !important; 
+	color: #eee !important;
+	border: 1px solid #ddd !important; 
+}
+
+#login-form p {
+	color: #eee !important;
+}

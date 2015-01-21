@@ -1,11 +1,11 @@
 <template name="MobileGame">
 
   {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton class="button-positive" text=false}}
+    {{>ionNavBackButton class="" text=false}}
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
-    <button id="side-menu-button" menu-toggle="left" class="button button-clear pull-right button-positive">
+    <button id="side-menu-button" menu-toggle="left" class="button button-clear pull-right">
       {{> ionIcon icon='navicon'}}
     </button>
   {{/contentFor}}
@@ -24,7 +24,7 @@
 	 	 		<p>Buy More Credits</p>
 			</button>
 		{{ else }}
-			<button id="bet-amount-button" class="button button-energized">
+			<button id="bet-amount-button" class="button button-positive">
 	 	 		<p class="bet-amount-value">{{ formatted_bet_amount }}</p>
 	 	 		<p class="bet-amount-label">Bet amount</p>
 			</button>
@@ -44,7 +44,7 @@
 		  	  {{#each addIndexesToArray outcomes }}
 		  	    {{#if notEmptyString text}}
 		  	    <div class="bet-option-div">
-				  	<button class="button bet-option-button" data-index-for-ref="{{index_for_ref}}">
+				  	<button class="button button-balanced bet-option-button" data-index-for-ref="{{index_for_ref}}">
 				  		{{ text }}
 				  		<!-- Jialu: play with users_in_bet -->
 				  		<p class='clearfix'>
@@ -64,33 +64,31 @@
 				{{/if}}
 			  {{/each}}
 			  <br>
-			  <a href="#" id="bet-skip-button" class='button'>skip</a>
+			  <a href="#" id="bet-skip-button" class='button button-stable'>skip</a>
 			  <br>
 		    {{else}} <!--  No current bet-->
 	            {{> Leaderboard}}
 	        {{/if}}
 		    </div>
 		</div> <!-- END QUESTION -->
-
-        
-		<div>
-			<div class="text-center">
-			  <br>
-			  <div class="bet-user-bank">  	
-			  	<h2>
-			  		{{ formatted_bank_account }}
-			  	</h2>
-			  </div>
-			  <div class="bet-ongoing-stats">
-			  	 <p>{{ number_bets }} bets (${{ value_bets}}) still on the table!</p>
-			  </div>
-			  <div class="bet-status-message">
-			  	<p class="status_message">{{ current_status_message }}</p>
-			  </div>
-		  </div>
-		</div>
 	{{/with}}
 	
     {{/ionContent}}
+    {{#ionFooterBar class="large-footer" }}
+		<div id="footer-content" class="text-center">
+		  <div class="recess bet-user-bank">  	
+		  	<span>
+		  		{{ formatted_bank_account }}
+		  	</span>
+		  </div>
+		  <div class="bet-ongoing-stats">
+		  	 <span>{{ number_bets }} bets 
+		  	 (<span class="text-info">${{ value_bets}}</span>) pending!</span>
+		  </div>
+		  <div class="bet-status-message">
+		  	<p class="status_message">{{ current_status_message }}</p>
+		  </div>
+	  </div>
+	{{/ionFooterBar}}
   {{/ionView}}
 </template>

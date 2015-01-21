@@ -5,6 +5,10 @@
 
 
 /* Fix the admin styles */
+.admin.view {
+	background-color: #fff !important;
+}
+
 .admin {
 	textarea,
 	input[type="text"],
@@ -33,7 +37,6 @@
 		border: 1px solid #AAA;
 		margin: 2px;
 	}
-
 	.btn {
 		margin:3px;
 	}

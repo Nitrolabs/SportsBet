@@ -68,8 +68,9 @@
 	line-height: 12px;
 	text-align: center;
 	font-weight: bold;
-	background-color: rgb(215, 246, 255);
-	border: 1px solid rgb(124, 124, 124);
+	background-color: rgb(87, 113, 121);
+	border: 1px solid rgb(176, 176, 176);
+	color: #fff;
 }
 .bet-option-div.clicked .user-face-grey {
 	visibility: hidden
@@ -88,10 +89,10 @@
 	font-size: 10px;
 }
 .bet-option-button p span.odds-text {
-	color: blue;
+	color: #fff;
 }
 .bet-option-button p span.win-text {
-	color: green;
+	color: #fff;
 }
 .bet-option-button:active,
 .bet-option-button.clicked {
@@ -154,4 +155,31 @@
 	display: block;
 	font-size: 0.6em;
 	line-height: 1em;
+}
+
+.large-footer {
+	width: 100%;
+	min-height: 130px;
+	background-color:#272b30 !important;
+	background-image: none !important;
+}
+
+.large-footer #footer-content {
+	width: 100%;
+}
+
+.bet-user-bank {
+	width:140px;
+	margin: 7px auto;
+	border-radius: 20px;
+}
+
+.bet-user-bank span {
+    font-size: 37px;
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    margin: 5px;
+    margin-left: -3px;
+    width: auto;
 }

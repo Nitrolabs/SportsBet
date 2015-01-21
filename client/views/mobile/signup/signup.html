@@ -2,17 +2,17 @@
 	<br>
 	<h1 class="text-center">Create Account</h1>
 
-	<div class="list list-inset">
+	<div class="list list-inset" id='signup-form'>
 		<div id='error' class="alert alert-danger" role="alert">
 	  		<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 	  		<span class="sr-only">Error:</span>
 	  		<span class='message'>Enter a valid email address</span>
 		</div>
 	  <label class="item item-input">
-	    <input name='username' type="text" placeholder="Username">
+	    <input name='username' type="text" placeholder="Username" autocapitalize="off">
 	  </label>
 	  <label class="item item-input">
-	    <input name='email' type="text" placeholder="Email">
+	    <input name='email' type="email" placeholder="Email">
 	  </label>
 	  <label class="item item-input">
 	    <input name='password' type="password" placeholder="Password">

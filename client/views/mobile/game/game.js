@@ -147,26 +147,33 @@ Template.MobileGame.helpers({
 function onStatusChange(){
     console.log('status changed');
     setTimeout(function(){
-        $('.status_message').css('color','green');
-    },500);
+        $('.status_message').addClass('text-warning');
+    },300);
     setTimeout(function(){
-        $('.status_message').css('color','black');
-    },1500);
+        $('.status_message').removeClass('text-warning');
+    },2500);
+    setTimeout(function(){
+        $('.status_message').addClass('text-muted');
+    },5000);
 }
 
 function onBankUp(amount){
     console.log('bank went up');
-    $('.bet-user-bank h2').css('color','green');
+    $('.bet-user-bank').addClass('success');
+    $('.bet-user-bank span').addClass('text-success');
     setTimeout(function(){
-        $('.bet-user-bank h2').css('color','black');
+        $('.bet-user-bank').removeClass('success');
+        $('.bet-user-bank span').removeClass('text-success');
     },1000);
 }
 
 function onBankDown(amount){
     console.log('bank went down');
-    $('.bet-user-bank h2').css('color','red');
+    $('.bet-user-bank').addClass('danger');
+    $('.bet-user-bank span').addClass('text-danger');
     setTimeout(function(){
-        $('.bet-user-bank h2').css('color','black');
+        $('.bet-user-bank').removeClass('danger');
+        $('.bet-user-bank span').removeClass('text-danger');
     },1000);
 }
 
