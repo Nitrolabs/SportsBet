@@ -22,7 +22,7 @@ Accounts.onCreateUser(function(options, user) {
     var url = "/images/profile.png";
     if (user.services && user.services.facebook){
         id = user.services.facebook.id;
-        url = "http://graph.facebook.com/"+fbid+"/picture";
+        url = "http://graph.facebook.com/"+id+"/picture";
     }
     user.profile.image = {};
     user.profile.image.small = url+"?type=small";
