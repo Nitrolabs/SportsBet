@@ -27,12 +27,15 @@ The .deploy folder also contains the ssh key file to access a ubuntu[small] webs
 
 1) install meteor-up
 ```sh
-npm install -g mup
+sudo npm install -g mup
 ```
 2) (optional) Edit deploy file at /.deploy/mup.json
 
 3) Push code to AWS
 ```sh
+# Move to the deploy folder
+# To deploy to other machines we can copy and rename this folder
+cd .deploy 
 mup deploy
 ```
 
