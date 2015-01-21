@@ -2,70 +2,87 @@
 /* Game: Event Handlers
 /*****************************************************************************/
 Template.MobileGame.events({
-  'click #side-menu-button':function(){
-    //IonSideMenu.snapper.open();
-  },
+    'click #side-menu-button':function(){
+        //IonSideMenu.snapper.open();
+    },
 
-  'click #buy-chips-button': function (event, template) {
-     Meteor.users.update(Meteor.userId(), {$inc:{bank_account:100}});
-  },
+    'click #buy-chips-button': function (event, template) {
+        Meteor.users.update(Meteor.userId(), {$inc:{bank_account:100}});
+    },
 
-  'click #bet-amount-button': function (event, template) {
-     Blaze.render(Template.BetAmount,document.body)
-     $(event.target).attr('disabled',true);
-  },
+    'click #bet-amount-button': function (event, template) {
+        Blaze.render(Template.BetAmount,document.body)
+        $(event.target).attr('disabled',true);
+    },
     
- 'click .bet-option-button':function(tmpl, event){
- 	
- 	// We need to create a new user-bet, with correct bet_id and user_id
- 	var user_bet_amount = Session.get('bet_amount') || 2; //TODO - update this once we have a bar
- 	
- 	var user_selected_answer = this.index_for_ref + 1;
+    'click .bet-option-button':function(event, template){
+        var context = this;
 
-    var user_in_bet = {
-        selection: user_selected_answer,
-        userid: Meteor.userId(),
+        // Grey out the button
+        $(event.target).addClass('clicked');
+        $(event.target).parent().addClass('clicked');
+
+        // Disable all other choices
+        $('.bet-option-button').attr('disabled',true);
+        
+        // Wait for 1 second before submitting the bet
+        setTimeout(function(){
+            submitBet(context);
+            $(event.target).removeClass('clicked');
+            $(event.target).parent().removeClass('clicked');
+            $('.bet-option-button').removeAttr('disabled');
+        },1000);
+
+
+        function submitBet(context){
+         	// We need to create a new user-bet, with correct bet_id and user_id
+         	var user_bet_amount = Session.get('bet_amount');          	
+         	var user_selected_answer = context.index_for_ref + 1;
+
+            var user_in_bet = {
+                selection: user_selected_answer,
+                userid: Meteor.userId(),
+            }
+
+         	var new_user_bet = {
+         	    user_id: Meteor.userId(),
+                bet_id: Session.get("user_current_bet_id"), 
+                wager: user_bet_amount,
+                answer: user_selected_answer,
+                skipped: false,
+                was_result_displayed: false,
+                submitted_at: new Date()
+            };
+
+            Bets.update({_id: Session.get("user_current_bet_id")}, 
+                { $push: { users_in_bet: user_in_bet} })
+
+            Meteor.users.update(Meteor.userId(), 
+            {
+                $inc: {bank_account: -user_bet_amount,
+                       "user_stats.money_on_the_table": user_bet_amount,
+                       "user_stats.total_number_of_bets_placed": 1}
+            });
+            UserBets.insert(new_user_bet);
+            console.log("Done! Bet placed successfully! :)" );
+        }
+    },
+         
+    'click #bet-skip-button':function(event){
+     	// Create a new user-bet, and set the skipped flag to true
+
+     	var new_user_bet = {
+     	    user_id: Meteor.userId(),
+            bet_id: this._id, 
+            wager: 0,
+            answer: 0,
+            skipped: true,
+            was_result_displayed: false,
+            submitted_at: new Date()
+        };
+        
+     	UserBets.insert(new_user_bet);	
     }
-
- 	var new_user_bet = {
- 	    user_id: Meteor.userId(),
-        bet_id: Session.get("user_current_bet_id"), 
-        wager: user_bet_amount,
-        answer: user_selected_answer,
-        skipped: false,
-        was_result_displayed: false,
-        submitted_at: new Date()
-    };
-
-    Bets.update({_id: Session.get("user_current_bet_id")}, 
-        { $push: { users_in_bet: user_in_bet} })
-
-    Meteor.users.update(Meteor.userId(), 
-    {
-        $inc: {bank_account: -user_bet_amount,
-               "user_stats.money_on_the_table": user_bet_amount,
-               "user_stats.total_number_of_bets_placed": 1}
-    });
-    UserBets.insert(new_user_bet);
-    console.log("Done! Bet placed successfully! :)" );
- },
- 
- 'click .bet-skip-button':function(event){
- 	// Create a new user-bet, and set the skipped flag to true
-
- 	var new_user_bet = {
- 	    user_id: Meteor.userId(),
-        bet_id: this._id, 
-        wager: 0,
-        answer: 0,
-        skipped: true,
-        was_result_displayed: false,
-        submitted_at: new Date()
-    };
-    
- 	UserBets.insert(new_user_bet);
- 	
- }
 });
 
 /*****************************************************************************/
@@ -73,13 +90,29 @@ Template.MobileGame.events({
 /*****************************************************************************/
 
 Template.MobileGame.helpers({
-    users_in_bet:function(){
-        // Jialu: don't know how to write correctly
-        return Bets.find({_id:Session.get('user_current_bet_id')}).users_in_bet
+    users_in_question:function(question){
+        question = question + 1; // Swap to base-1 indexing;
+        // Release users at 5 second intervals
+        // var time_since_render = new Date()-App.page.rendered;
+        //var max_items = Math.floor(time_since_render/1000/5);
+        var MAX_USERS = 10
+        var bet_id = Session.get('user_current_bet_id');
+        var bet = Bets.findOne({_id:bet_id})
+        if (bet){
+            var users = bet.users_in_bet || [] // REMOVE THIS WHEN USERS_IN_BET is always defined
+            users = users.slice(-MAX_USERS);
+            // Find the user_ids of people that selected this question
+            var user_ids = _.chain(users).where({selection:question}).pluck('userid').value();
+            return Meteor.users.find({_id:{$in:user_ids}});
+        }
     },
 
     current_status_message:function(){
         return Session.get('current_status_message')
+    },
+
+    facebook_profile_image:function(fbid){
+        return "http://graph.facebook.com/" + fbid + "/picture/?type=small";
     },
 
     // Return the bet amount
@@ -112,8 +145,31 @@ Template.MobileGame.helpers({
 /*****************************************************************************/
 
 function onStatusChange(){
-    console.log('status changed')
+    console.log('status changed');
+    setTimeout(function(){
+        $('.status_message').css('color','green');
+    },500);
+    setTimeout(function(){
+        $('.status_message').css('color','black');
+    },1500);
 }
+
+function onBankUp(amount){
+    console.log('bank went up');
+    $('.bet-user-bank h2').css('color','green');
+    setTimeout(function(){
+        $('.bet-user-bank h2').css('color','black');
+    },1000);
+}
+
+function onBankDown(amount){
+    console.log('bank went down');
+    $('.bet-user-bank h2').css('color','red');
+    setTimeout(function(){
+        $('.bet-user-bank h2').css('color','black');
+    },1000);
+}
+
 
 // https://github.com/matb33/meteor-collection-hooks
 Meteor.users.after.update(function(userId, doc, fieldNames, modifier, options) {
@@ -135,29 +191,14 @@ Meteor.users.after.update(function(userId, doc, fieldNames, modifier, options) {
                 if ((modifier.$inc && modifier.$inc.bank_account > 0)  
                     // || (modifier.$set && modifier.$set.bank_account > ?)
                     ) {
-                    console.log("user money went up! " + modifier.$inc.bank_account);
-                    // MAX: Write UI code
+                    onBankUp(modifier.$inc.bank_account)
                 }
                 else {
-                    console.log("user money went down! " + modifier.$inc.bank_account);
-                    // MAX: Write UI code
+                    onBankDown(modifier.$inc.bank_account)
                 }
             }
-            
-            // Session.set('debug_modifier', modifier);
         }
     }
-    
-
-    // TODO ASSAF: implement this part after Jialu makes his change
-    //   if (status_message_changed){
-    //         MAX: Write UI code
-    //   }
-    // console.log(userId);
-    // console.log(doc);
-    // console.log(fieldNames);
-    // console.log(modifier);
-    // console.log(options);
  });
 
 
@@ -184,9 +225,13 @@ Template.MobileGame.created = function () {
             Session.setDefault('bet_amount',bet_amount);
         }
     });
+
+    // Record the time this element was created
+    App.page = {}
+    App.page.rendered = new Date();
 };
 
-Template.MobileGame.rendered = function () {
+Template.MobileGame.rendered = function (a,b,c) {
 };
 
 Template.MobileGame.destroyed = function () {

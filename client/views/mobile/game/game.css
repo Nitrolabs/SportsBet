@@ -8,7 +8,106 @@
 	vertical-align: center;
 	padding: 30px !important;
 }
+#bet-question-wrapper {
+	font-size: 18px;
+}
 
+#bet-answer-wrapper {
+	padding-left:0;
+	padding-right:0;
+}
+
+#bet-skip-button {
+	margin: 0 10px !important;
+	height: 26px;
+	line-height: 24px;
+	min-height: 24px;
+}
+#bet-skip-button:active {
+	background-color: #ccc;
+	color: white;
+	text-decoration: none;
+}
+
+.bet-option-div {
+	width: 50%;
+	padding:10px;
+	-webkit-box-flex: 0;
+	-webkit-flex: 0 0 50%;
+	-moz-box-flex: 0;
+	-moz-flex: 0 0 50%;
+	-ms-flex: 0 0 50%;
+	flex: 0 0 50%;
+	float: left;
+	max-width: 50%;
+}
+
+.bet-option-div .user-face-wrapper {
+	height: 24px;
+}
+.bet-option-div .user-face,
+.bet-option-div .user-face-image,
+.bet-option-div .user-face-grey {
+	width: 14px;
+	height: 14px;
+	float: left;
+	display: block;
+	border-radius: 7px;
+}
+
+.bet-option-div .user-face {
+	margin: 5px 3px 5px 0;
+}
+.bet-option-div .user-face-image {
+	background-color: red;
+	border: 1px solid rgb(124, 124, 124);
+}
+.bet-option-div .user-face-grey {
+	position: absolute;
+	font-size: 9px;
+	line-height: 12px;
+	text-align: center;
+	font-weight: bold;
+	background-color: rgb(215, 246, 255);
+	border: 1px solid rgb(124, 124, 124);
+}
+.bet-option-div.clicked .user-face-grey {
+	visibility: hidden
+}
+
+
+
+/* Bet Option Button */
+.bet-option-button {
+	width: 100%;
+	padding: 12px 10px 5px 10px!important;
+	font-size: 20px !important;
+}
+.bet-option-button p span {
+	line-height: 10px;
+	font-size: 10px;
+}
+.bet-option-button p span.odds-text {
+	color: blue;
+}
+.bet-option-button p span.win-text {
+	color: green;
+}
+.bet-option-button:active,
+.bet-option-button.clicked {
+	color: white;
+	background-color: #ccc;
+	text-decoration: none;
+	opacity: 1 !important;
+}
+.bet-option-button.clicked {
+	background-color: #bbb;
+}
+
+
+
+
+/* Buy chips UI */
 #buy-chips-button {
 	margin: 10px auto;
 	width: 160px;
@@ -44,4 +143,15 @@
 	top: 100px;
 	width: 100%;
 	z-index: 999;
+}
+
+#leaderboard-text {
+	margin: 0;
+}
+
+#leaderboard-subtext {
+	text-align: center;
+	display: block;
+	font-size: 0.6em;
+	line-height: 1em;
 }

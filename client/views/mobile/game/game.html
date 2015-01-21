@@ -31,30 +31,40 @@
 		{{/if}}
 	
  		<div class="card">
-		  <div class="item item-divider">
+		  <div id="bet-question-wrapper" class="item item-divider">
 		    {{#if question}}
 		        {{ question }}
 		    {{else}}
-		        Waiting for the next avilable bet... <br>
-		        In the mean time, check the leaderboard below! :)
+		        <h1 id='leaderboard-title' class='text-center'>Leaderboard</h1>
+		        <span id='leaderboard-subtext'>More bets coming soon!</span>
 		    {{/if}}
 		  </div>
-		  <div class="item item-text-wrap">
+		  <div id="bet-answer-wrapper" class="item item-text-wrap">
 		  {{#if status }} <!-- crude way to check whether there's a status, i.e. there's a bet-->
 		  	  {{#each addIndexesToArray outcomes }}
 		  	    {{#if notEmptyString text}}
-			  	<div class="item item-divider bet-option-button" data-index-for-ref="{{index_for_ref}}">
-			  		{{ text }}
-			  		<!-- Jialu: play with users_in_bet -->
-			  		<p class='clearfix'>
-			  			<span class='pull-left'>{{ odds }}:1</span>
-			  			<span class='pull-right'>{{ formatted_win_value }}</span>
-			  		</p>
+		  	    <div class="bet-option-div">
+				  	<button class="button bet-option-button" data-index-for-ref="{{index_for_ref}}">
+				  		{{ text }}
+				  		<!-- Jialu: play with users_in_bet -->
+				  		<p class='clearfix'>
+				  			<span class='odds-text pull-left'>{{ odds }}:1</span>
+				  			<span class='win-text pull-right'>{{ formatted_win_value }}</span>
+				  		</p>
+					</button>
+					<div class='user-face-wrapper clearfix'>
+					{{#each users_in_question index_for_ref }}
+						<div class='user-face'>
+							<span class='user-face-grey'>?</span>
+							<img class='user-face-image' src={{ profile.image.small }} />
+						</div>
+					{{/each}}
+					</div>
 				</div>
 				{{/if}}
 			  {{/each}}
 			  <br>
-			  <a href="#" class='bet-skip-button'>skip</a>
+			  <a href="#" id="bet-skip-button" class='button'>skip</a>
 			  <br>
 		    {{else}} <!--  No current bet-->
 	            {{> Leaderboard}}
@@ -84,4 +94,3 @@
     {{/ionContent}}
   {{/ionView}}
 </template>
-
