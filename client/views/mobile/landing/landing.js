@@ -46,8 +46,22 @@ Template.MobileLanding.helpers({
 
   // Games that will be played in the future
   upcoming_games:function(){
+    var games;
     var now = new Date();
-    return Games.find({start_datetime:{$gte:now}});
+    var featured = Template.MobileLanding.__helpers[" featured_game"]();
+    if (featured){
+      games = Games.find({
+        _id: {$ne:featured._id}, 
+        status: "ACTIVE",
+        start_datetime: {$gte:now}
+      });
+    } else {
+      games = Games.find({
+        start_datetime: {$gte:now},
+        status: "ACTIVE"
+      });
+    }
+    return games;
   }
 });
 

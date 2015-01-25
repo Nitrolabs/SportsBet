@@ -13,7 +13,7 @@ Template.Leaderboard.events({
 
 Template.Leaderboard.helpers({
     getUserLeaderboard: function() {
-        var maxUsersInLeaderBoard = Session.get('maxUsersInLeaderBoard') || 1;
+        var maxUsersInLeaderBoard = Session.get('maxUsersInLeaderBoard') || 3;
         var t = Meteor.users.find({},{sort: {bank_account: -1}, limit: maxUsersInLeaderBoard})
         
         var amIinTop10 = false;

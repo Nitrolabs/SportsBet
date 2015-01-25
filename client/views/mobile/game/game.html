@@ -36,7 +36,7 @@
 		    {{#if question}}
 		        {{ question }}
 		    {{else}}
-		        <h1 id='leaderboard-title' class='text-center'>Leaderboard</h1>
+		        <h1 id='leaderboard-title' class='text-center' style="margin-bottom: 0px;">Leaderboard</h1>
 		        <span id='leaderboard-subtext'>More bets coming soon!</span>
 		    {{/if}}
 		  </div>
@@ -44,7 +44,7 @@
 		  {{#if status }} <!-- crude way to check whether there's a status, i.e. there's a bet-->
 		  	  {{#each addIndexesToArray outcomes }}
 		  	    {{#if notEmptyString text}}
-		  	    <div class="bet-option-div" style="padding-bottom: 5px;">
+		  	    <div class="bet-option-div" style="padding-bottom: 5px; padding-top: 5px;">
 				  	<button class="button button-balanced bet-option-button" data-index-for-ref="{{index_for_ref}}" {{disable_based_on_bank_account}}>
 				  		{{ text }}
 				  		<p class='clearfix'>
@@ -74,20 +74,23 @@
 	{{/with}}
 	
     {{/ionContent}}
-    {{#ionFooterBar class="large-footer" }}
+    {{#ionFooterBar class="large-footer"}}
 		<div id="footer-content" class="text-center">
 		  <div class="recess bet-user-bank">  	
 		  	<span>
 		  		{{ formatted_bank_account }}
 		  	</span>
 		  </div>
-		  <div class="bet-ongoing-stats">
-		  	 <span>{{ number_bets }} bets 
-		  	 (<span class="text-info">${{ value_bets}}</span>) pending!</span>
-		  </div>
-		  <div class="bet-status-message">
-		  	<p class="status_message">{{ current_status_message }}</p>
-		  </div>
+		  {{#if current_status_message }}
+    		  <div class="bet-status-message">
+    		  	<p class="status_message">{{ current_status_message }}</p>
+    		  </div>
+		  {{else}}
+		    <div class="bet-ongoing-stats">
+		  	     <span>{{ number_bets }} bets 
+		  	    (<span class="text-info">${{ value_bets}}</span>) pending!</span>
+		    </div>
+		  {{/if}}
 	  </div>
 	{{/ionFooterBar}}
   {{/ionView}}

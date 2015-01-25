@@ -100,7 +100,7 @@ Template.MobileGame.helpers({
         // Release users at 5 second intervals
         // var time_since_render = new Date()-App.page.rendered;
         //var max_items = Math.floor(time_since_render/1000/5);
-        var MAX_USERS = 10
+        var MAX_USERS = 8
         var bet_id = Session.get('user_current_bet_id');
         var bet = Bets.findOne({_id:bet_id})
         if (bet){
@@ -235,7 +235,7 @@ Template.MobileGame.created = function () {
         } else {
             Session.set('current_status_message',"")
         }
-    },5000);
+    },7500);
 
     Tracker.autorun(function(){
         if (Meteor.user() && !Meteor.loggingIn()){
@@ -244,6 +244,7 @@ Template.MobileGame.created = function () {
         }
     });
 
+    //$('')
     // Record the time this element was created
     App.page = {}
     App.page.rendered = new Date();
