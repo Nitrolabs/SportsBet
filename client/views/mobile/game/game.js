@@ -66,7 +66,7 @@ Template.MobileGame.events({
             });
             UserBets.insert(new_user_bet);
             
-            if (Session.get('bet_amount') > Meteor.user().bank_account) {
+            if (Session.get('bet_amount') > Meteor.user().bank_account && Meteor.user().bank_account > 0) {
                 Session.set('bet_amount',Meteor.user().bank_account);
             }
             console.log("Done! Bet placed successfully! :)" );
@@ -168,6 +168,7 @@ function onStatusChange(){
 }
 
 function onBankUp(amount){
+    
     console.log('bank went up');
     $('.bet-user-bank').addClass('success');
     $('.bet-user-bank span').addClass('text-success');

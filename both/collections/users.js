@@ -42,6 +42,11 @@ var schema_for_user = new SimpleSchema({
         decimal: true,
         label:"User available currency"
     },
+    bank_request_more_funds: {
+        type: String,
+        optional:true,
+        label:"User asked for more chips"
+    },
     messages_queue: {
         type: [Object],
         optional: true
