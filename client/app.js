@@ -2,6 +2,69 @@
 /* Client App Namespace  */
 /*****************************************************************************/
 _.extend(App, {
+  track: function (key, meta, newUser) {
+    meta = meta || {};
+
+    Deps.autorun(function (c) {
+      if (!Meteor.loggingIn()) {
+        var user = Deps.nonreactive(function () { return Meteor.user(); });
+        var email;
+        var full_name;
+        var userId;
+        var bank_account;
+        var user_stats = {};
+
+          if (user) {
+            email = user.emails ? user.emails[0].address : "FB";
+            full_name = user.profile ? user.profile.name : "?";
+            userId = user._id;
+            bank_account = user.bank_account;
+            user_stats = user.user_stats;
+        }
+        else {
+            email = 'anonymous';
+            full_name = 'anonymous';
+        }
+
+        _.extend(meta, {
+          email: email,
+          full_name: full_name,
+          path: location.pathname,
+          bank_account: bank_account,
+          user_stats: user_stats
+        });
+
+
+          // Check that a mixpanel object actually exists
+        if (mixpanel && mixpanel !== undefined && mixpanel.track !== undefined) {
+
+            if (userId) {
+                if (newUser) {
+                    mixpanel.alias(userId);
+
+                }
+                else {
+                    mixpanel.identify(userId);
+
+                }
+
+                mixpanel.people.set({
+                    "$email": email,
+                    "$name": full_name
+                });
+            }
+
+            mixpanel.track(key, meta);
+        }
+        else {
+            console.log("mixpanel track -- key=" + key);
+            console.log(meta);
+        }
+
+        c.stop();
+      }
+    });
+  }
 });
 
 App.helpers = {
@@ -43,6 +106,17 @@ App.helpers = {
 _.each(App.helpers, function (helper, key) {
   Handlebars.registerHelper(key, helper);
 });
+
+initMixpanel = function() {
+    var settings = Meteor.settings;
+    var mixpanelToken = settings && settings.public.mixpanel;
+
+    if (!mixpanelToken)
+      throw new Error('No mixpanel token found in settings.json');
+    else
+      mixpanel.init(mixpanelToken);
+};
+initMixpanel();
 
 
 // HACK: Disable the left side menu and add PC support

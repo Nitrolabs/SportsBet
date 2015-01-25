@@ -9,9 +9,11 @@ Template.MobileGame.events({
     'click #buy-chips-button': function (event, template) {
         // Meteor.users.update(Meteor.userId(), {$inc:{bank_account:100}});
         Meteor.users.update(Meteor.userId(), {$set:{bank_request_more_funds:"YES"}});
+        App.track("Ask for more money", {});
     },
 
     'click #bet-amount-button': function (event, template) {
+        App.track("BetSliderOpen", {})
         Blaze.render(Template.BetAmount,document.body)
         $(event.target).attr('disabled',true);
     },
@@ -69,7 +71,9 @@ Template.MobileGame.events({
             if (Session.get('bet_amount') > Meteor.user().bank_account && Meteor.user().bank_account > 0) {
                 Session.set('bet_amount',Meteor.user().bank_account);
             }
-            console.log("Done! Bet placed successfully! :)" );
+            
+            App.track("Bet Place", new_user_bet);
+            // console.log("Done! Bet placed successfully! :)" );
         }
     },
          
@@ -86,7 +90,8 @@ Template.MobileGame.events({
             submitted_at: new Date()
         };
         
-     	UserBets.insert(new_user_bet);	
+     	UserBets.insert(new_user_bet);
+     	App.track("Bet Skip", new_user_bet);
     }
 });
 
@@ -169,7 +174,8 @@ function onStatusChange(){
 
 function onBankUp(amount){
     
-    console.log('bank went up');
+    // console.log('bank went up');
+    App.track("Bank went up", {amount:amount});
     $('.bet-user-bank').addClass('success');
     $('.bet-user-bank span').addClass('text-success');
     setTimeout(function(){
@@ -179,7 +185,7 @@ function onBankUp(amount){
 }
 
 function onBankDown(amount){
-    console.log('bank went down');
+    App.track("Bank went down", {amount:amount});
     $('.bet-user-bank').addClass('danger');
     $('.bet-user-bank span').addClass('text-danger');
     setTimeout(function(){

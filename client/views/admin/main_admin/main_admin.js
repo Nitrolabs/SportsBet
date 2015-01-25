@@ -61,6 +61,8 @@ Template.MainAdmin.events({
         console.log(new_bet_id);
         
         Session.set('admin_active_bet', new_bet_id);
+        
+        App.track("Admin - create new bet", new_bet);
     
    },
    
@@ -72,21 +74,26 @@ Template.MainAdmin.events({
         
         if (e.target.id == "saveBet") {
             // Nothing special to do
+            App.track("Admin - save bet", new_bet);
         }
         else if (e.target.id == "activateBet") {
             
             new_bet.activated_at = new Date();
             new_bet.status = "ACTIVE";
+            App.track("Admin - activate bet", new_bet);
         }
         else if (e.target.id == "closeBet") {
             new_bet.closed_at = new Date();
             new_bet.status = "CLOSED";
+            App.track("Admin - close bet", new_bet);
         }
         
         Bets.update(
             Session.get('admin_active_bet'), 
             {$set: new_bet}
             );
+            
+        
    },
    
    'click #resolveBet': function(e,tmpl) {
@@ -157,6 +164,8 @@ Template.MainAdmin.events({
         // Update the bet with the calculated statistics
         new_bet.statistics = statistics;    
         Bets.update(bet_id, {$set: new_bet});
+        
+        App.track("Admin - resolve bet", new_bet);
    }
    
    

@@ -36,6 +36,11 @@ Template.Leaderboard.helpers({
                 found = (y._id == self._id);
             }
         });
+        
+        // if (self._id == Meteor.userId()) {
+        //     App.track("My place in the leadeboard", {place:index});
+        // }
+        
         return index;
     }
 });
