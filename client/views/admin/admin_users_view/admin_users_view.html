@@ -1,0 +1,70 @@
+<template name="AdminUsersView">
+{{#ionView class="admin" }}
+{{#ionContent overflow-scroll=true }}
+
+    <style>
+    table,th,td
+    {
+        border:1px solid black;
+        border-collapse:collapse;
+    }
+    th,td
+    {
+        padding:5px;
+    }
+    </style>
+    
+    <button class="btn btn-primary" id="resetAllUsers">Reset all users</button>
+    <br>
+    <table>
+      <tr>
+          <th>Photo</th>
+          <th>ID</th>
+          <th>Email</th>
+          <th>FB</th>
+          <th>Name</th>
+          <th># bets</th>
+          <th># resolved</th>
+          <th>$ on table</th>
+          <th># won</th>
+          <th>% won</th>
+          <th>wins in row</th>
+          
+          <th>Bank Account</th>
+          <th>Request More?</th>
+          <th>Allow?</th>
+      </tr>
+      {{#each allUsers}}
+      <tr>
+          <td>
+              <!--<a href="/profile/{{_id}}">-->
+                  <img src="{{profile.image.normal}}" width="60px" height="60px">
+              <!--</a>-->
+          </td>
+          <td>{{_id}}</td>
+          <td>{{getEmailAddress}}</td>
+          <td>{{#if services.facebook}}FB{{/if}}</td>
+          <td>{{profile.name}}</td>
+          
+          <td>{{user_stats.total_number_of_bets_placed}}</td>
+          <td>{{user_stats.total_number_of_bets_resolved}}</td>
+          <td>{{user_stats.money_on_the_table}}</td>
+          
+          <td>{{user_stats.total_number_of_bets_won}}</td>
+          <td>{{numberFormatBy user_stats.bets_won_percentage '0,0%'}}</td>
+          
+          <td>{{user_stats.total_wins_in_a_row}}</td>
+          
+          <td><b>${{bank_account}}</b></td>
+          <td style="color: red;">{{bank_request_more_funds}}</td>
+          
+          <td><button class="btn btn-small" name="addToUserBankAccount" id="addToUserBankAccount">Give $$$</button></td>
+          <!--<td><span><input type="checkbox" name="activateUser" {{isActivated}}></span></td>-->
+      </tr>
+      {{/each}}
+
+  </table>
+    
+{{/ionContent}}
+{{/ionView}}
+</template>
