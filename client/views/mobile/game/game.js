@@ -120,6 +120,11 @@ Template.MobileGame.helpers({
         var bet_amount = Session.get('bet_amount');
         return numeral(bet_amount).format('$0,0');
     },
+
+    disable_based_on_bank_account:function(){
+        return Meteor.user().bank_account > 0 ? "" : "disabled"
+    },
+
     formatted_bank_account:function(){
         var bank_account = Meteor.user().bank_account;
         return numeral(bank_account).format('$0,0');
@@ -238,7 +243,7 @@ Template.MobileGame.created = function () {
     App.page.rendered = new Date();
 };
 
-Template.MobileGame.rendered = function (a,b,c) {
+Template.MobileGame.rendered = function (a,b,c) { 
 };
 
 Template.MobileGame.destroyed = function () {

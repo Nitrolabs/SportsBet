@@ -44,9 +44,8 @@
 		  	  {{#each addIndexesToArray outcomes }}
 		  	    {{#if notEmptyString text}}
 		  	    <div class="bet-option-div">
-				  	<button class="button button-balanced bet-option-button" data-index-for-ref="{{index_for_ref}}">
+				  	<button class="button button-balanced bet-option-button" data-index-for-ref="{{index_for_ref}}" {{disable_based_on_bank_account}}>
 				  		{{ text }}
-				  		<!-- Jialu: play with users_in_bet -->
 				  		<p class='clearfix'>
 				  			<span class='odds-text pull-left'>{{ odds }}:1</span>
 				  			<span class='win-text pull-right'>{{ formatted_win_value }}</span>
