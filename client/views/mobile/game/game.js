@@ -7,7 +7,8 @@ Template.MobileGame.events({
     },
 
     'click #buy-chips-button': function (event, template) {
-        Meteor.users.update(Meteor.userId(), {$inc:{bank_account:100}});
+        // Meteor.users.update(Meteor.userId(), {$inc:{bank_account:100}});
+        Meteor.users.update(Meteor.userId(), {$set:{bank_request_more_funds:"YES"}});
     },
 
     'click #bet-amount-button': function (event, template) {
@@ -64,6 +65,10 @@ Template.MobileGame.events({
                        "user_stats.total_number_of_bets_placed": 1}
             });
             UserBets.insert(new_user_bet);
+            
+            if (Session.get('bet_amount') > Meteor.user().bank_account) {
+                Session.set('bet_amount',Meteor.user().bank_account);
+            }
             console.log("Done! Bet placed successfully! :)" );
         }
     },
@@ -222,13 +227,13 @@ Template.MobileGame.created = function () {
             Session.set('current_status_message',message)
             Meteor.users.update({_id: Meteor.userId()}, { $pop: { messages_queue: -1 } } )
         } else {
-            Session.set('current_status_message',"no msg now")
+            Session.set('current_status_message',"")
         }
     },5000);
 
     Tracker.autorun(function(){
         if (Meteor.user() && !Meteor.loggingIn()){
-            var bet_amount = Meteor.user().profile.bet_amount || 10;
+            var bet_amount = Meteor.user().profile.bet_amount || 50;
             Session.setDefault('bet_amount',bet_amount);
         }
     });

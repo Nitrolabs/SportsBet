@@ -19,3 +19,4 @@ Router.route('/logout', {name: 'mobile.logout'});
 // Desktop routes
 Router.route('/admin', {name: 'main.admin'});
 Router.route('/admin/games_mgmt', {name: 'games.mgmt'});
+Router.route('/admin/users_view', {name: 'admin.users.view'});

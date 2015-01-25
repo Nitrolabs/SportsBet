@@ -1,7 +1,11 @@
 {
   "private": {
-      "facebookAppId":  "627149540747653",
-      "facebookSecret": "e37cdbd2886075defec95c0bb5f3752c"
+      "facebookAppId":  "835808673143470",
+      "facebookSecret": "7640904a9c506992bd457391bd1ebfe5"
   },
-  "public":{}
+  "public":{
+  	  "root_url":"http://play.nextplaynow.com/",
+  	  "version": "0.0.0.1" 
+  }
+
 }

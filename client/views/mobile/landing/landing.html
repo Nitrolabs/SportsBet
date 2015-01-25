@@ -18,7 +18,7 @@
           {{#with featured_game }}
             <div class="featured-game col col-100">
             	<a href="{{pathFor route='mobile.game'}}">
-            		<button class="button button-block button-positive">
+            		<button class="button button-block button-positive button-game-select">
       				    {{title}}
     				    </button>
             	</a>
@@ -30,7 +30,7 @@
 	        {{#each active_games }}
             <div class="active-game col col-50">
 	        		<a href="{{pathFor route='mobile.game'}}">
-		        		<button class="button button-block button-balanced">
+		        		<button class="button button-block button-balanced button-game-select">
 		  				    {{title}}
 						    </button>
 		        	</a>
@@ -42,7 +42,7 @@
           {{#each upcoming_games }}
             <div class="active-game col col-50">
               <a href="{{pathFor route='mobile.game'}}">
-        		    <button class="button button-block button-royal">
+        		    <button class="button button-block button-royal button-game-select">
   				       {{title}}
 				        </button>
         	  </a>

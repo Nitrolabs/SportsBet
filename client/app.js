@@ -6,6 +6,9 @@ _.extend(App, {
 
 App.helpers = {
     
+    numberFormatBy: function(num, format_str) {
+        return numeral(num).format(format_str);
+    },
     notEmptyString: function(str) {
         return str && str !== "" && str.trim() !== "";
     },

@@ -2,12 +2,11 @@
 /* Landing: Event Handlers and Helpersss .js*/
 /*****************************************************************************/
 Template.MobileLanding.events({
-  /*
-   * Example:
-   *  'click .selector': function (e, tmpl) {
-   *
-   *  }
-   */
+  
+   'click .button-game-select': function (e, tmpl) {
+       console.log(this);
+       
+   }
 });
 
 Template.MobileLanding.helpers({
@@ -16,8 +15,12 @@ Template.MobileLanding.helpers({
   // Note: Even at this prototype stage we really need to handle games, because
   // they are fundemental to the /mobile/game/game_id/ page.
   featured_game:function(){
-    var now = new Date();
-    return Games.findOne({start_datetime:{$lte:now}});
+    var soon = new Date();
+    soon.setHours(soon.getHours()+24);
+    var not_over = new Date();
+    not_over.setHours(not_over.getHours()-5);
+    
+    return Games.findOne({status: "ACTIVE", start_datetime: {$gte:not_over, $lte:soon}}, {sort: {start_datetime: 1}});
   },
 
   // Other games that are being played right now
@@ -29,11 +32,13 @@ Template.MobileLanding.helpers({
     if (featured){
       games = Games.find({
         _id: {$ne:featured._id}, 
+        status: "ACTIVE",
         start_datetime: {$lte:now}
       });
     } else {
       games = Games.find({
-        start_datetime: {$lte:now}
+        start_datetime: {$lte:now},
+        status: "ACTIVE"
       });
     }
     return games;

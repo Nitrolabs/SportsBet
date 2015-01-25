@@ -20,18 +20,19 @@
     
  	{{#with current_bet }}
  		{{#if is_user_bankrupt }}
-	 		<button id="buy-chips-button" class="button button-balanced">
-	 	 		<p>Buy More Credits</p>
+	 		<button id="buy-chips-button" class="button button-balanced" style="margin-bottom: 0px;margin-top: 10px;">
+	 	 		<p>Request More Credits</p>
 			</button>
 		{{ else }}
-			<button id="bet-amount-button" class="button button-positive">
+			<button id="bet-amount-button" class="button button-positive" style="margin-bottom: 0px;margin-top: 10px;">
 	 	 		<p class="bet-amount-value">{{ formatted_bet_amount }}</p>
 	 	 		<p class="bet-amount-label">Bet amount</p>
 			</button>
 		{{/if}}
 	
- 		<div class="card">
-		  <div id="bet-question-wrapper" class="item item-divider">
+ 		<div class="card" style="margin-top: 10px;">
+		  <div id="bet-question-wrapper" class="item item-divider" style=" white-space: normal; ">
+		  <!-- MAX: TODO - fix the white-space:normal thing I did above... -->
 		    {{#if question}}
 		        {{ question }}
 		    {{else}}
@@ -39,11 +40,11 @@
 		        <span id='leaderboard-subtext'>More bets coming soon!</span>
 		    {{/if}}
 		  </div>
-		  <div id="bet-answer-wrapper" class="item item-text-wrap">
+		  <div id="bet-answer-wrapper" class="item item-text-wrap" style="padding-bottom: 6px;padding-top: 6px;">
 		  {{#if status }} <!-- crude way to check whether there's a status, i.e. there's a bet-->
 		  	  {{#each addIndexesToArray outcomes }}
 		  	    {{#if notEmptyString text}}
-		  	    <div class="bet-option-div">
+		  	    <div class="bet-option-div" style="padding-bottom: 5px;">
 				  	<button class="button button-balanced bet-option-button" data-index-for-ref="{{index_for_ref}}">
 				  		{{ text }}
 				  		<!-- Jialu: play with users_in_bet -->

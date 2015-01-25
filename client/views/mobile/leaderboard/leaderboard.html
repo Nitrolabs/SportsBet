@@ -12,21 +12,22 @@
         <tbody>
             {{#each getUserLeaderboard}}
             <tr class="{{#if highlightMyselfOnTable}}balanced{{/if}}" style="{{#if highlightMyselfOnTable}}font-size: larger; font-weight: bolder; {{/if}}">
-                <td>?</td>
+                <td>{{getPositionsInLeaderboard}}</td>
                 <td><img class="profile-pic" src="{{ profile.image.small }}"></td>
                 <td>{{profile.name}}</td>
                 <td>${{bank_account}}</td>
-                <td>{{user_stats.bets_won_percentage}}</td>
+                <td>{{numberFormatBy user_stats.bets_won_percentage '0,0%'}}</td>
             </tr>
             {{/each}}
             
             {{#unless getSessionValue 'LeaderboardAmIinTop10'}}
-            <tr class="info" style="font-size: larger; font-weight: bolder;">
-                <td>N/A</td>
-                <td></td> <!-- TODO: add the photo here -->
-                <td>{{currentUser.username}}</td>
-                <td>{{currentUser.bank_account}}</td>
-                <td>{{currentUser.user_stats.bets_won_percentage}}</td>
+            <tr><td>...</td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr class="balanced" style="font-size: larger; font-weight: bolder;">
+                <td>{{getPositionsInLeaderboard}}</td>
+                <td><img class="profile-pic" src="{{ currentUser.profile.image.small }}"></td>
+                <td>{{currentUser.profile.name}}</td>
+                <td>${{currentUser.bank_account}}</td>
+                <td>{{numberFormatBy currentUser.user_stats.bets_won_percentage '0,0%'}}</td>
             </tr>
             {{/unless}}
         </tbody>
