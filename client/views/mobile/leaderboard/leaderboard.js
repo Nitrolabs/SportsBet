@@ -5,6 +5,7 @@ Template.Leaderboard.events({
 });
 
 Template.Leaderboard.helpers({
+
   leaderboard: function(){
     // ASSAF: Return a list that we can generate the leaderboard from
   }

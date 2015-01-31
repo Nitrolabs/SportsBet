@@ -26,7 +26,7 @@ Template.AdminUsersView.events({
 
         var id = this._id;
 
-        Meteor.users.update(id, {$inc: {bank_account: 100}, $set: {bank_request_more_funds: ""}});
+        Meteor.users.update(id, {$inc: {bank_account: 100}, $set: {bank_request_more_funds: null}});
     },
 
     'click #resortPosts': function(e,tmpl) {

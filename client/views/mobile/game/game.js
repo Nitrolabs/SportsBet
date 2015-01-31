@@ -2,6 +2,48 @@
 /* Game: Event Handlers
 /*****************************************************************************/
 Template.MobileGame.events({
+    
+    'click #bet-amount-button-pos':function() {
+        var max_bet = Meteor.user().bank_account;
+        var currBetAmount = Session.get('bet_amount');
+        var delta = 5;
+        if (currBetAmount < 20)        { delta = 5;   }
+        else if (currBetAmount < 50)   { delta = 10;  }
+        else if (currBetAmount < 100)  { delta = 20;  }
+        else if (currBetAmount < 500)  { delta = 50;  }
+        else if (currBetAmount < 1000) { delta = 100; }
+        else                           { delta = 250; }
+        
+        var newBetAmount = (Math.floor(currBetAmount / delta) + 1) * delta;
+        
+        if (newBetAmount > max_bet)
+            newBetAmount = max_bet;
+        Session.set('bet_amount', newBetAmount); 
+    },
+    'click #bet-amount-button-neg':function() {
+        var max_bet = Meteor.user().bank_account;
+        var currBetAmount = Session.get('bet_amount');
+        
+        var delta = 5;
+        if (currBetAmount <= 20)        { delta = 5;   }
+        else if (currBetAmount <= 50)   { delta = 10;  }
+        else if (currBetAmount <= 100)  { delta = 20;  }
+        else if (currBetAmount <= 500)  { delta = 50;  }
+        else if (currBetAmount <= 1000) { delta = 100; }
+        else                            { delta = 250; }
+        
+        var newBetAmount = Math.floor((currBetAmount / delta)-0.001) * delta;
+        
+        if (newBetAmount <= 5) {
+            newBetAmount = 5;
+        }
+        
+        if (newBetAmount > max_bet) {
+            newBetAmount = max_bet;
+        }
+        
+        Session.set('bet_amount', newBetAmount); 
+    },
     'click #side-menu-button':function(){
         //IonSideMenu.snapper.open();
     },
@@ -9,9 +51,11 @@ Template.MobileGame.events({
     'click #buy-chips-button': function (event, template) {
         // Meteor.users.update(Meteor.userId(), {$inc:{bank_account:100}});
         Meteor.users.update(Meteor.userId(), {$set:{bank_request_more_funds:"YES"}});
+        App.track("Ask for more money", {});
     },
 
     'click #bet-amount-button': function (event, template) {
+        App.track("BetSliderOpen", {})
         Blaze.render(Template.BetAmount,document.body)
         $(event.target).attr('disabled',true);
     },
@@ -36,9 +80,12 @@ Template.MobileGame.events({
 
 
         function submitBet(context){
+            console.log("submitBet");
+            console.log(context);
          	// We need to create a new user-bet, with correct bet_id and user_id
          	var user_bet_amount = Session.get('bet_amount');          	
          	var user_selected_answer = context.index_for_ref + 1;
+         	var odds = context.odds || 1;
 
             var user_in_bet = {
                 selection: user_selected_answer,
@@ -62,14 +109,18 @@ Template.MobileGame.events({
             {
                 $inc: {bank_account: -user_bet_amount,
                        "user_stats.money_on_the_table": user_bet_amount,
-                       "user_stats.total_number_of_bets_placed": 1}
+                       "user_stats.total_number_of_bets_placed": 1,
+                        "user_stats.potential_winnings": user_bet_amount * odds
+                }
             });
             UserBets.insert(new_user_bet);
             
             if (Session.get('bet_amount') > Meteor.user().bank_account && Meteor.user().bank_account > 0) {
                 Session.set('bet_amount',Meteor.user().bank_account);
             }
-            console.log("Done! Bet placed successfully! :)" );
+            
+            App.track("Bet Place", new_user_bet);
+            // console.log("Done! Bet placed successfully! :)" );
         }
     },
          
@@ -86,7 +137,8 @@ Template.MobileGame.events({
             submitted_at: new Date()
         };
         
-     	UserBets.insert(new_user_bet);	
+     	UserBets.insert(new_user_bet);
+     	App.track("Bet Skip", new_user_bet);
     }
 });
 
@@ -206,7 +258,8 @@ function onStatusChange(){
 
 function onBankUp(amount){
     
-    console.log('bank went up');
+    // console.log('bank went up');
+    App.track("Bank went up", {amount:amount});
     $('.bet-user-bank').addClass('success');
     $('.bet-user-bank span').addClass('text-success');
     setTimeout(function(){
@@ -216,7 +269,7 @@ function onBankUp(amount){
 }
 
 function onBankDown(amount){
-    console.log('bank went down');
+    App.track("Bank went down", {amount:amount});
     $('.bet-user-bank').addClass('danger');
     $('.bet-user-bank span').addClass('text-danger');
     setTimeout(function(){
