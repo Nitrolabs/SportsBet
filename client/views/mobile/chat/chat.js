@@ -4,6 +4,7 @@
 Template.Chat.events({
    'click #send-message':function(){
       // ASSAF: Insert message into db
+
    }
 
 
