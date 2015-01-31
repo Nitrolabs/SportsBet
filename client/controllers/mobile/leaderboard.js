@@ -3,6 +3,7 @@ LeaderboardController = RouteController.extend({
   },
 
   data: function () {
+  	return {_id:this.params._id}
   },
 
   action: function () {

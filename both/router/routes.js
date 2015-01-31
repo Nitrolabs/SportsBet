@@ -15,7 +15,7 @@ Router.route('/logout', {name: 'mobile.logout'});
 
 // Mobile Game views
 Router.route('/', {name: 'mobile.landing', layoutTemplate:'MobileLayout'});
-Router.route('/game/:_id', {name: 'mobile.game', layoutTemplate:'MobileLayout'});
+Router.route('/game/:_id/', {name: 'mobile.game', layoutTemplate:'MobileLayout'});
 Router.route('/game/:_id/history/', {name: 'history',layoutTemplate:'MobileLayout'});
 Router.route('/game/:_id/activebets/', {name: 'activebets',layoutTemplate:'MobileLayout'});
 Router.route('/game/:_id/leaderboard/', {name: 'leaderboard',layoutTemplate:'MobileLayout'});
