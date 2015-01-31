@@ -107,6 +107,7 @@ App.helpers = {
 
 _.each(App.helpers, function (helper, key) {
   Handlebars.registerHelper(key, helper);
+
 });
 
 initMixpanel = function() {
@@ -141,9 +142,3 @@ Template.mobileLayout.rendered = function(){
         $('#side-menu-button').removeClass('active');
     });
 }
-
-
-
-
-
-

@@ -161,6 +161,7 @@ Template.MainAdmin.events({
             // update User by adding new message to his/her queue 
             Meteor.users.update({_id: user._id}, updateQuery);
             
+            UserBets.update(bet_id, {$set: {resolved_at: new Date()}});
         });
         
         // Update the bet with the calculated statistics

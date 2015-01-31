@@ -2,16 +2,10 @@
 /* Leaderboard: Event Handlers and Helpersss .js*/
 /*****************************************************************************/
 Template.Leaderboard.events({
-  /*
-   * Example:
-   *  'click .selector': function (e, tmpl) {
-   *
-   *  }
-   */
 });
 
-
 Template.Leaderboard.helpers({
+<<<<<<< HEAD
     getUserLeaderboard: function() {
         var maxUsersInLeaderBoard = Session.get('maxUsersInLeaderBoard') || 3;
         var t = Meteor.users.find({},{sort: {bank_account: -1}, limit: maxUsersInLeaderBoard})
@@ -43,7 +37,13 @@ Template.Leaderboard.helpers({
         
         return index;
     }
+=======
+  leaderboard: function(){
+    // ASSAF: Return a list that we can generate the leaderboard from
+  }
+>>>>>>> d5c5f747f2e331aa21ca9f9608c968a9882d95f6
 });
+
 
 /*****************************************************************************/
 /* Leaderboard: Lifecycle Hooks */

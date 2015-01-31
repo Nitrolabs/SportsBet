@@ -33,7 +33,12 @@ var schema = new SimpleSchema({
     },
     submitted_at: {
         type: Date,
-        label: "Last date this book was checked out",
+        label: "Date when this bet was submitted",
+        optional: true
+    },
+    resolved_at: {
+        type: Date,
+        label: "Date when this bet was resolved",
         optional: true
     }
 });
