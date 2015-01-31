@@ -6,7 +6,16 @@ Template.MobileGame.events({
     'click #bet-amount-button-pos':function() {
         var max_bet = Meteor.user().bank_account;
         var currBetAmount = Session.get('bet_amount');
-        var newBetAmount = currBetAmount + 20;
+        var delta = 5;
+        if (currBetAmount < 20)        { delta = 5;   }
+        else if (currBetAmount < 50)   { delta = 10;  }
+        else if (currBetAmount < 100)  { delta = 20;  }
+        else if (currBetAmount < 500)  { delta = 50;  }
+        else if (currBetAmount < 1000) { delta = 100; }
+        else                           { delta = 250; }
+        
+        var newBetAmount = (Math.floor(currBetAmount / delta) + 1) * delta;
+        
         if (newBetAmount > max_bet)
             newBetAmount = max_bet;
         Session.set('bet_amount', newBetAmount); 
@@ -14,10 +23,19 @@ Template.MobileGame.events({
     'click #bet-amount-button-neg':function() {
         var max_bet = Meteor.user().bank_account;
         var currBetAmount = Session.get('bet_amount');
-        var newBetAmount = currBetAmount - 20;
         
-        if (newBetAmount <= 0) {
-            newBetAmount = 10;
+        var delta = 5;
+        if (currBetAmount <= 20)        { delta = 5;   }
+        else if (currBetAmount <= 50)   { delta = 10;  }
+        else if (currBetAmount <= 100)  { delta = 20;  }
+        else if (currBetAmount <= 500)  { delta = 50;  }
+        else if (currBetAmount <= 1000) { delta = 100; }
+        else                            { delta = 250; }
+        
+        var newBetAmount = Math.floor((currBetAmount / delta)-0.001) * delta;
+        
+        if (newBetAmount <= 5) {
+            newBetAmount = 5;
         }
         
         if (newBetAmount > max_bet) {
