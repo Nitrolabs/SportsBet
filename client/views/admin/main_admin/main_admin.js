@@ -139,7 +139,9 @@ Template.MainAdmin.events({
                 bank_account: money_to_add, 
                 "user_stats.total_number_of_bets_resolved": 1,
                 "user_stats.money_on_the_table": -userBet.wager,
-                "user_stats.total_number_of_bets_won": didWin},
+                "user_stats.total_number_of_bets_won": didWin,
+                "user_stats.potential_winnings": (-userBet.wager *  new_bet.outcomes[userBet.answer - 1].odds)
+             },
              $set: {"user_stats.bets_won_percentage": new_success_ratio},
              $push: {'messages_queue': {
                     mid: bet_id, 

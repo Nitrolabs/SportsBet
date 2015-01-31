@@ -25,7 +25,7 @@ Template.Leaderboard.helpers({
     highlightMyselfOnTable: function() {
         return (this._id == Meteor.userId());
     },
-    getPositionsInLeaderboard: function() {
+    getPositionsInLeaderboard: function(id) {
         var self = this;
         var index = 0;
         var t = Meteor.users.find({},{sort: {bank_account: -1}});
@@ -33,7 +33,7 @@ Template.Leaderboard.helpers({
         t.forEach(function(y) {
             if (!found) {
                 index++;
-                found = (y._id == self._id);
+                found = (y._id == id);
             }
         });
         

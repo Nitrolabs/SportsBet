@@ -38,9 +38,12 @@ Template.MobileGame.events({
 
 
         function submitBet(context){
+            console.log("submitBet");
+            console.log(context);
          	// We need to create a new user-bet, with correct bet_id and user_id
          	var user_bet_amount = Session.get('bet_amount');          	
          	var user_selected_answer = context.index_for_ref + 1;
+         	var odds = context.odds || 1;
 
             var user_in_bet = {
                 selection: user_selected_answer,
@@ -64,7 +67,9 @@ Template.MobileGame.events({
             {
                 $inc: {bank_account: -user_bet_amount,
                        "user_stats.money_on_the_table": user_bet_amount,
-                       "user_stats.total_number_of_bets_placed": 1}
+                       "user_stats.total_number_of_bets_placed": 1,
+                        "user_stats.potential_winnings": user_bet_amount * odds
+                }
             });
             UserBets.insert(new_user_bet);
             

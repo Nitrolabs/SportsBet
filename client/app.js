@@ -69,6 +69,8 @@ _.extend(App, {
 
 App.helpers = {
     
+    addTwoNumbers: function(a,b) {return a+b;},
+    
     numberFormatBy: function(num, format_str) {
         return numeral(num).format(format_str);
     },
