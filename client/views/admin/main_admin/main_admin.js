@@ -9,6 +9,10 @@ Template.MainAdmin.events({
    *  }
    */
    
+   'click [name=filterByStatus]': function(e,tmpl) {
+       Session.set("bets_filter_type", e.currentTarget.getAttribute('data-filter-string'))
+   },
+   
    'click [name=selectActiveBet]': function (e, tmpl) {
 
         var new_active_bet_id = this._id;
@@ -225,7 +229,12 @@ Template.MainAdmin.helpers({
    },
    
    betsForThisGame: function() {
-     return Bets.find({game_id: Session.get('admin_active_game')}); 
+       var bets_filter = {game_id: Session.get('admin_active_game')};
+       
+       if (Session.get("bets_filter_type") && Session.get("bets_filter_type") !== "") {
+           bets_filter.status = Session.get("bets_filter_type");
+       }
+     return Bets.find(bets_filter, {sort: {submitted_at: -1}}); 
    },
    
    getActiveBet: function() {
