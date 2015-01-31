@@ -2,6 +2,30 @@
 /* Game: Event Handlers
 /*****************************************************************************/
 Template.MobileGame.events({
+    
+    'click #bet-amount-button-pos':function() {
+        var max_bet = Meteor.user().bank_account;
+        var currBetAmount = Session.get('bet_amount');
+        var newBetAmount = currBetAmount + 20;
+        if (newBetAmount > max_bet)
+            newBetAmount = max_bet;
+        Session.set('bet_amount', newBetAmount); 
+    },
+    'click #bet-amount-button-neg':function() {
+        var max_bet = Meteor.user().bank_account;
+        var currBetAmount = Session.get('bet_amount');
+        var newBetAmount = currBetAmount - 20;
+        
+        if (newBetAmount <= 0) {
+            newBetAmount = 10;
+        }
+        
+        if (newBetAmount > max_bet) {
+            newBetAmount = max_bet;
+        }
+        
+        Session.set('bet_amount', newBetAmount); 
+    },
     'click #side-menu-button':function(){
         //IonSideMenu.snapper.open();
     },

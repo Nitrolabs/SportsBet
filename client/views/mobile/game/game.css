@@ -151,10 +151,25 @@
 	margin: 5px 0;
 }
 
+#bet-amount-div {
+    display: block;
+    vertical-align: center;
+}
 #bet-amount-button {
 	margin: 10px auto;
 	width: 140px;
-	display: block;
+}
+#bet-amount-button-pos {
+	margin: 10px auto;
+	width: 50px;
+	font-size: 20px;
+	padding: 10px 5px;
+}
+#bet-amount-button-neg {
+	margin: 10px auto;
+	width: 50px;
+	font-size: 20px;
+	padding: 10px 5px;
 }
 
 #bet-amount-button .bet-amount-value {
