@@ -244,7 +244,7 @@ Template.LeaderboardPreview.helpers({
 /*****************************************************************************/
 
 function onStatusChange(){
-    console.log('status changed');
+    // console.log('status changed');
     setTimeout(function(){
         $('.status_message').addClass('text-warning');
     },300);

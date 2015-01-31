@@ -6,7 +6,7 @@ Template.History.events({
 
 Template.History.helpers({
   bets:function(){
-    // Assaf: Return a list of bets
+    
     var list_history = _.pluck(Bets.find({status:"RESOLVED"}).fetch(), '_id');
     var user_history_bets = UserBets.find({user_id: Meteor.userId(), bet_id: {$in: list_history}}, {sort: {resolved_at: -1}});
     return user_history_bets;
