@@ -8,12 +8,12 @@ Template.Leaderboard.helpers({
   
   getUserLeaderboard: function() {
         var maxUsersInLeaderBoard = Session.get('maxUsersInLeaderBoard') || 3;
-        var t = Meteor.users.find({},{sort: {bank_account: -1}, limit: maxUsersInLeaderBoard})
+        var t = Meteor.users.find({},{sort: {bank_account: -1}, limit: maxUsersInLeaderBoard}).fetch()
         
         var amIinTop10 = false;
         t.forEach(function(y) {amIinTop10 |= (y._id == Meteor.userId());});
         Session.set('LeaderboardAmIinTop10', amIinTop10);
-                return t;
+        return t.concat(t,t,t,t,t,t,t);
     },
     highlightMyselfOnTable: function() {
         return (this._id == Meteor.userId());

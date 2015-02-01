@@ -1,10 +1,11 @@
 <template name="Leaderboard">
-
-	<div class="card" style="margin-top: 10px;">
-	  <div id="bet-question-wrapper" class="item item-divider" style=" white-space: normal; ">
-	  <!-- MAX: TODO - fix the white-space:normal thing I did above... -->
-        <h1 id='leaderboard-title' class='text-center' style="margin-bottom: 0px;">Leaderboard</h1>
-	  </div>
+    <div class="bar bar-header bar-dark">
+        <h1 class="title">Leaderboard</h1>
+    </div>
+    {{#ionContent}}
+	<br>
+    <br>
+    <div class="card" style="margin-top: 10px;">
 	  <div id="bet-answer-wrapper" class="item item-text-wrap" style="padding-bottom: 6px;padding-top: 6px;">
           <table class="table table-condensed">
                 <thead>
@@ -44,4 +45,6 @@
             </table>
         </div>
     </div>
+    {{/ionContent}}
+    
 </template>

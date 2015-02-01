@@ -34,14 +34,13 @@
 <template name="newBetsAlert">
 	<!-- Made visible when new bets are available -->
 	<!-- Otherwise hidden -->
-	<div class="alert alert-success bet-alert" role="alert">
-	  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-	  <span aria-hidden="true">&times;</span></button>
-	  <a href="#" class="alert-link">New bets are available</a>
-	</div>
-	{{#if current_bets }}
-
-	
+	{{#if showBetsAlert }}
+		<div class="alert alert-success bet-alert" role="alert">
+		  <button type="button" class="close alert-close" aria-label="Close">
+		  	<span aria-hidden="true">&times;</span></button>
+		  <a href="{{pathFor route='mobile.game'}}" class="bet-alert-link">New bets are available</a>
+		</div> 
+		<div class="greyness"></div>
 	{{/if}}
 </template>
 
