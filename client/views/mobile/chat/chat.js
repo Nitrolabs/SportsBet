@@ -13,6 +13,8 @@ Template.Chat.events({
                 game_id: gid
             });
         }
+        $("#send_message").val("")
+        return false
     }
 
 
