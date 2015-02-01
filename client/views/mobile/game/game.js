@@ -297,7 +297,7 @@ Template.MobileGame.helpers({
 
 Template.LeaderboardPreview.helpers({
     getUserLeaderboard: function() {
-        var maxUsersInLeaderBoard = Session.get('maxUsersInLeaderBoard') || 3;
+        var maxUsersInLeaderBoard = Session.get('maxUsersInLeaderBoardPreview') || 3;
         var t = Meteor.users.find({},{sort: {bank_account: -1}, limit: maxUsersInLeaderBoard})
         
         var amIinTop10 = false;
@@ -308,7 +308,7 @@ Template.LeaderboardPreview.helpers({
     highlightMyselfOnTable: function() {
         return (this._id == Meteor.userId());
     },
-    getPositionsInLeaderboard: function() {
+    getPositionsInLeaderboard: function(id) {
         var self = this;
         var index = 0;
         var t = Meteor.users.find({},{sort: {bank_account: -1}});
@@ -316,7 +316,7 @@ Template.LeaderboardPreview.helpers({
         t.forEach(function(y) {
             if (!found) {
                 index++;
-                found = (y._id == self._id);
+                found = (y._id == id);
             }
         });
         return index;
@@ -438,7 +438,10 @@ Template.MobileGame.created = function() {
     App.page.rendered = new Date();
 };
 
-Template.MobileGame.rendered = function(a, b, c) {};
+Template.MobileGame.rendered = function(a, b, c) {
+    Session.set("usingSmallScreen", $(window).height() < 480);
+    Session.set("usingVerySmallScreen", $(window).height() < 384);
+};
 
 Template.MobileGame.destroyed = function () {
 };

@@ -11,8 +11,8 @@
 	    {{#if skipped}}
 	        <a class="item item-thumbnail-left" href="#">
         		<i class='icon bet-status-icon ion-minus-round skipped'></i>
-          		<h2>{{ question }}</h2>
-          		<p><i>{{ status_update }}</i></p>
+          		<h2 style="white-space: normal;">{{ question }}</h2>
+          		<p style="white-space: normal;"><i>{{ status_update }}</i></p>
           		<p>Your Bet: {{ user_answer }}</p>
           		<p>Correct Bet: {{ correct_answer }}</p>
           	</a>
@@ -20,8 +20,8 @@
     		{{#if is_correct}}    	
     	    	<a class="item item-thumbnail-left" href="#">
     	    		<i class='icon bet-status-icon ion-checkmark correct'></i>
-    	      		<h2>{{ question }}</h2>
-    	      		<p><i>{{ status_update }}</i></p>
+    	      		<h2 style="white-space: normal;">{{ question }}</h2>
+    	      		<p style="white-space: normal;"><i>{{ status_update }}</i></p>
     	      		<p>Your Bet: {{ user_answer }}</p>
     	      		<p>Correct Bet: {{ correct_answer }}</p>
     	      		<p style="color:rgb(0, 207, 0)"><b>${{numberFormatBy profit '0,00'}}</b></p>
@@ -29,8 +29,8 @@
           	{{ else }}    	
         		<a class="item item-thumbnail-left" href="#">
     	    		<i class='icon bet-status-icon ion-close incorrect'></i>
-    	      		<h2>{{ question }}</h2>
-    	      		<p><i>{{ status_update }}</i></p>
+    	      		<h2 style="white-space: normal;">{{ question }}</h2>
+    	      		<p style="white-space: normal;"><i>{{ status_update }}</i></p>
     	      		<p>Your Bet: {{ user_answer }}</p>
     	      		<p>Correct Bet: {{ correct_answer }}</p>
     	      		<p style="color:rgb(207, 0, 0)"><b>{{numberFormatBy profit '$0,00'}}</b></p>

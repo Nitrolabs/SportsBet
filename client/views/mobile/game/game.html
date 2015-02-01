@@ -32,23 +32,25 @@
 	 	 		<p>Request More Credits</p>
 			</button>
 		{{ else }}
+		    {{#unless getSessionValue "usingVerySmallScreen"}}
 		    <div class="bet-amount-div" style="margin-bottom: 0px" align="center">
-    		    <button id="bet-amount-button-neg" class="btn btn-lg btn-danger">-</button>
-    			<button id="bet-amount-button" class="button button-positive" >
+    		    <button id="bet-amount-button-neg" class="btn btn-lg btn-danger" style="margin-top:4px;margin-bottom:4px">-</button>
+    			<button id="bet-amount-button" style="margin-top:4px;margin-bottom:4px" class="button button-positive" >
     	 	 		<p class="bet-amount-value">{{ formatted_bet_amount }}</p>
     	 	 		<p class="bet-amount-label">Bet amount</p>
     			</button>
-    			<button id="bet-amount-button-pos" class="btn btn-lg btn-success">+</button>
+    			<button style="margin-top:4px;margin-bottom:4px" id="bet-amount-button-pos" class="btn btn-lg btn-success">+</button>
 			</div>
+			{{/unless}}
 		{{/if}}
 	
- 		<div class="card" style="margin-top: 10px;">
-		  <div id="bet-question-wrapper" class="item item-divider" style=" white-space: normal; ">
+ 		<div class="card" style="margin-top: 5px;margin-left:5px;margin-right:5px;margin-bottom:5px;">
+		  <div id="bet-question-wrapper" class="item item-divider" style=" white-space: normal;padding-top:4px;padding-bottom:4px">
 		  <!-- MAX: TODO - fix the white-space:normal thing I did above... -->
 		    {{#if question}}
 		        {{ question }}
 		    {{else}}
-		        <h1 id='leaderboard-title' class='text-center' style="margin-bottom: 0px;">More Bets Coming Soon!</h1>
+		        <h1 class='text-center' style="margin-bottom: 0px;font-size: 22px;">More Bets Coming Soon!</h1>
 		        <span id='leaderboard-subtext'>Check this page often to see new bets</span>
 		    {{/if}}
 		  </div>
@@ -64,6 +66,7 @@
 				  			<span class='win-text pull-right'>{{ formatted_win_value }}</span>
 				  		</p>
 					</button>
+					{{#unless getSessionValue "usingSmallScreen"}}
 					<div class='user-face-wrapper clearfix'>
 					{{#each users_in_question index_for_ref }}
 						<div class='user-face'>
@@ -72,6 +75,7 @@
 						</div>
 					{{/each}}
 					</div>
+					{{/unless}}
 				</div>
 				{{/if}}
 			  {{/each}}
@@ -100,7 +104,8 @@
 		  {{else}}
 		    <div class="bet-ongoing-stats">
 		  	     <span>{{ number_bets }} bets 
-		  	    (total <span class="text-info">${{ value_bets}}</span>) pending -- can win additional <span class="text-info">${{ currentUser.user_stats.potential_winnings}}</span>!</span>
+		  	    <!--(total <span class="text-info">${{ value_bets}}</span>) -->
+		  	    pending -- can win additional <span class="text-info">${{ currentUser.user_stats.potential_winnings}}</span>!</span>
 		    </div>
 		  {{/if}}
 	  </div>
@@ -114,7 +119,7 @@
 
 
 <template name="LeaderboardPreview">
-    <h1>You are currently <span class="text-info">#{{getPositionsInLeaderboard currentUser._id}}</span> of {{getTotalNumOfUsers}} Users</h1>
+    <h1 style="margin-bottom: 0px;font-size: 18px;">You are currently <span class="text-info">#{{getPositionsInLeaderboard currentUser._id}}</span> of {{getTotalNumOfUsers}} Users</h1>
     <h2>If you win all your bets, you'll have <span class="text-info">${{addTwoNumbers currentUser.user_stats.potential_winnings currentUser.bank_account}}</span></h2>
     <h2>Click on the Leaderboard icon below to see how others are doing</h2>
     <br>
