@@ -140,13 +140,6 @@ Template.MobileGame.events({
             $('.bet-option-button').removeAttr('disabled');
         }, 1000);
 
-
-<<<<<<< HEAD
-        function submitBet(context) {
-            // We need to create a new user-bet, with correct bet_id and user_id
-            var user_bet_amount = Session.get('bet_amount');
-            var user_selected_answer = context.index_for_ref + 1;
-=======
         function submitBet(context){
             console.log("submitBet");
             console.log(context);
@@ -154,8 +147,6 @@ Template.MobileGame.events({
          	var user_bet_amount = Session.get('bet_amount');          	
          	var user_selected_answer = context.index_for_ref + 1;
          	var odds = context.odds || 1;
->>>>>>> d9113999701d23be26e8786c6b7ce77970f08d65
-
             var user_in_bet = {
                 selection: user_selected_answer,
                 userid: Meteor.userId(),
@@ -179,20 +170,12 @@ Template.MobileGame.events({
                 }
             })
 
-<<<<<<< HEAD
-            Meteor.users.update(Meteor.userId(), {
-                $inc: {
-                    bank_account: -user_bet_amount,
-                    "user_stats.money_on_the_table": user_bet_amount,
-                    "user_stats.total_number_of_bets_placed": 1
-=======
             Meteor.users.update(Meteor.userId(), 
             {
                 $inc: {bank_account: -user_bet_amount,
                        "user_stats.money_on_the_table": user_bet_amount,
                        "user_stats.total_number_of_bets_placed": 1,
                         "user_stats.potential_winnings": user_bet_amount * odds
->>>>>>> d9113999701d23be26e8786c6b7ce77970f08d65
                 }
             });
             UserBets.insert(new_user_bet);
@@ -200,13 +183,8 @@ Template.MobileGame.events({
             if (Session.get('bet_amount') > Meteor.user().bank_account && Meteor.user().bank_account > 0) {
                 Session.set('bet_amount', Meteor.user().bank_account);
             }
-<<<<<<< HEAD
-            console.log("Done! Bet placed successfully! :)");
-=======
-            
             App.track("Bet Place", new_user_bet);
             // console.log("Done! Bet placed successfully! :)" );
->>>>>>> d9113999701d23be26e8786c6b7ce77970f08d65
         }
     },
 
@@ -222,14 +200,8 @@ Template.MobileGame.events({
             was_result_displayed: false,
             submitted_at: new Date()
         };
-<<<<<<< HEAD
-
-        UserBets.insert(new_user_bet);
-=======
-        
      	UserBets.insert(new_user_bet);
      	App.track("Bet Skip", new_user_bet);
->>>>>>> d9113999701d23be26e8786c6b7ce77970f08d65
     }
 });
 
@@ -371,16 +343,10 @@ function onStatusChange() {
     }, 5000);
 }
 
-<<<<<<< HEAD
-function onBankUp(amount) {
-
-    console.log('bank went up');
-=======
 function onBankUp(amount){
     
     // console.log('bank went up');
     App.track("Bank went up", {amount:amount});
->>>>>>> d9113999701d23be26e8786c6b7ce77970f08d65
     $('.bet-user-bank').addClass('success');
     $('.bet-user-bank span').addClass('text-success');
     setTimeout(function() {
@@ -389,13 +355,8 @@ function onBankUp(amount){
     }, 1000);
 }
 
-<<<<<<< HEAD
-function onBankDown(amount) {
-    console.log('bank went down');
-=======
 function onBankDown(amount){
     App.track("Bank went down", {amount:amount});
->>>>>>> d9113999701d23be26e8786c6b7ce77970f08d65
     $('.bet-user-bank').addClass('danger');
     $('.bet-user-bank span').addClass('text-danger');
     setTimeout(function() {
@@ -475,13 +436,5 @@ Template.MobileGame.created = function() {
 
 Template.MobileGame.rendered = function(a, b, c) {};
 
-<<<<<<< HEAD
-Template.MobileGame.destroyed = function() {};
-=======
 Template.MobileGame.destroyed = function () {
 };
-
-
-
-
->>>>>>> d9113999701d23be26e8786c6b7ce77970f08d65
