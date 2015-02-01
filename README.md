@@ -53,7 +53,6 @@ sudo ssh -i .deploy/Sportsbet.pem ubuntu@ec2-54-191-204-54.us-west-2.compute.ama
 sudo chmod 700 .deploy/Sportsbet.pem
 
 # To erase the database run the following commands on the server
-for more info
 mongo meteor # Accesses the meteor apps database
 db.dropDatabase()
 ```
