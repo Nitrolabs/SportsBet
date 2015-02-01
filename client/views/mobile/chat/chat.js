@@ -29,7 +29,7 @@ Template.Chat.helpers({
         });
     }, 
     getUserName: function() {
-        return Meteor.users.findOne(this.user_id).username;
+        return Meteor.users.findOne(this.user_id).profile.name;
     },
     getAvatar: function() {
         return Users.findOne(this.user_id).profile.image.normal;
