@@ -49,7 +49,7 @@
 		        {{ question }}
 		    {{else}}
 		        <h1 id='leaderboard-title' class='text-center' style="margin-bottom: 0px;">More Bets Coming Soon!</h1>
-		        <span id='leaderboard-subtext'>More bets coming soon!</span>
+		        <span id='leaderboard-subtext'>Check this page often to see new bets</span>
 		    {{/if}}
 		  </div>
 		  <div id="bet-answer-wrapper" class="item item-text-wrap" style="padding-bottom: 6px;padding-top: 6px;">
@@ -114,30 +114,39 @@
 
 
 <template name="LeaderboardPreview">
-    <h2>More bets coming soon...</h2>
-    <table class="table table-condensed">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th></th>
-                <th>{{> ionIcon icon='android-contact' class='leaderboard-person' }}</th>
-                <th>{{> ionIcon icon='social-usd' class='leaderboard-money' }}</th>
+    <h1>You are currently <span class="text-info">#{{getPositionsInLeaderboard currentUser._id}}</span> of {{getTotalNumOfUsers}} Users</h1>
+    <h2>If you win all your bets, you'll have <span class="text-info">${{addTwoNumbers currentUser.user_stats.potential_winnings currentUser.bank_account}}</span></h2>
+    <h2>Click on the Leaderboard icon below to see how others are doing</h2>
+    <br>
+    <h2>Click the Active Bets or History icons below to see your previous bets</h2>
+    <br>
+    <h2>Click the Chat icon below to chat and trash talk</h2>
+    
+    <!--<br>-->
+    
+    <!--<table class="table table-condensed">-->
+    <!--    <thead>-->
+    <!--        <tr>-->
+    <!--            <th>#</th>-->
+    <!--            <th></th>-->
+    <!--            <th>{{> ionIcon icon='android-contact' class='leaderboard-person' }}</th>-->
+    <!--            <th>{{> ionIcon icon='social-usd' class='leaderboard-money' }}</th>-->
                 <!--<th>{{> ionIcon icon='checkmark' class='leaderboard-tick' }}</th>-->
-                <th>Potential</th>
-            </tr>
-        </thead>
-        <tbody>
+    <!--            <th>Potential</th>-->
+    <!--        </tr>-->
+    <!--    </thead>-->
+    <!--    <tbody>-->
             
             <!--<tr><td>...</td><td></td><td></td><td></td><td></td><td></td></tr>-->
-            <tr class="balanced" style="font-size: larger; font-weight: bolder;">
-                 <td>{{getPositionsInLeaderboard currentUser._id}}</td>
-                <td><img class="profile-pic" src="{{ currentUser.profile.image.small }}"></td>
-                <td>{{currentUser.profile.name}}</td>
-                <td>${{currentUser.bank_account}}</td>
+    <!--        <tr class="balanced" style="font-size: larger; font-weight: bolder;">-->
+    <!--             <td>{{getPositionsInLeaderboard currentUser._id}}</td>-->
+    <!--            <td><img class="profile-pic" src="{{ currentUser.profile.image.small }}"></td>-->
+    <!--            <td>{{currentUser.profile.name}}</td>-->
+    <!--            <td>${{currentUser.bank_account}}</td>-->
                 <!--<td>{{numberFormatBy currentUser.user_stats.bets_won_percentage '0,0%'}}</td>-->
-                <td>${{addTwoNumbers currentUser.user_stats.potential_winnings currentUser.bank_account}}</td>
-            </tr>
+    <!--            <td>${{addTwoNumbers currentUser.user_stats.potential_winnings currentUser.bank_account}}</td>-->
+    <!--        </tr>-->
             
-        </tbody>
-    </table>
+    <!--    </tbody>-->
+    <!--</table>-->
 </template>

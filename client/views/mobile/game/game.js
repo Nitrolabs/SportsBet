@@ -320,6 +320,9 @@ Template.LeaderboardPreview.helpers({
             }
         });
         return index;
+    },
+    getTotalNumOfUsers: function() {
+        return Meteor.users.find().count();
     }
 });
 
