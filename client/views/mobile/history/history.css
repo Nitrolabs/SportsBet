@@ -20,3 +20,6 @@
 .bet-status-icon.incorrect {
 	color: rgb(207, 0, 0);
 }
+.bet-status-icon.skipped {
+    color: #666;
+}
