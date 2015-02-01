@@ -11,7 +11,7 @@ var schema_for_user = new SimpleSchema({
         optional: true,
         blackbox: true
     },
-    
+
     createdAt: {
         type: Date,
         optional: true
@@ -40,12 +40,12 @@ var schema_for_user = new SimpleSchema({
     bank_account: {
         type: Number,
         decimal: true,
-        label:"User available currency"
+        label: "User available currency"
     },
     bank_request_more_funds: {
         type: String,
-        optional:true,
-        label:"User asked for more chips"
+        optional: true,
+        label: "User asked for more chips"
     },
     messages_queue: {
         type: [Object],
@@ -53,19 +53,43 @@ var schema_for_user = new SimpleSchema({
     },
     "messages_queue.$.mid": {
         type: String,
-        optional:true,
-        label:"Message ID"
+        optional: true,
+        label: "Message ID"
     },
     "messages_queue.$.text": {
         type: String,
-        optional:true,
-        label:"Message to show to the user"
+        optional: true,
+        label: "Message to show to the user"
     },
     "messages_queue.$.was_seen": {
         type: Boolean,
-        optional:true,
-        label:"Did the user see the message?"
+        optional: true,
+        label: "Did the user see the message?"
     },
+
+    location: {
+        type: Object,
+        optional: true,
+        label: "Location info"
+    },
+
+    "location.time": {
+        type: Date,
+        optional: true
+    },
+
+    "location.longitude": {
+        type: Number,
+        decimal: true,
+        optional: true
+    },
+
+    "location.latitude": {
+        type: Number,
+        decimal: true,
+        optional: true
+    },
+
     user_stats: {
         type: Object,
         optional: true,
@@ -75,42 +99,40 @@ var schema_for_user = new SimpleSchema({
         type: Number,
         decimal: true,
         optional: true,
-        label:"Total money on the table"
+        label: "Total money on the table"
     },
     "user_stats.total_number_of_bets_placed": {
         type: Number,
         optional: true,
-        label:"Total # of bets placed"
+        label: "Total # of bets placed"
     },
     "user_stats.total_number_of_bets_resolved": {
         type: Number,
         optional: true,
-        label:"Total # of bets resolved"
+        label: "Total # of bets resolved"
     },
     "user_stats.total_wins_in_a_row": {
         type: Number,
         optional: true,
-        label:"total number of wins in a row"
+        label: "total number of wins in a row"
     },
     "user_stats.total_number_of_bets_won": {
         type: Number,
         optional: true,
-        label:"Total # of bets won"
+        label: "Total # of bets won"
     },
     "user_stats.bets_won_percentage": {
         type: Number,
         decimal: true,
         optional: true,
-        label:"User available currency"
+        label: "User available currency"
     },
-    
     "user_stats.potential_winnings": {
         type: Number,
         decimal: true,
         optional: true,
         label:"Potentail winnings in best case - win all pending bets"
     },
-    
 });
 
 Meteor.users.attachSchema(schema_for_user);
