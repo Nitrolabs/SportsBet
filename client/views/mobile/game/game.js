@@ -4,7 +4,48 @@
 const DISTANCE_FROM_ME = 2 // in kilometers
 const USERS_IN_PAST_TIME = 2 // in hours
 Template.MobileGame.events({
-    'click #side-menu-button': function() {
+    'click #bet-amount-button-pos':function() {
+        var max_bet = Meteor.user().bank_account;
+        var currBetAmount = Session.get('bet_amount');
+        var delta = 5;
+        if (currBetAmount < 20)        { delta = 5;   }
+        else if (currBetAmount < 50)   { delta = 10;  }
+        else if (currBetAmount < 100)  { delta = 20;  }
+        else if (currBetAmount < 500)  { delta = 50;  }
+        else if (currBetAmount < 1000) { delta = 100; }
+        else                           { delta = 250; }
+        
+        var newBetAmount = (Math.floor(currBetAmount / delta) + 1) * delta;
+        
+        if (newBetAmount > max_bet)
+            newBetAmount = max_bet;
+        Session.set('bet_amount', newBetAmount); 
+    },
+    'click #bet-amount-button-neg':function() {
+        var max_bet = Meteor.user().bank_account;
+        var currBetAmount = Session.get('bet_amount');
+        
+        var delta = 5;
+        if (currBetAmount <= 20)        { delta = 5;   }
+        else if (currBetAmount <= 50)   { delta = 10;  }
+        else if (currBetAmount <= 100)  { delta = 20;  }
+        else if (currBetAmount <= 500)  { delta = 50;  }
+        else if (currBetAmount <= 1000) { delta = 100; }
+        else                            { delta = 250; }
+        
+        var newBetAmount = Math.floor((currBetAmount / delta)-0.001) * delta;
+        
+        if (newBetAmount <= 5) {
+            newBetAmount = 5;
+        }
+        
+        if (newBetAmount > max_bet) {
+            newBetAmount = max_bet;
+        }
+        
+        Session.set('bet_amount', newBetAmount); 
+    },
+    'click #side-menu-button':function(){
         //IonSideMenu.snapper.open();
     },
 
@@ -71,6 +112,7 @@ Template.MobileGame.events({
 
     'click #buy-chips-button': function(event, template) {
         // Meteor.users.update(Meteor.userId(), {$inc:{bank_account:100}});
+<<<<<<< HEAD
         Meteor.users.update(Meteor.userId(), {
             $set: {
                 bank_request_more_funds: "YES"
@@ -81,6 +123,16 @@ Template.MobileGame.events({
     'click #bet-amount-button': function(event, template) {
         Blaze.render(Template.BetAmount, document.body)
         $(event.target).attr('disabled', true);
+=======
+        Meteor.users.update(Meteor.userId(), {$set:{bank_request_more_funds:"YES"}});
+        App.track("Ask for more money", {});
+    },
+
+    'click #bet-amount-button': function (event, template) {
+        App.track("BetSliderOpen", {})
+        Blaze.render(Template.BetAmount,document.body)
+        $(event.target).attr('disabled',true);
+>>>>>>> d9113999701d23be26e8786c6b7ce77970f08d65
     },
 
     'click .bet-option-button': function(event, template) {
@@ -102,10 +154,20 @@ Template.MobileGame.events({
         }, 1000);
 
 
+<<<<<<< HEAD
         function submitBet(context) {
             // We need to create a new user-bet, with correct bet_id and user_id
             var user_bet_amount = Session.get('bet_amount');
             var user_selected_answer = context.index_for_ref + 1;
+=======
+        function submitBet(context){
+            console.log("submitBet");
+            console.log(context);
+         	// We need to create a new user-bet, with correct bet_id and user_id
+         	var user_bet_amount = Session.get('bet_amount');          	
+         	var user_selected_answer = context.index_for_ref + 1;
+         	var odds = context.odds || 1;
+>>>>>>> d9113999701d23be26e8786c6b7ce77970f08d65
 
             var user_in_bet = {
                 selection: user_selected_answer,
@@ -130,11 +192,20 @@ Template.MobileGame.events({
                 }
             })
 
+<<<<<<< HEAD
             Meteor.users.update(Meteor.userId(), {
                 $inc: {
                     bank_account: -user_bet_amount,
                     "user_stats.money_on_the_table": user_bet_amount,
                     "user_stats.total_number_of_bets_placed": 1
+=======
+            Meteor.users.update(Meteor.userId(), 
+            {
+                $inc: {bank_account: -user_bet_amount,
+                       "user_stats.money_on_the_table": user_bet_amount,
+                       "user_stats.total_number_of_bets_placed": 1,
+                        "user_stats.potential_winnings": user_bet_amount * odds
+>>>>>>> d9113999701d23be26e8786c6b7ce77970f08d65
                 }
             });
             UserBets.insert(new_user_bet);
@@ -142,7 +213,13 @@ Template.MobileGame.events({
             if (Session.get('bet_amount') > Meteor.user().bank_account && Meteor.user().bank_account > 0) {
                 Session.set('bet_amount', Meteor.user().bank_account);
             }
+<<<<<<< HEAD
             console.log("Done! Bet placed successfully! :)");
+=======
+            
+            App.track("Bet Place", new_user_bet);
+            // console.log("Done! Bet placed successfully! :)" );
+>>>>>>> d9113999701d23be26e8786c6b7ce77970f08d65
         }
     },
 
@@ -158,8 +235,14 @@ Template.MobileGame.events({
             was_result_displayed: false,
             submitted_at: new Date()
         };
+<<<<<<< HEAD
 
         UserBets.insert(new_user_bet);
+=======
+        
+     	UserBets.insert(new_user_bet);
+     	App.track("Bet Skip", new_user_bet);
+>>>>>>> d9113999701d23be26e8786c6b7ce77970f08d65
     }
 });
 
@@ -247,6 +330,43 @@ Template.MobileGame.helpers({
     }
 });
 
+
+
+/*****************************************************************************/
+/* Game: LeaderboardPreview Helpers */
+/*****************************************************************************/
+
+Template.LeaderboardPreview.helpers({
+    getUserLeaderboard: function() {
+        var maxUsersInLeaderBoard = Session.get('maxUsersInLeaderBoard') || 3;
+        var t = Meteor.users.find({},{sort: {bank_account: -1}, limit: maxUsersInLeaderBoard})
+        
+        var amIinTop10 = false;
+        t.forEach(function(y) {amIinTop10 |= (y._id == Meteor.userId());});
+        Session.set('LeaderboardAmIinTop10', amIinTop10);
+                return t;
+    },
+    highlightMyselfOnTable: function() {
+        return (this._id == Meteor.userId());
+    },
+    getPositionsInLeaderboard: function() {
+        var self = this;
+        var index = 0;
+        var t = Meteor.users.find({},{sort: {bank_account: -1}});
+       var found = false;
+        t.forEach(function(y) {
+            if (!found) {
+                index++;
+                found = (y._id == self._id);
+            }
+        });
+        return index;
+    }
+});
+
+
+
+
 /*****************************************************************************/
 /* Game: Collection Hooks */
 /*****************************************************************************/
@@ -264,9 +384,16 @@ function onStatusChange() {
     }, 5000);
 }
 
+<<<<<<< HEAD
 function onBankUp(amount) {
 
     console.log('bank went up');
+=======
+function onBankUp(amount){
+    
+    // console.log('bank went up');
+    App.track("Bank went up", {amount:amount});
+>>>>>>> d9113999701d23be26e8786c6b7ce77970f08d65
     $('.bet-user-bank').addClass('success');
     $('.bet-user-bank span').addClass('text-success');
     setTimeout(function() {
@@ -275,8 +402,13 @@ function onBankUp(amount) {
     }, 1000);
 }
 
+<<<<<<< HEAD
 function onBankDown(amount) {
     console.log('bank went down');
+=======
+function onBankDown(amount){
+    App.track("Bank went down", {amount:amount});
+>>>>>>> d9113999701d23be26e8786c6b7ce77970f08d65
     $('.bet-user-bank').addClass('danger');
     $('.bet-user-bank span').addClass('text-danger');
     setTimeout(function() {
@@ -356,4 +488,13 @@ Template.MobileGame.created = function() {
 
 Template.MobileGame.rendered = function(a, b, c) {};
 
+<<<<<<< HEAD
 Template.MobileGame.destroyed = function() {};
+=======
+Template.MobileGame.destroyed = function () {
+};
+
+
+
+
+>>>>>>> d9113999701d23be26e8786c6b7ce77970f08d65

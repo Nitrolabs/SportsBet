@@ -10,21 +10,40 @@
 
 <template name="mobileLayout">
 	{{#ionBody}}
-	  {{#ionSideMenuContainer side="right"}}
-	    {{#ionSideMenus}}
-	      {{#ionSideMenu side="right"}}
-	        {{>sideMenuContent}}
-	      {{/ionSideMenu}}
-	    {{/ionSideMenus}}
-	    {{#ionSideMenuContent}}
-		    {{> ionNavBar class="bar-dark"}}
+	    {{#ionContent}}
 		    {{#ionNavView}}
 		      {{> yield}}
 		    {{/ionNavView}}
-		{{/ionSideMenuContent}}
-	  {{/ionSideMenuContainer}}
+		{{/ionContent}}	
+		{{>navigation}}
 	{{/ionBody}}
 </template>
+
+
+
+
+<template name="navigation">
+	{{#if isAndroid}}
+      {{#ionTabs style="android" class="tabs-dark tabs-icon-top"}}
+        {{> ionTab title="New Bets" href="mobile.game" icon="android-home"}}
+        {{> ionTab title="Active Bets" href="activebets" icon="android-star"}}
+        {{> ionTab title="History" href="history" icon="android-time"}}
+        {{> ionTab title="Leaderboard" href="leaderboard/" icon="android-list"}}
+        {{> ionTab title="Chat" href="chat" icon="android-happy"}}
+      {{/ionTabs}}
+    {{else}}
+      {{#ionTabs style="ios" class="tabs-dark tabs-icon-top"}}
+        {{> ionTab title="New Bets" path="mobile.game" icon="ios-home"}}
+        {{> ionTab title="Active Bets" path="activebets" icon="android-star"}}
+        {{> ionTab title="History" path="history" icon="ios-time"}}
+        {{> ionTab title="Leaderboard" path="leaderboard" icon="ios-list"}}
+        {{> ionTab title="Chat" path="chat" icon="ios-people"}}
+      {{/ionTabs}}
+    {{/if}}
+</template>
+
+
+
 
 <template name="sideMenuContent">
 	<div class="list">

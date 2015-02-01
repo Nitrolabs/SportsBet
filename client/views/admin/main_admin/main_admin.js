@@ -9,6 +9,10 @@ Template.MainAdmin.events({
    *  }
    */
    
+   'click [name=filterByStatus]': function(e,tmpl) {
+       Session.set("bets_filter_type", e.currentTarget.getAttribute('data-filter-string'))
+   },
+   
    'click [name=selectActiveBet]': function (e, tmpl) {
 
         var new_active_bet_id = this._id;
@@ -61,6 +65,8 @@ Template.MainAdmin.events({
         console.log(new_bet_id);
         
         Session.set('admin_active_bet', new_bet_id);
+        
+        App.track("Admin - create new bet", new_bet);
     
    },
    
@@ -72,21 +78,26 @@ Template.MainAdmin.events({
         
         if (e.target.id == "saveBet") {
             // Nothing special to do
+            App.track("Admin - save bet", new_bet);
         }
         else if (e.target.id == "activateBet") {
             
             new_bet.activated_at = new Date();
             new_bet.status = "ACTIVE";
+            App.track("Admin - activate bet", new_bet);
         }
         else if (e.target.id == "closeBet") {
             new_bet.closed_at = new Date();
             new_bet.status = "CLOSED";
+            App.track("Admin - close bet", new_bet);
         }
         
         Bets.update(
             Session.get('admin_active_bet'), 
             {$set: new_bet}
             );
+            
+        
    },
    
    'click #resolveBet': function(e,tmpl) {
@@ -132,7 +143,9 @@ Template.MainAdmin.events({
                 bank_account: money_to_add, 
                 "user_stats.total_number_of_bets_resolved": 1,
                 "user_stats.money_on_the_table": -userBet.wager,
-                "user_stats.total_number_of_bets_won": didWin},
+                "user_stats.total_number_of_bets_won": didWin,
+                "user_stats.potential_winnings": (-userBet.wager *  new_bet.outcomes[userBet.answer - 1].odds)
+             },
              $set: {"user_stats.bets_won_percentage": new_success_ratio},
              $push: {'messages_queue': {
                     mid: bet_id, 
@@ -152,11 +165,14 @@ Template.MainAdmin.events({
             // update User by adding new message to his/her queue 
             Meteor.users.update({_id: user._id}, updateQuery);
             
+            UserBets.update(bet_id, {$set: {resolved_at: new Date()}});
         });
         
         // Update the bet with the calculated statistics
         new_bet.statistics = statistics;    
         Bets.update(bet_id, {$set: new_bet});
+        
+        App.track("Admin - resolve bet", new_bet);
    }
    
    
@@ -213,7 +229,12 @@ Template.MainAdmin.helpers({
    },
    
    betsForThisGame: function() {
-     return Bets.find({game_id: Session.get('admin_active_game')}); 
+       var bets_filter = {game_id: Session.get('admin_active_game')};
+       
+       if (Session.get("bets_filter_type") && Session.get("bets_filter_type") !== "") {
+           bets_filter.status = Session.get("bets_filter_type");
+       }
+     return Bets.find(bets_filter, {sort: {submitted_at: -1}}); 
    },
    
    getActiveBet: function() {

@@ -4,7 +4,8 @@
       "facebookSecret": "e37cdbd2886075defec95c0bb5f3752c"
   },
   "public":{
-  	  "root_url":"http://maxkferg.koding.io/"
+  	  "root_url":"http://maxkferg.koding.io/",
+  	  "mixpanel": "67474c73b84907f1bf1b51b0a3a5703d"
   }
 
 }

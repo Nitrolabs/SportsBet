@@ -127,7 +127,12 @@ var schema_for_user = new SimpleSchema({
         optional: true,
         label: "User available currency"
     },
-
+    "user_stats.potential_winnings": {
+        type: Number,
+        decimal: true,
+        optional: true,
+        label:"Potentail winnings in best case - win all pending bets"
+    },
 });
 
 Meteor.users.attachSchema(schema_for_user);

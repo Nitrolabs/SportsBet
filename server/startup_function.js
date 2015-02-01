@@ -19,7 +19,7 @@ Accounts.onCreateUser(function(options, user) {
     user.bank_account = 1000;
     user.messages_queue = [];
     user.user_stats = {money_on_the_table: 0, total_number_of_bets_placed: 0, total_number_of_bets_resolved: 0, 
-                       total_wins_in_a_row:0, total_number_of_bets_won:0, bets_won_percentage: 0};
+                       total_wins_in_a_row:0, total_number_of_bets_won:0, bets_won_percentage: 0, potential_winnings: 0};
     // Set up the profile picture
     var url = "/images/profile.png";
     if (user.services && user.services.facebook){
