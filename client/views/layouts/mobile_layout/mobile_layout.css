@@ -177,3 +177,13 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .text-warning {
 	color: #f89406 !important;
 }
+.bet-alert {
+	padding:30px;
+	font-size:20px;
+	position: absolute;
+	top:50px;
+	left:5px;
+	right: 5px;
+	width: auto;
+	z-index: 999;
+}

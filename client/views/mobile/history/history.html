@@ -1,23 +1,33 @@
 <template name="History">
-	{{#each bets }}
-	<div class="list">
-		{{#if is_correct}}    	
-	    	<a class="item item-thumbnail-left" href="#">
-	    		<i class='icon bet-status-icon ion-checkmark correct'></i>
-	      		<h2>{{ question }}</h2>
-	      		<p><i>{{ status_update }}</i></p>
-	      		<p>Your Bet: {{ user_answer }}</p>
-	      		<p>Correct Bet: {{ correct_answer }}</p>
-	      	</a>
-      	{{ else }}    	
-    		<a class="item item-thumbnail-left" href="#">
-	    		<i class='icon bet-status-icon ion-close incorrect'></i>
-	      		<h2>{{ question }}</h2>
-	      		<p><i>{{ status_update }}</i></p>
-	      		<p>Your Bet: {{ user_answer }}</p>
-	      		<p>Correct Bet: {{ correct_answer }}</p>
-	      	</a>
-	    {{/if}}
+	<div class="bar bar-header bar-dark">
+		<h1 class="title">Bet History</h1>
 	</div>
-	{{/each}}
+	{{#ionContent}}
+    	{{#each bets }}
+		<div class="list">
+			{{#if is_correct}}    	
+		    	<a class="item item-thumbnail-left" href="#">
+		    		<i class='icon bet-status-icon ion-checkmark correct'></i>
+		      		<h2>{{ question }}</h2>
+		      		<p><i>{{ status_update }}</i></p>
+		      		<p>Your Bet: {{ user_answer }}</p>
+		      		<p>Correct Bet: {{ correct_answer }}</p>
+		      	</a>
+	      	{{ else }}    	
+	    		<a class="item item-thumbnail-left" href="#">
+		    		<i class='icon bet-status-icon ion-close incorrect'></i>
+		      		<h2>{{ question }}</h2>
+		      		<p><i>{{ status_update }}</i></p>
+		      		<p>Your Bet: {{ user_answer }}</p>
+		      		<p>Correct Bet: {{ correct_answer }}</p>
+		      	</a>
+		    {{/if}}
+		</div>
+		{{ else }}
+			<br><br>
+			<a class="item" href="#">
+		    	None of your bets have been resolved
+		    </a>
+		{{/each}}
+	{{/ionContent}}	
 </template>

@@ -10,11 +10,8 @@
 
 <template name="mobileLayout">
 	{{#ionBody}}
-	    {{#ionContent}}
-		    {{#ionNavView}}
-		      {{> yield}}
-		    {{/ionNavView}}
-		{{/ionContent}}	
+		{{>newBetsAlert}}
+	    {{> yield}}
 		{{>navigation}}
 	{{/ionBody}}
 </template>
@@ -23,55 +20,29 @@
 
 
 <template name="navigation">
-	{{#if isAndroid}}
-      {{#ionTabs style="android" class="tabs-dark tabs-icon-top"}}
-        {{> ionTab title="New Bets" href="mobile.game" icon="android-home"}}
-        {{> ionTab title="Active Bets" href="activebets" icon="android-star"}}
-        {{> ionTab title="History" href="history" icon="android-time"}}
-        {{> ionTab title="Leaderboard" href="leaderboard/" icon="android-list"}}
-        {{> ionTab title="Chat" href="chat" icon="android-happy"}}
-      {{/ionTabs}}
-    {{else}}
-      {{#ionTabs style="ios" class="tabs-dark tabs-icon-top"}}
+	  {{#ionTabs style="ios" class="tabs-dark tabs-icon-top"}}
         {{> ionTab title="New Bets" path="mobile.game" icon="ios-home"}}
-        {{> ionTab title="Active Bets" path="activebets" icon="android-star"}}
+        {{> ionTab title="Active Bets" path="activebets" icon="ios-star"}}
         {{> ionTab title="History" path="history" icon="ios-time"}}
         {{> ionTab title="Leaderboard" path="leaderboard" icon="ios-list"}}
         {{> ionTab title="Chat" path="chat" icon="ios-people"}}
       {{/ionTabs}}
-    {{/if}}
 </template>
 
 
 
-
-<template name="sideMenuContent">
-	<div class="list">
-	  <a class="item item-icon-left" href="#">
-	    <i class="icon ion-ribbon-a"></i>
-	    Leaderboard
-	  </a>
-
-	  <a class="item item-icon-left" href="#">
-	    <i class="icon ion-person-stalker"></i>
-	    Friends
-	  </a>
-
-	  <a class="item item-icon-left" href="#">
-	    <i class="icon ion-ios-americanfootball"></i>
-	    Prizes
-	   	<span class="badge badge-assertive">4</span>
-	  </a>
-
-	  <a class="item item-icon-left" href="#">
-	    <i class="icon ion-ios-person"></i>
-	    Profile
-	  </a>
-
-	  <a class="item item-icon-left" href="{{ pathFor route="mobile.logout"}}">
-	    <i class="icon ion-power"></i>
-	    Logout
-	  </a>
+<template name="newBetsAlert">
+	<!-- Made visible when new bets are available -->
+	<!-- Otherwise hidden -->
+	<div class="alert alert-success bet-alert" role="alert">
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	  <span aria-hidden="true">&times;</span></button>
+	  <a href="#" class="alert-link">New bets are available</a>
 	</div>
+	{{#if current_bets }}
+
+	
+	{{/if}}
 </template>
+
 
