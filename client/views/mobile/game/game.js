@@ -330,9 +330,10 @@ Template.LeaderboardPreview.helpers({
 /* Game: Collection Hooks */
 /*****************************************************************************/
 
-function onStatusChange() {
-    console.log('status changed');
-    setTimeout(function() {
+
+function onStatusChange(){
+    // console.log('status changed');
+    setTimeout(function(){
         $('.status_message').addClass('text-warning');
     }, 300);
     setTimeout(function() {
