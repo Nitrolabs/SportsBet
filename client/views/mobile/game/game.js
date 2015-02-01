@@ -112,18 +112,6 @@ Template.MobileGame.events({
 
     'click #buy-chips-button': function(event, template) {
         // Meteor.users.update(Meteor.userId(), {$inc:{bank_account:100}});
-<<<<<<< HEAD
-        Meteor.users.update(Meteor.userId(), {
-            $set: {
-                bank_request_more_funds: "YES"
-            }
-        });
-    },
-
-    'click #bet-amount-button': function(event, template) {
-        Blaze.render(Template.BetAmount, document.body)
-        $(event.target).attr('disabled', true);
-=======
         Meteor.users.update(Meteor.userId(), {$set:{bank_request_more_funds:"YES"}});
         App.track("Ask for more money", {});
     },
@@ -132,7 +120,6 @@ Template.MobileGame.events({
         App.track("BetSliderOpen", {})
         Blaze.render(Template.BetAmount,document.body)
         $(event.target).attr('disabled',true);
->>>>>>> d9113999701d23be26e8786c6b7ce77970f08d65
     },
 
     'click .bet-option-button': function(event, template) {
