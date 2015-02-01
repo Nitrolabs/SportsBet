@@ -7,6 +7,28 @@ Router.configure({
   notFoundTemplate: 'NotFound'
 });
 
+Router.onBeforeAction(function() {
+
+    var prev_page_name = Session.get('prevPageName') || "";
+    var new_page_name = this.route.getName();
+    
+    if (prev_page_name == "mobile.game") {
+        Session.set("last_dismissed_bet_id", Session.get("user_current_bet_id"));
+    }
+    
+    if (_.include(['activebets', 'history', 'leaderboard', 'chat'], new_page_name)) {
+        Session.set('pageToShowNewBetPopup', true);
+    }
+    else //if (_.include(['mobile.game'], new_page_name)) 
+    {
+        Session.set('pageToShowNewBetPopup', false);
+    }
+    
+    Session.set('prevPageName', new_page_name)
+    
+    this.next();
+});
+
 // Mobile routes
 Router.route('/login/facebook', {name: 'mobile.facebook.login'});
 Router.route('/login', {name: 'mobile.login'});

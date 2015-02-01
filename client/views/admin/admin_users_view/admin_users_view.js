@@ -51,7 +51,13 @@ Template.AdminUsersView.helpers({
     },
 
     getEmailAddress: function() {
-        return (this && this.emails && this.emails.length > 0) ? this.emails[0].address : "?";
+        if (this && this.emails && this.emails.length > 0) 
+            return this.emails[0].address;
+        
+        if (this && this.services && this.services.facebook && this.services.facebook.email)
+            return this.services.facebook.email;
+        
+        return "?";
     },
 
     getUserGroupsForAdminScreen: function() {

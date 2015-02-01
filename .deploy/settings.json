@@ -5,7 +5,7 @@
   },
   "public":{
   	  "root_url":"http://play.nextplaynow.com/",
-  	  "version": "0.0.1.2",
+  	  "version": "0.0.2.0",
   	  "mixpanel": "944fd2607d768e55f6a27f862d1b23ad"
   }
 

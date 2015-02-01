@@ -107,7 +107,6 @@ App.helpers = {
 
 _.each(App.helpers, function (helper, key) {
   Handlebars.registerHelper(key, helper);
-
 });
 
 initMixpanel = function() {
@@ -121,5 +120,26 @@ initMixpanel = function() {
 };
 initMixpanel();
 
+Deps.autorun(function () {
+    
+    var game_id = Session.get("user_current_game_id");
+    var game = Games.findOne(game_id);
+  	var bets = Bets.find({game_id: game_id});
+  	var myPrevBets = UserBets.find(
+  	    {user_id: Meteor.userId()}, 
+  	    {fields: {bet_id: 1}}
+  	    ).fetch();
+  	myPrevBets = _.map(myPrevBets, function(x) {return x.bet_id});
+  	var first_bet = Bets.findOne({_id: {$nin: myPrevBets}, status: "ACTIVE", game_id: game_id});
 
+    Session.set("first_available_bet", first_bet ? first_bet._id : null);
+  	
+  	if (first_bet && first_bet._id !== Session.get("last_dismissed_bet_id")) {
+  	    Session.set("show_active_bet_popup", true);
+  	}
+  	else {
+  	    Session.set("show_active_bet_popup", false)
+  	}
+
+});
 
