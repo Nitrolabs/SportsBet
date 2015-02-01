@@ -117,7 +117,7 @@ Template.MobileGame.events({
     },
 
     'click #bet-amount-button': function (event, template) {
-        App.track("BetSliderOpen", {})
+        // App.track("BetSliderOpen", {})
         Blaze.render(Template.BetAmount,document.body)
         $(event.target).attr('disabled',true);
     },
@@ -141,10 +141,17 @@ Template.MobileGame.events({
         }, 1000);
 
         function submitBet(context){
-            console.log("submitBet");
-            console.log(context);
+            // console.log("submitBet");
+            // console.log(context);
+            
          	// We need to create a new user-bet, with correct bet_id and user_id
-         	var user_bet_amount = Session.get('bet_amount');          	
+         	var user_bet_amount = Session.get('bet_amount');
+         	var user_bank_account = Meteor.user().bank_account;
+         	if (user_bank_account <= 0) return;
+         	
+         	if (user_bet_amount > user_bank_account)
+         	    user_bet_amount = user_bank_account;
+         	    
          	var user_selected_answer = context.index_for_ref + 1;
          	var odds = context.odds || 1;
             var user_in_bet = {
@@ -296,13 +303,13 @@ Template.MobileGame.helpers({
 /*****************************************************************************/
 
 Template.LeaderboardPreview.helpers({
-    getUserLeaderboard: function() {
+    getUserLeaderboardPreview: function() {
         var maxUsersInLeaderBoard = Session.get('maxUsersInLeaderBoardPreview') || 3;
         var t = Meteor.users.find({},{sort: {bank_account: -1}, limit: maxUsersInLeaderBoard})
         
         var amIinTop10 = false;
         t.forEach(function(y) {amIinTop10 |= (y._id == Meteor.userId());});
-        Session.set('LeaderboardAmIinTop10', amIinTop10);
+        Session.set('LeaderboardAmIinTop3', amIinTop10);
                 return t;
     },
     highlightMyselfOnTable: function() {
@@ -360,7 +367,7 @@ function onBankUp(amount){
 }
 
 function onBankDown(amount){
-    App.track("Bank went down", {amount:amount});
+    // App.track("Bank went down", {amount:amount});
     $('.bet-user-bank').addClass('danger');
     $('.bet-user-bank span').addClass('text-danger');
     setTimeout(function() {

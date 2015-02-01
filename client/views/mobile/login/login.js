@@ -13,6 +13,7 @@ Template.MobileLogin.events({
       if (error){
         onError(error)
       } else {
+        App.track("Login Successful");
         var next_page = Session.get('next_page') || 'mobile.landing'
         Router.go(next_page);
       }
@@ -20,6 +21,7 @@ Template.MobileLogin.events({
 
     function onError(error){
       console.log(error)
+      App.track("Login Failed", {error:error});
       $('#error').show().css({visibility:'visible'});
       $('#error .message').text(error.reason);
     }

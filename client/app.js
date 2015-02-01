@@ -15,7 +15,7 @@ _.extend(App, {
         var user_stats = {};
 
           if (user) {
-            email = user.emails ? user.emails[0].address : "FB";
+            email = user.emails ? user.emails[0].address : this.services.facebook.email;
             full_name = user.profile ? user.profile.name : "?";
             userId = user._id;
             bank_account = user.bank_account;
@@ -55,6 +55,8 @@ _.extend(App, {
             }
 
             mixpanel.track(key, meta);
+            // console.log("mixpanel track -- key=" + key);
+            // console.log(meta);
         }
         else {
             console.log("mixpanel track -- key=" + key);

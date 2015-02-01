@@ -27,6 +27,7 @@ Template.MobileSignup.events({
       if (error){
         onError(error)
       } else {
+          App.track("User Created", {}, true);
         Meteor.loginWithPassword(email, password, onLogin);
       }
     }
@@ -35,12 +36,14 @@ Template.MobileSignup.events({
       if (error){
         onError(error)
       } else {
+          App.track("User Login after Signup");
         Router.go('mobile.landing');
       }
     }
 
     function onError(error){
       console.log(error)
+      App.track("Error Signup", {error:error});
       $('#error').show().css({visibility:'visible'});
       $('#error .message').text(error.reason);
     }

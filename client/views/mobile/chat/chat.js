@@ -12,6 +12,7 @@ Template.Chat.events({
                 submitted_at: new Date(),
                 game_id: gid
             });
+            App.track("Chat msg sent", {msg:message});
         }
         $("#send_message").val("")
         return false

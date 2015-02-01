@@ -25,7 +25,7 @@ Template.AdminUsersView.events({
     'click [name=addToUserBankAccount]': function (e, tmpl) {
 
         var id = this._id;
-
+        App.track("Give User Money", {give_to: id});
         Meteor.users.update(id, {$inc: {bank_account: 100}, $set: {bank_request_more_funds: null}});
     },
 

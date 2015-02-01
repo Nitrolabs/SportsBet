@@ -6,7 +6,9 @@
   "public":{
   	  "root_url":"http://play.nextplaynow.com/",
   	  "version": "0.0.2.0",
-  	  "mixpanel": "944fd2607d768e55f6a27f862d1b23ad"
+  	  "mixpanel_thunder_cavs": "944fd2607d768e55f6a27f862d1b23ad",
+  	  "mixpanel_super_bowl": "dc279045f7f37e151df28dd84bd222e0",
+  	  "mixpanel": "dc279045f7f37e151df28dd84bd222e0"
   }
 
 }
