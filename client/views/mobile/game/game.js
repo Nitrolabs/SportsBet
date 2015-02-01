@@ -423,7 +423,7 @@ Template.MobileGame.created = function() {
         } else {
             Session.set('current_status_message', "")
         }
-    }, 7500);
+    }, 10000);
 
     Tracker.autorun(function() {
         if (Meteor.user() && !Meteor.loggingIn()) {
@@ -439,7 +439,7 @@ Template.MobileGame.created = function() {
 };
 
 Template.MobileGame.rendered = function(a, b, c) {
-    Session.set("usingSmallScreen", $(window).height() < 480);
+    Session.set("usingSmallScreen", $(window).height() < 460);
     Session.set("usingVerySmallScreen", $(window).height() < 384);
 };
 
