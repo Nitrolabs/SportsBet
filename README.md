@@ -39,6 +39,26 @@ cd .deploy
 mup deploy
 ```
 
+Accessing Production Server
+---------------------------
+This app is running on a medium ubuntu AWS instance. This instance can be
+accessed via ssh:
+```sh
+sudo ssh -i .deploy/Sportsbet.pem ubuntu@ec2-54-191-204-54.us-west-2.compute.amazonaws.com
+# ./deploy/Sportsbet is the location of the private key
+# ubuntu is the username
+
+# Occassionally AWS will be upset with the private key permissions
+# Changing these permissions will fix the problem
+sudo chmod 700 .deploy/Sportsbet.pem
+
+# To erase the database run the following commands on the server
+# See [stackoverflow](http://stackoverflow.com/questions/24372992/how-to-reset-a-meteor-project-thats-been-deployed-with-meteor-up) for more info
+mongo meteor # Accesses the meteor apps database
+db.dropDatabase()
+```
+
+
 
 Packages
 --------
