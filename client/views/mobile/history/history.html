@@ -1,6 +1,13 @@
 <template name="History">
-	{{#each bets }}
+    <div class="bar bar-header bar-dark">
+		<h1 class="title">Bet History</h1>
+	</div>
+	{{#ionContent}}
+	<br><br>
 	<div class="list">
+	    
+	{{#each bets }}
+	
 	    {{#if skipped}}
 	        <a class="item item-thumbnail-left" href="#">
         		<i class='icon bet-status-icon ion-minus-round skipped'></i>
@@ -30,6 +37,13 @@
     	      	</a>
     	    {{/if}}
     	{{/if}}
-	</div>
-	{{/each}}
+    	
+		{{ else }}
+			<br><br>
+			<a class="item" href="#">
+		    	None of your bets have been resolved
+		    </a>
+		{{/each}}
+		</div>
+	{{/ionContent}}	
 </template>

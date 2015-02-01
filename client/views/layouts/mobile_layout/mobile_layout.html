@@ -10,11 +10,7 @@
 
 <template name="mobileLayout">
 	{{#ionBody}}
-	    {{#ionContent}}
-		    {{#ionNavView}}
-		      {{> yield}}
-		    {{/ionNavView}}
-		{{/ionContent}}	
+	    {{> yield}}
 		{{>navigation}}
 	{{/ionBody}}
 </template>

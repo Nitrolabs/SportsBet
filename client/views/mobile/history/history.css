@@ -12,6 +12,12 @@
 	color: rgb(0, 207, 0);
 }
 
+
+.bet-status-icon.correct {
+	color: rgb(0, 0, 207);
+}
+
+
 .bet-status-icon.correct {
 	color: rgb(0, 207, 0);
 }
