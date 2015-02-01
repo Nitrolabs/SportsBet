@@ -1,3 +1,16 @@
 <template name="Chat">
-  client/views/mobile/chat/chat.html
+    <!-- client/views/mobile/chat/chat.html -->
+    {{#ionContent}}
+    {{ #each messages }}
+	    <li>
+	        {{getUserName}} ({{submitted_at}}): {{message}}
+	    </li>
+    {{/each}}
+    {{/ionContent}}
+
+    {{#ionFooterBar class="large-footer"}}
+    <form id="message_form">
+		<input type = "text" id="send_message">
+	</form>
+	{{/ionFooterBar}}
 </template>
