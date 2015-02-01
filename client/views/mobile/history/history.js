@@ -1,5 +1,5 @@
 /*****************************************************************************/
-/* History: Event Handlers and Helpersss .js*/
+/* History: Event Handlers and Helpers .js*/
 /*****************************************************************************/
 Template.History.events({
 });

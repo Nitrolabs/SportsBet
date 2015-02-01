@@ -1,3 +1,23 @@
 <template name="Activebets">
-  client/views/mobile/activebets/activebets.html
+	{{#ionContent}}
+	<div class="bar bar-header bar-dark">
+		<h1 class="title">Active Bets</h1>
+	</div>
+	<br><br>
+		{{#each bets }}
+		<div class="list">
+			<a class="item item-thumbnail-left" href="#">
+	    		<i class='icon bet-status-icon ion-globe icon-info'></i>
+	      		<h2>{{ question }}</h2>
+	      		<p><i>{{ status_update }}</i></p>
+	      		<p>Your Bet: {{ user_answer }}</p>
+	      		<p>Correct Bet: {{ correct_answer }}</p>
+	      	</a>
+   		</div>
+		{{ else }}
+			<a class="item" href="#">
+		    	You have not placed any bets
+		    </a>
+		{{/each}}
+	{{/ionContent}}	
 </template>
