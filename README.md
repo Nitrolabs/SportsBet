@@ -53,11 +53,12 @@ sudo ssh -i .deploy/Sportsbet.pem ubuntu@ec2-54-191-204-54.us-west-2.compute.ama
 sudo chmod 700 .deploy/Sportsbet.pem
 
 # To erase the database run the following commands on the server
-# See [stackoverflow](http://stackoverflow.com/questions/24372992/how-to-reset-a-meteor-project-thats-been-deployed-with-meteor-up) for more info
+for more info
 mongo meteor # Accesses the meteor apps database
 db.dropDatabase()
 ```
-
+See [stackoverflow](http://stackoverflow.com/questions/24372992/how-to-reset-a-meteor-project-thats-been-deployed-with-meteor-up)
+for more info about resetting a production database
 
 
 Packages
