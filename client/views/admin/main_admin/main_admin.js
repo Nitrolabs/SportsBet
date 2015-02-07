@@ -23,7 +23,7 @@ Template.MainAdmin.events({
    'click [name=newBetButton]' : function(e,tmpl) {
        
         Session.set('admin_active_bet', null);
-        $('#bet_form')[0].reset();
+        // $('#bet_form')[0].reset();
         
         var idx = e.currentTarget.getAttribute('data-sel-idx');
 
@@ -32,9 +32,62 @@ Template.MainAdmin.events({
         
         var preset_data = [
 /*BLANK       */ {option1_text: "", option2_text: "",option3_text: "",option4_text: "",title:"",question:""},
-/*NEXT PLAY   */ {option1_text: "Touchdown", option2_text: "Intercept", option3_text: "Field Goal",option4_text: "Neither",title:"Next Play",question:"What's going to be the next play?", odds1:5,odds2:2,odds3:4,odds4:2},
-/*QTR RES     */ {option1_text: "Home Team", option2_text: "Away Team", option3_text: "",option4_text: "",title:"Next Q Res",question:"Who is going to win this quarter?", odds1:5,odds2:2},
-/*FINAL SCORE */ {option1_text: "Over 100", option2_text: "Under 100", option3_text: "Field Goal",option4_text: "Neither",title:"Final Score",question:"What's going to be the final score?", odds1:5,odds2:2,odds3:4,odds4:2}
+// /*NEXT PLAY   */ {option1_text: "Touchdown", option2_text: "Intercept", option3_text: "Field Goal",option4_text: "Neither",title:"Next Play",question:"What's going to be the next play?", odds1:5,odds2:2,odds3:4,odds4:2},
+// /*QTR RES     */ {option1_text: "Home Team", option2_text: "Away Team", option3_text: "",option4_text: "",title:"Next Q Res",question:"Who is going to win this quarter?", odds1:5,odds2:2},
+// /*FINAL SCORE */ {option1_text: "Over 100", option2_text: "Under 100", option3_text: "Field Goal",option4_text: "Neither",title:"Final Score",question:"What's going to be the final score?", odds1:5,odds2:2,odds3:4,odds4:2},
+/* Next Drive # of Plays */ 
+{
+title:"Next Drive # of Plays",
+question:"How many offensive plays will be run on this drive?",
+option1_text: "<4",   odds1: 1.8,
+option2_text: "4-6",  odds2: 2,
+option3_text: "7-9", odds3: 2.5,
+option4_text: "10+",    odds4: 6
+},
+
+/* Next Drive Result */ 
+{
+title:"Next Drive Result",
+question:"What will be the result of the upcoming drive?",
+option1_text: "Touchdown",   odds1: 3,
+option2_text: "Field Goal",  odds2: 2,
+option3_text: "Punt", odds3: 1.8,
+option4_text: "Turnover",    odds4: 5
+},
+
+
+
+/* Kickoff Position */ 
+{
+title:"Kickoff Position",
+question:"Where will the next drive begin?",
+option1_text: "Inside 20.5 yard line",   odds1: 1.5,
+option2_text: "Beyond 20.5 yard line",  odds2: 2.5,
+option3_text: "", 
+option4_text: ""
+},
+
+
+/* Score on Drive  */ 
+{
+title:"Score on Drive",
+question:"Will there be points scored on this drive?",
+option1_text: "Yes",   odds1: 4,
+option2_text: "No",  odds2: 1.5,
+option3_text: "", 
+option4_text: ""
+},
+
+
+/* Points Scored in Quarter */ 
+{
+title:"Points Scored in Quarter",
+question:"How many total points will be scored in this quarter?",
+option1_text: "0-6",   odds1: 3,
+option2_text: "7-13",  odds2: 2.5,
+option3_text: "14-20", odds3: 3.5,
+option4_text: "21+",    odds4: 4
+}
             
         ];
         $('#bet_title').val(preset_data[idx].title + " " + currTime);
@@ -43,11 +96,12 @@ Template.MainAdmin.events({
         $('#option2_text').val(preset_data[idx].option2_text);
         $('#option3_text').val(preset_data[idx].option3_text);
         $('#option4_text').val(preset_data[idx].option4_text);
-        if(preset_data[idx].odds1) $('#option1_odds').val(preset_data[idx].odds1); 
-        if(preset_data[idx].odds2) $('#option2_odds').val(preset_data[idx].odds2); 
-        if(preset_data[idx].odds3) $('#option3_odds').val(preset_data[idx].odds3); 
-        if(preset_data[idx].odds4) $('#option4_odds').val(preset_data[idx].odds4);
-        
+        $('#option1_odds').val(preset_data[idx].odds1 || ""); 
+        $('#option2_odds').val(preset_data[idx].odds2 || ""); 
+        $('#option3_odds').val(preset_data[idx].odds3 || ""); 
+        $('#option4_odds').val(preset_data[idx].odds4 || "");
+        $('#status_update').val(""),
+        $('#actual_result').val("")
    },
    
    'click #createNewBet' : function(e,tmpl) {
@@ -106,6 +160,11 @@ Template.MainAdmin.events({
         
         var new_bet = extractBetDataFromAdminForm();
         var bet_id = Session.get('admin_active_bet');
+        
+        if (new_bet.actual_result === "" || (!(new_bet.actual_result >= 0 && new_bet.actual_result <= 4))) {
+            alert("Actual Result must be 0,1,2,3,4")
+            return;
+        }
         
         new_bet.resolved_at = new Date();
         new_bet.status = "RESOLVED";

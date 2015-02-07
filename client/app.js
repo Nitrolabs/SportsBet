@@ -8,14 +8,17 @@ _.extend(App, {
     Deps.autorun(function (c) {
       if (!Meteor.loggingIn()) {
         var user = Deps.nonreactive(function () { return Meteor.user(); });
-        var email;
+        var email = "?";
         var full_name;
         var userId;
         var bank_account;
         var user_stats = {};
 
           if (user) {
-            email = user.emails ? user.emails[0].address : this.services.facebook.email;
+            
+            if (user.emails && user.emails[0]) email = user.emails[0].address;
+            if (user.services && user.services.facebook && user.services.facebook.email) email = user.services.facebook.email;
+            
             full_name = user.profile ? user.profile.name : "?";
             userId = user._id;
             bank_account = user.bank_account;
