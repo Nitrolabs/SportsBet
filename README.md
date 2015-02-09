@@ -60,6 +60,27 @@ See [stackoverflow](http://stackoverflow.com/questions/24372992/how-to-reset-a-m
 for more info about resetting a production database
 
 
+Downloading Database from Production Server
+---------------------------------
+source: http://www.thegeekstuff.com/2013/09/mongodump-mongorestore/
+```sh
+# Create a zip file on the server
+ssh -i .deploy/Sportsbet.pem ubuntu@server.aws.com
+mkdir backup
+cd backup
+mongodump --db meteor
+tar -zcvf database.tar.gz dump
+
+# Close ssh and use scp to copy file
+ssh -i .deploy/Sportsbet.pem ubuntu@server.aws.com:backup/database.tar.gz .
+tar -xvf database.tar.gz
+
+# Copy db to local meteor project
+# This drops all data in the local database
+mongorestore --dbpath .meteor/local/db --drop dump/meteor
+```
+
+
 Packages
 --------
 * Meteoric [github](https://github.com/meteoric/meteor-ionic) for the UI
