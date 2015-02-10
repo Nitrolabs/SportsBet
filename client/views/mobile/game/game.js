@@ -5,7 +5,7 @@ const DISTANCE_FROM_ME = 2 // in kilometers
 const USERS_IN_PAST_TIME = 2 // in hours
 Template.MobileGame.events({
     'click #bet-amount-button-pos':function() {
-        var max_bet = Meteor.user().bank_account;
+        var max_bet = Math.floor(Meteor.user().bank_account);
         var currBetAmount = Session.get('bet_amount');
         var delta = 5;
         if (currBetAmount < 20)        { delta = 5;   }
@@ -22,7 +22,7 @@ Template.MobileGame.events({
         Session.set('bet_amount', newBetAmount); 
     },
     'click #bet-amount-button-neg':function() {
-        var max_bet = Meteor.user().bank_account;
+        var max_bet = Math.floor(Meteor.user().bank_account);
         var currBetAmount = Session.get('bet_amount');
         
         var delta = 5;
@@ -111,12 +111,17 @@ Template.MobileGame.events({
     },
 
     'click #buy-chips-button': function(event, template) {
-        Meteor.call('/app/game/bank/req_credit', function(error,result) {
-            if (error) 
-                console.error(error);
-            else
-                App.track("Ask for more money", {});
-        });
+        if (!Meteor.user().bank_request_more_funds) {
+            Meteor.call('/app/game/bank/req_credit', function(error,result) {
+                if (error) 
+                    console.error(error);
+                else
+                    App.track("Ask for more money", {});
+            });
+        }
+        else {
+            App.track("Bankrupt and asks for more money", {});
+        }
         
     },
 
@@ -151,7 +156,7 @@ Template.MobileGame.events({
          	// We need to create a new user-bet, with correct bet_id and user_id
          	var user_bet_amount = Session.get('bet_amount');
          	var user_bank_account = Meteor.user().bank_account;
-         	if (user_bank_account <= 0) return;
+         	if (user_bank_account < 1) return;
          	
          	if (user_bet_amount > user_bank_account)
          	    user_bet_amount = user_bank_account;
@@ -273,7 +278,7 @@ Template.MobileGame.helpers({
     },
 
     disable_based_on_bank_account: function() {
-        return Meteor.user().bank_account > 0 ? "" : "disabled"
+        return Meteor.user().bank_account >= 1 ? "" : "disabled"
     },
 
     formatted_bank_account: function() {
@@ -285,7 +290,7 @@ Template.MobileGame.helpers({
         return '+' + win;
     },
     is_user_bankrupt: function() {
-        return Meteor.user().bank_account <= 0;
+        return Meteor.user().bank_account < 1;
     },
     number_bets: function() {
         var s = Meteor.user().user_stats;

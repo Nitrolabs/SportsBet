@@ -39,6 +39,47 @@ cd .deploy
 mup deploy
 ```
 
+Accessing Production Server
+---------------------------
+This app is running on a medium ubuntu AWS instance. This instance can be
+accessed via ssh:
+```sh
+sudo ssh -i .deploy/Sportsbet.pem ubuntu@ec2-54-191-204-54.us-west-2.compute.amazonaws.com
+# ./deploy/Sportsbet is the location of the private key
+# ubuntu is the username
+
+# Occassionally AWS will be upset with the private key permissions
+# Changing these permissions will fix the problem
+sudo chmod 700 .deploy/Sportsbet.pem
+
+# To erase the database run the following commands on the server
+mongo meteor # Accesses the meteor apps database
+db.dropDatabase()
+```
+See [stackoverflow](http://stackoverflow.com/questions/24372992/how-to-reset-a-meteor-project-thats-been-deployed-with-meteor-up)
+for more info about resetting a production database
+
+
+Downloading Database from Production Server
+---------------------------------
+source: http://www.thegeekstuff.com/2013/09/mongodump-mongorestore/
+```sh
+# Create a zip file on the server
+ssh -i .deploy/Sportsbet.pem ubuntu@server.aws.com
+mkdir backup
+cd backup
+mongodump --db meteor
+tar -zcvf database.tar.gz dump
+
+# Close ssh and use scp to copy file
+ssh -i .deploy/Sportsbet.pem ubuntu@server.aws.com:backup/database.tar.gz .
+tar -xvf database.tar.gz
+
+# Copy db to local meteor project
+# This drops all data in the local database
+mongorestore --dbpath .meteor/local/db --drop dump/meteor
+```
+
 
 Packages
 --------

@@ -24,7 +24,7 @@
                         <td>{{index_in_list}}</td>
                         <td><img class="profile-pic" src="{{ profile.image.small }}"></td>
                         <td>{{profile.name}}</td>
-                        <td>${{bank_account}}</td>
+                        <td>{{numberFormatBy bank_account '$0,0'}}</td>
                         <!--<td>{{numberFormatBy user_stats.bets_won_percentage '0,0%'}}</td>-->
                         <td>${{addTwoNumbers user_stats.potential_winnings bank_account}}</td>
                     </tr>
@@ -36,7 +36,7 @@
                          <td>{{index_outside_of_list}}+</td>
                         <td><img class="profile-pic" src="{{ currentUser.profile.image.small }}"></td>
                         <td>{{currentUser.profile.name}}</td>
-                        <td>${{currentUser.bank_account}}</td>
+                        <td>{{numberFormatBy currentUser.bank_account '$0,0'}}</td>
                         <!--<td>{{numberFormatBy currentUser.user_stats.bets_won_percentage '0,0%'}}</td>-->
                         <td>${{addTwoNumbers currentUser.user_stats.potential_winnings currentUser.bank_account}}</td>
                     </tr>

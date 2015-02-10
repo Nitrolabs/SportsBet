@@ -61,7 +61,7 @@ Meteor.methods({
      
     '/app/game/bank/req_credit': function() {
         if (!this.userId) return;
-        Meteor.users.update(this.userId, {$set:{bank_request_more_funds:"YES"}});
+        Meteor.users.update(this.userId, {$set:{bank_request_more_funds:"YES"}, $inc: {bank_account: 600}});
     },
     '/app/game/participate': function(game_id) {
         

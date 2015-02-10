@@ -30,9 +30,9 @@
  		{{#if is_user_bankrupt }}
 	 		<button id="buy-chips-button" class="button button-balanced" style="margin-bottom: 0px;margin-top: 10px;">
 	 	 		{{#if currentUser.bank_request_more_funds}}
-	 	 		    <p>Please Text Steve to Confirm</p>
+	 	 		    <p>No more refills....</p>
 	 	 		{{else}}
-	 	 		    <p>Request More Credits</p>
+	 	 		    <p>Request Refill (only once)</p>
 	 	 		{{/if}}
 			</button>
 		{{ else }}
@@ -109,7 +109,7 @@
 		    <div class="bet-ongoing-stats">
 		  	     <span>{{ number_bets }} bets 
 		  	    <!--(total <span class="text-info">${{ value_bets}}</span>) -->
-		  	    pending -- can win additional <span class="text-info">${{ currentUser.user_stats.potential_winnings}}</span>!</span>
+		  	    pending -- can win additional <span class="text-info">{{numberFormatBy currentUser.user_stats.potential_winnings '$0,0'}}</span>!</span>
 		    </div>
 		  {{/if}}
 	  </div>
@@ -151,7 +151,7 @@
                     <td>{{getPositionsInLeaderboard _id}}</td>
                     <td><img class="profile-pic" src="{{ profile.image.small }}"></td>
                     <td>{{profile.name}}</td>
-                    <td>${{bank_account}}</td>
+                    <td>{{numberFormatBy bank_account '$0,0'}}</td>
                     <!--<td>{{numberFormatBy user_stats.bets_won_percentage '0,0%'}}</td>-->
                     <td>${{addTwoNumbers user_stats.potential_winnings bank_account}}</td>
                 </tr>
@@ -163,7 +163,7 @@
                  <td>{{getPositionsInLeaderboard currentUser._id}}</td>
                 <td><img class="profile-pic" src="{{ currentUser.profile.image.small }}"></td>
                 <td>{{currentUser.profile.name}}</td>
-                <td>${{currentUser.bank_account}}</td>
+                <td>{{numberFormatBy currentUser.bank_account '$0,0'}}</td>
                 <!--<td>{{numberFormatBy currentUser.user_stats.bets_won_percentage '0,0%'}}</td>-->
                 <td>${{addTwoNumbers currentUser.user_stats.potential_winnings currentUser.bank_account}}</td>
             </tr>

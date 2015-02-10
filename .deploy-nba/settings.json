@@ -1,0 +1,15 @@
+{
+  "private": {
+      "facebookAppId":  "835808673143470",
+      "facebookSecret": "7640904a9c506992bd457391bd1ebfe5"
+  },
+  "public":{
+  	  "root_url":"http://www.nextplaynow.com/",
+  	  "version": "0.0.3.0",
+  	  "mixpanel_thunder_cavs": "944fd2607d768e55f6a27f862d1b23ad",
+  	  "mixpanel_super_bowl": "dc279045f7f37e151df28dd84bd222e0",
+  	  "mixpanel_nba20150211": "7733fd311667e561691af5d1fd9e213c",
+  	  "mixpanel": "7733fd311667e561691af5d1fd9e213c"
+  }
+
+}

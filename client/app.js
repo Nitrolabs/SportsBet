@@ -74,7 +74,7 @@ _.extend(App, {
 
 App.helpers = {
     
-    addTwoNumbers: function(a,b) {return a+b;},
+    addTwoNumbers: function(a,b) {return Math.floor(a+b);},
     
     numberFormatBy: function(num, format_str) {
         return numeral(num).format(format_str);
