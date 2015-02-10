@@ -1,18 +1,30 @@
 <template name="MobileFacebookLogin">
   {{#ionView class='mobile'}}
     {{#ionContent}}
-	  <div id='logo-wrapper' class='text-center'>
-	  	<img src="/images/four256.png">
+     
+
+	<div id='logo-wrapper' class='text-center'>
+	  	<img src="/images/basketball.png">
+	  	<h1>NextPlayNow</h1>
+	  	<p>Real prizes - Free to play</p>
 	  </div>
 	  <p id='error'>No error yet</p>
 	  <div id='login-button-wrapper' class='text-center'>
-	  	<button  id='facebook-login-button' class='button button-outline button-royal em'>Login with Facebook</button>
+	  	<!-- Facebook login button -->
+	  	<a id='facebook-login-button' class="login-button" title="Login with Facebook">
+	  		<img src="/images/facebook-button.png" alt="Login with Facebook">
+	  	</a>
+
+	  	<!-- Username login button -->
+	    <a id='email-login-button' href="{{pathFor route='mobile.login' }}" class="login-button" title="Login with Email">
+	  		<img src="/images/email-button.png" alt="Login with Email">
+	  	</a>
 	  </div>
+
+	   <div id="background-wrapper">
+	      <div id="background-image">
+	      </div>
+	   </div>
     {{/ionContent}}
-    <div class="bar bar-footer bar-dark">
-      	<button class="button button-clear">Privacy</button>
-  			<div class="title"></div>
-  		<button id="alternative-login" class="button button-clear">Login without Facebook</button>
-	</div>
   {{/ionView}}
 </template>

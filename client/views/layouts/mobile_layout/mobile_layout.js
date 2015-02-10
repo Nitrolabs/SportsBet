@@ -9,7 +9,6 @@ Template.newBetsAlert.events({
 
 // Whenever a new bet is submitted we reopen the alert
 Meteor.startup(function(){
-	debugger
 	Bets.after.update(function(userId, doc){
 		console.log('Bet updated');
 		if (doc.status=="ACTIVE"){
