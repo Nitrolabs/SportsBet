@@ -21,6 +21,16 @@ var schema = new SimpleSchema({
         type: String,
         label: "Game ID",
         optional: false
+    },
+    user_name: {
+        type: String,
+        label: "user name for easy access",
+        optional: true
+    },
+    user_img: {
+        type: String,
+        label: "user image for easy access",
+        optional: true
     }
 });
 

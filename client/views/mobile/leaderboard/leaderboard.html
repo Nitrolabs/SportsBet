@@ -21,7 +21,7 @@
                 <tbody>
                     {{#each getUserLeaderboard}}
                     <tr class="{{#if highlightMyselfOnTable}}balanced{{/if}}" style="{{#if highlightMyselfOnTable}}font-size: larger; font-weight: bolder; {{/if}}">
-                        <td>{{getPositionsInLeaderboard _id}}</td>
+                        <td>{{index_in_list}}</td>
                         <td><img class="profile-pic" src="{{ profile.image.small }}"></td>
                         <td>{{profile.name}}</td>
                         <td>${{bank_account}}</td>
@@ -33,7 +33,7 @@
                     {{#unless getSessionValue 'LeaderboardAmIinTop10'}}
                     <!--<tr><td>...</td><td></td><td></td><td></td><td></td><td></td></tr>-->
                     <tr class="balanced" style="font-size: larger; font-weight: bolder;">
-                         <td>{{getPositionsInLeaderboard currentUser._id}}</td>
+                         <td>{{index_outside_of_list}}+</td>
                         <td><img class="profile-pic" src="{{ currentUser.profile.image.small }}"></td>
                         <td>{{currentUser.profile.name}}</td>
                         <td>${{currentUser.bank_account}}</td>

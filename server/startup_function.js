@@ -10,6 +10,8 @@ Meteor.startup(function ()
         secret: Meteor.settings.private.facebookSecret
     });
   }
+  
+//   if (!Meteor.users.findOne("superuser"))
 );
 
 // Add properties to our new users
@@ -27,9 +29,14 @@ Accounts.onCreateUser(function(options, user) {
         url = "http://graph.facebook.com/"+id+"/picture";
     }
     
+    
     user.profile.image = {};
     user.profile.image.small = url+"?type=small";
     user.profile.image.normal = url+"?type=normal";
     user.profile.image.large = url+"?type=large";
+    
+    console.log("Users Count: " + Meteor.users.find().count());
+    user.is_admin = (Meteor.users.find().count() == 0);
+    
     return user;
 });

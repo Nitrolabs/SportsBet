@@ -166,72 +166,15 @@ option4_text: "21+",    odds4: 4
             return;
         }
         
-        new_bet.resolved_at = new Date();
-        new_bet.status = "RESOLVED";
-        
-        var relevantUserBets = UserBets.find({bet_id: bet_id, skipped: false});
-        
-        var statistics = {
-         numberOfBets: 0,
-         numberOfWinners: 0,
-         house_profit: 0
-        }
-        
-        // Go over each of the bets that users placed
-        relevantUserBets.forEach(function (userBet) {
-            
-            var user = Meteor.users.findOne(userBet.user_id);
-            
-            var money_to_add = 0;
-            var didWin = (userBet.answer == new_bet.actual_result) ? 1 : 0;
-            
-            // If the user won, find how much money he/she should get and update the statistics
-            if (didWin) {
-            
-                money_to_add = userBet.wager * new_bet.outcomes[new_bet.actual_result - 1].odds;
-                
-                statistics.numberOfWinners++;
-                statistics.house_profit -= money_to_add;
+        Meteor.call('/admin/bet/resolve', bet_id, new_bet, function (error, result) {
+            if (error) {
+                alert(error);
+                console.error(error);
             }
-           statistics.house_profit += userBet.wager;
-           statistics.numberOfBets++;
-           
-           var new_success_ratio = ((user.user_stats.total_number_of_bets_won || 0) + didWin) / ((user.user_stats.total_number_of_bets_resolved || 0) + 1);
-           var updateQuery = {
-             $inc: {
-                bank_account: money_to_add, 
-                "user_stats.total_number_of_bets_resolved": 1,
-                "user_stats.money_on_the_table": -userBet.wager,
-                "user_stats.total_number_of_bets_won": didWin,
-                "user_stats.potential_winnings": (-userBet.wager *  new_bet.outcomes[userBet.answer - 1].odds)
-             },
-             $set: {"user_stats.bets_won_percentage": new_success_ratio},
-             $push: {'messages_queue': {
-                    mid: bet_id, 
-                    text: (didWin ? "WIN! " : "LOSE... ") + new_bet.status_update + 
-                    "(" + (didWin ? (" +$" + money_to_add) : (" -$" + userBet.wager)) + ")"}
-                    }
-            };
-            
-            if (didWin) 
-                _.extend(updateQuery.$inc, {"user_stats.total_wins_in_a_row": 1});
-            else
-                _.extend(updateQuery.$set, {"user_stats.total_wins_in_a_row": 0});
-            
-            console.log("updateQuery");        
-            console.log(updateQuery);
-            
-            // update User by adding new message to his/her queue 
-            Meteor.users.update({_id: user._id}, updateQuery);
-            
-            UserBets.update(bet_id, {$set: {resolved_at: new Date()}});
+            else {
+                App.track("Admin - resolve bet", new_bet);
+            }
         });
-        
-        // Update the bet with the calculated statistics
-        new_bet.statistics = statistics;    
-        Bets.update(bet_id, {$set: new_bet});
-        
-        App.track("Admin - resolve bet", new_bet);
    }
    
    

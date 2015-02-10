@@ -4,8 +4,18 @@
 Template.MobileLanding.events({
   
    'click .button-game-select': function (e, tmpl) {
-       console.log(this);
-       
+    //   console.log(this);
+       var game_id = this._id;
+       Meteor.call('/app/game/participate', game_id, function(error, resp) {
+           if (error) 
+                console.error(error);
+           else {
+               if (resp) {
+                    console.log("Join game " + game_id);
+                    App.track("Participate in Game", {game_id: game_id});
+               }
+           }
+       });
    }
 });
 

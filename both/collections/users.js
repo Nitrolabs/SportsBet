@@ -133,6 +133,11 @@ var schema_for_user = new SimpleSchema({
         optional: true,
         label:"Potentail winnings in best case - win all pending bets"
     },
+    is_admin: {
+        type: Boolean,
+        optional: true,
+        label: "Is user an admin"
+    }
 });
 
 Meteor.users.attachSchema(schema_for_user);

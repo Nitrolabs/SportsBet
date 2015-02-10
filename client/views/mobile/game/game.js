@@ -111,9 +111,13 @@ Template.MobileGame.events({
     },
 
     'click #buy-chips-button': function(event, template) {
-        // Meteor.users.update(Meteor.userId(), {$inc:{bank_account:100}});
-        Meteor.users.update(Meteor.userId(), {$set:{bank_request_more_funds:"YES"}});
-        App.track("Ask for more money", {});
+        Meteor.call('/app/game/bank/req_credit', function(error,result) {
+            if (error) 
+                console.error(error);
+            else
+                App.track("Ask for more money", {});
+        });
+        
     },
 
     'click #bet-amount-button': function (event, template) {
@@ -154,43 +158,29 @@ Template.MobileGame.events({
          	    
          	var user_selected_answer = context.index_for_ref + 1;
          	var odds = context.odds || 1;
-            var user_in_bet = {
-                selection: user_selected_answer,
-                userid: Meteor.userId(),
-            }
-
-            var new_user_bet = {
-                user_id: Meteor.userId(),
+            
+            var data = {
+                game_id: Session.get("user_current_game_id"),
                 bet_id: Session.get("user_current_bet_id"),
                 wager: user_bet_amount,
                 answer: user_selected_answer,
-                skipped: false,
-                was_result_displayed: false,
-                submitted_at: new Date()
-            };
+                // skipped: false,
+                // was_result_displayed: false,
+                odds: odds // TODO: ASSAF better to clean this and find it on the backend
+            }
 
-            Bets.update({
-                _id: Session.get("user_current_bet_id")
-            }, {
-                $push: {
-                    users_in_bet: user_in_bet
-                }
-            })
-
-            Meteor.users.update(Meteor.userId(), 
-            {
-                $inc: {bank_account: -user_bet_amount,
-                       "user_stats.money_on_the_table": user_bet_amount,
-                       "user_stats.total_number_of_bets_placed": 1,
-                        "user_stats.potential_winnings": user_bet_amount * odds
+            Meteor.call('/app/game/bet/submit', data, function (error, result) {
+                if (error)
+                    alert(error);
+                else {
+                    if (Session.get('bet_amount') > Meteor.user().bank_account && Meteor.user().bank_account > 0) {
+                        Session.set('bet_amount', Meteor.user().bank_account);
+                    }
+                    App.track("Bet Place", data);
                 }
             });
-            UserBets.insert(new_user_bet);
 
-            if (Session.get('bet_amount') > Meteor.user().bank_account && Meteor.user().bank_account > 0) {
-                Session.set('bet_amount', Meteor.user().bank_account);
-            }
-            App.track("Bet Place", new_user_bet);
+            
             // console.log("Done! Bet placed successfully! :)" );
         }
     },
@@ -198,17 +188,27 @@ Template.MobileGame.events({
     'click #bet-skip-button': function(event) {
         // Create a new user-bet, and set the skipped flag to true
 
-        var new_user_bet = {
-            user_id: Meteor.userId(),
+        var data = {
+            game_id: Session.get("user_current_game_id"),
+            // user_id: Meteor.userId(),
             bet_id: this._id,
-            wager: 0,
-            answer: 0,
-            skipped: true,
-            was_result_displayed: false,
-            submitted_at: new Date()
+            // wager: 0,
+            // answer: 0,
+            // skipped: true,
+            // was_result_displayed: false,
+            // submitted_at: new Date()
         };
-     	UserBets.insert(new_user_bet);
-     	App.track("Bet Skip", new_user_bet);
+        
+        Meteor.call('/app/game/bet/skip', data, function (error, result) {
+                if (error)
+                    console.error(error);
+                else {
+                    App.track("Bet Skip", data);
+                }
+            });
+            
+    
+    
     }
 });
 
@@ -329,7 +329,17 @@ Template.LeaderboardPreview.helpers({
         return index;
     },
     getTotalNumOfUsers: function() {
-        return Meteor.users.find().count();
+        
+        Meteor.call('get_total_number_of_players', Session.get("user_current_game_id"), function(error,result) {
+            if (error) alert(error);
+            else {
+                if (result !== Session.get("total_number_of_players")) {
+                    Session.set('total_number_of_players', result);
+                }
+            }
+        });
+        
+        return Session.get("total_number_of_players");
     }
 });
 
@@ -420,13 +430,9 @@ Template.MobileGame.created = function() {
             onStatusChange()
             var message = Meteor.user().messages_queue.shift().text
             Session.set('current_status_message', message)
-            Meteor.users.update({
-                _id: Meteor.userId()
-            }, {
-                $pop: {
-                    messages_queue: -1
-                }
-            })
+            
+            Meteor.call('remove_one_from_msg_queue');
+            
         } else {
             Session.set('current_status_message', "")
         }

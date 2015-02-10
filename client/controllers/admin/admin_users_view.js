@@ -1,4 +1,4 @@
-MainAdminController = RouteController.extend({
+AdminUsersViewController = RouteController.extend({
   waitOn: function () {
       Meteor.subscribe('admin_get_all_data');
   },

@@ -1,5 +1,6 @@
 ActivebetsController = RouteController.extend({
   waitOn: function () {
+      Meteor.subscribe('publish_bets', this.params._id);
   },
 
   data: function () {

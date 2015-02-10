@@ -1,5 +1,7 @@
-LandingController = RouteController.extend({
+MobileLandingController = RouteController.extend({
   waitOn: function () {
+    //   console.log("wait on - i get here")
+    Meteor.subscribe('publish_all_games');
   },
 
   onBeforeAction: function (route) {

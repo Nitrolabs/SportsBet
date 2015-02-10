@@ -15,24 +15,33 @@ Template.Leaderboard.helpers({
         t.forEach(function(y) {amIinTop10 |= (y._id == Meteor.userId());});
         Session.set('LeaderboardAmIinTop10', amIinTop10);
 
-        return t;
+        // Add the index 
+        var z = t.fetch();
+        var index = 0;
+        z.forEach(function(a) {_.extend(a, {index_in_list: ++index});});
+        
+        // Return the array
+        return z;
     },
     highlightMyselfOnTable: function() {
         return (this._id == Meteor.userId());
     },
-    getPositionsInLeaderboard: function(id) {
-        var self = this;
-        var index = 0;
-        var t = Meteor.users.find({},{sort: {bank_account: -1}});
-       var found = false;
-        t.forEach(function(y) {
-            if (!found) {
-                index++;
-                found = (y._id == id);
-            }
-        });
-        return index;
+    index_outside_of_list: function() {
+        return (Session.get('maxUsersInLeaderBoard') || 30) + 1;
     }
+    // getPositionsInLeaderboard: function(id) {
+    //     var self = this;
+    //     var index = 0;
+    //     var t = Meteor.users.find({},{sort: {bank_account: -1}});
+    //   var found = false;
+    //     t.forEach(function(y) {
+    //         if (!found) {
+    //             index++;
+    //             found = (y._id == id);
+    //         }
+    //     });
+    //     return index;
+    // }
 });
 
 

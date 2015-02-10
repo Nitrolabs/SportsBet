@@ -10,7 +10,9 @@ Template.Chat.events({
                 user_id: Meteor.userId(),
                 message: message,
                 submitted_at: new Date(),
-                game_id: gid
+                game_id: gid,
+                user_name: Meteor.user().profile.name,
+                user_img: Meteor.user().profile.image.normal
             });
             App.track("Chat msg sent", {msg:message});
         }

@@ -1,5 +1,7 @@
 ChatController = RouteController.extend({
   waitOn: function () {
+      Meteor.subscribe('publish_bets', this.params._id);
+      Meteor.subscribe('publish_chats', this.params._id);
   },
 
   data: function () {

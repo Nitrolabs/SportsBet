@@ -1,4 +1,4 @@
-MainAdminController = RouteController.extend({
+GamesMgmtController = RouteController.extend({
   waitOn: function () {
       Meteor.subscribe('admin_get_all_data');
   },

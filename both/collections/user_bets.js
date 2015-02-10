@@ -3,6 +3,12 @@ UserBets = new Mongo.Collection("user_bets");
 
 
 var schema = new SimpleSchema({
+    game_id: {
+        type: String,
+        label: "Game ID",
+        optional: true,
+        max:50
+    },
     user_id: {
         type: String,
         label: "User that submitted this bet",
