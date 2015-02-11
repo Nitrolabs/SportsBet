@@ -36,58 +36,68 @@ Template.MainAdmin.events({
 // /*QTR RES     */ {option1_text: "Home Team", option2_text: "Away Team", option3_text: "",option4_text: "",title:"Next Q Res",question:"Who is going to win this quarter?", odds1:5,odds2:2},
 // /*FINAL SCORE */ {option1_text: "Over 100", option2_text: "Under 100", option3_text: "Field Goal",option4_text: "Neither",title:"Final Score",question:"What's going to be the final score?", odds1:5,odds2:2,odds3:4,odds4:2},
 /* Next Drive # of Plays */ 
-{
-title:"Next Drive # of Plays",
-question:"How many offensive plays will be run on this drive?",
-option1_text: "<4",   odds1: 1.8,
-option2_text: "4-6",  odds2: 2,
-option3_text: "7-9", odds3: 2.5,
-option4_text: "10+",    odds4: 6
-},
+// {
+// title:"Next Drive # of Plays",
+// question:"How many offensive plays will be run on this drive?",
+// option1_text: "<4",   odds1: 1.8,
+// option2_text: "4-6",  odds2: 2,
+// option3_text: "7-9", odds3: 2.5,
+// option4_text: "10+",    odds4: 6
+// },
 
-/* Next Drive Result */ 
-{
-title:"Next Drive Result",
-question:"What will be the result of the upcoming drive?",
-option1_text: "Touchdown",   odds1: 3,
-option2_text: "Field Goal",  odds2: 2,
-option3_text: "Punt", odds3: 1.8,
-option4_text: "Turnover",    odds4: 5
-},
-
-
-
-/* Kickoff Position */ 
-{
-title:"Kickoff Position",
-question:"Where will the next drive begin?",
-option1_text: "Inside 20.5 yard line",   odds1: 1.5,
-option2_text: "Beyond 20.5 yard line",  odds2: 2.5,
-option3_text: "", 
-option4_text: ""
-},
+// /* Next Drive Result */ 
+// {
+// title:"Next Drive Result",
+// question:"What will be the result of the upcoming drive?",
+// option1_text: "Touchdown",   odds1: 3,
+// option2_text: "Field Goal",  odds2: 2,
+// option3_text: "Punt", odds3: 1.8,
+// option4_text: "Turnover",    odds4: 5
+// },
 
 
-/* Score on Drive  */ 
-{
-title:"Score on Drive",
-question:"Will there be points scored on this drive?",
-option1_text: "Yes",   odds1: 4,
-option2_text: "No",  odds2: 1.5,
-option3_text: "", 
-option4_text: ""
-},
+
+// /* Kickoff Position */ 
+// {
+// title:"Kickoff Position",
+// question:"Where will the next drive begin?",
+// option1_text: "Inside 20.5 yard line",   odds1: 1.5,
+// option2_text: "Beyond 20.5 yard line",  odds2: 2.5,
+// option3_text: "", 
+// option4_text: ""
+// },
 
 
-/* Points Scored in Quarter */ 
-{
-title:"Points Scored in Quarter",
-question:"How many total points will be scored in this quarter?",
-option1_text: "0-6",   odds1: 3,
-option2_text: "7-13",  odds2: 2.5,
-option3_text: "14-20", odds3: 3.5,
-option4_text: "21+",    odds4: 4
-}
+// /* Score on Drive  */ 
+// {
+// title:"Score on Drive",
+// question:"Will there be points scored on this drive?",
+// option1_text: "Yes",   odds1: 4,
+// option2_text: "No",  odds2: 1.5,
+// option3_text: "", 
+// option4_text: ""
+// },
+
+
+// /* Points Scored in Quarter */ 
+// {
+// title:"Points Scored in Quarter",
+// question:"How many total points will be scored in this quarter?",
+// option1_text: "0-6",   odds1: 3,
+// option2_text: "7-13",  odds2: 2.5,
+// option3_text: "14-20", odds3: 3.5,
+// option4_text: "21+",    odds4: 4
+// }
+
+{title:"Next FT",question:"What will happen during these free throws?", option1_text: "Make both", option2_text: "Miss both", option3_text: "Just makes 1st",option4_text: "Just makes 2nd",odds1:3,odds2:8,odds3:5,odds4:5},
+{title:"Buzzer beater",question:"Will there be a buzzer beater this quarter? (FG w/ <1.0 sec)", option1_text: "Yes", option2_text: "No", option3_text: "",option4_text: "",odds1:2,odds2:2,odds3:1,odds4:1},
+{title:"Lebron dunk",question:"Will Lebrow throw down a dunk this quarter?", option1_text: "Yes", option2_text: "No", option3_text: "",option4_text: "",odds1:4,odds2:2,odds3:1,odds4:1},
+{title:"Bosh QTR",question:"How many points will Bosh score this quarter?", option1_text: "0-3", option2_text: "4-7", option3_text: "8-11",option4_text: "12+",odds1:4,odds2:2,odds3:3,odds4:8},
+{title:"Beer choice",question:"What will be the next beer commercial?", option1_text: "Domestic", option2_text: "Import", option3_text: "",option4_text: "",odds1:2,odds2:6,odds3:1,odds4:1},
+{title:"Beer specific",question:"What will be the next beer commercial?", option1_text: "Budweiser", option2_text: "Coors", option3_text: "Miller",option4_text: "Other",odds1:3,odds2:3,odds3:7,odds4:4},
+{title:"Love 3 QTR",question:"Will Kevin Love score a three this quarter?", option1_text: "Yes", option2_text: "No", option3_text: "",option4_text: "",odds1:3,odds2:3,odds3:1,odds4:1},
+{title:"Replay",question:"Replay: Whose ball is it?", option1_text: "Cavs", option2_text: "Heat", option3_text: "",option4_text: "",odds1:2,odds2:2,odds3:1,odds4:1},
+{title:"After 2min mark",question:"What will be the next point after the 2:00 mark?", option1_text: "1-pointer", option2_text: "2-pointer", option3_text: "3-pointer",option4_text: "No points",odds1:3,odds2:3,odds3:1,odds4:1},
             
         ];
         $('#bet_title').val(preset_data[idx].title + " " + currTime);
