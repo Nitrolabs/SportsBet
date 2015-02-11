@@ -89,7 +89,7 @@ Template.MainAdmin.events({
 // option4_text: "21+",    odds4: 4
 // }
 
-{title:"Next FT",question:"What will happen during these free throws?", option1_text: "Make both", option2_text: "Miss both", option3_text: "Just makes 1st",option4_text: "Just makes 2nd",odds1:3,odds2:8,odds3:5,odds4:5},
+{title:"Next FT",question:"What will happen during these free throws?", option1_text: "Make both", option2_text: "Miss both", option3_text: "Just 1st",option4_text: "Just 2nd",odds1:3,odds2:8,odds3:5,odds4:5},
 {title:"Buzzer beater",question:"Will there be a buzzer beater this quarter? (FG w/ <1.0 sec)", option1_text: "Yes", option2_text: "No", option3_text: "",option4_text: "",odds1:2,odds2:2,odds3:1,odds4:1},
 {title:"Lebron dunk",question:"Will Lebrow throw down a dunk this quarter?", option1_text: "Yes", option2_text: "No", option3_text: "",option4_text: "",odds1:4,odds2:2,odds3:1,odds4:1},
 {title:"Bosh QTR",question:"How many points will Bosh score this quarter?", option1_text: "0-3", option2_text: "4-7", option3_text: "8-11",option4_text: "12+",odds1:4,odds2:2,odds3:3,odds4:8},
