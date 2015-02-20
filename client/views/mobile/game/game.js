@@ -307,6 +307,34 @@ Template.MobileGame.helpers({
 /* Game: LeaderboardPreview Helpers */
 /*****************************************************************************/
 
+Template.LeaderboardPreview.events({
+    'click #facebook-login-button-for-guest': function() {
+        alert('hi');
+        var myCurrentId = Meteor.userId();
+        var options = {loginStyle:'redirect'}
+        Meteor.loginWithFacebook(options,onLogin)
+        
+        function onLogin(error){
+          if (error){
+            onError(error);
+          } else {
+            // This code will never execute, as we are using the redirect flow
+            // Leave it here in case the loging flow is changed
+            App.track("FB Login Successful");
+            var next_page = Session.get('next_page') || 'mobile.landing'
+            Router.go(next_page);
+          }
+        }
+    
+        function onError(error){
+          console.log(error)
+          App.track("FB Login Failed",{error:error});
+          $('#error').show().css({visibility:visible});
+          $('#error .message').text(error.reason);
+        }
+    } 
+});
+
 Template.LeaderboardPreview.helpers({
     getUserLeaderboardPreview: function() {
         var maxUsersInLeaderBoard = Session.get('maxUsersInLeaderBoardPreview') || 3;

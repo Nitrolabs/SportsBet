@@ -1,10 +1,11 @@
 {
   "private": {
-      "facebookAppId":  "835808673143470",
-      "facebookSecret": "7640904a9c506992bd457391bd1ebfe5"
+      "facebookAppId":  "1594192424128596",
+      "facebookSecret": "ca7bda1e115c555dce26cc7cb1be88f2"
   },
   "public":{
-  	  "root_url":"http://uakk55cef525.assafei.koding.io/"
+  	  "root_url":"http://uakk55cef525.assafei.koding.io/",
+  	  "mixpanel": "67474c73b84907f1bf1b51b0a3a5703d"
   }
 
 }

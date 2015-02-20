@@ -134,7 +134,7 @@
     
     <!--<br>-->
     
-    <table class="table table-condensed">
+    <table class="table table-condensed" style="margin-bottom: 2px;">
         <thead>
             <tr>
                 <th>#</th>
@@ -142,18 +142,18 @@
                 <th>{{> ionIcon icon='android-contact' class='leaderboard-person' }}</th>
                 <th>{{> ionIcon icon='social-usd' class='leaderboard-money' }}</th>
                 <!--<th>{{> ionIcon icon='checkmark' class='leaderboard-tick' }}</th>-->
-                <th>Potential</th>
+                <th style="padding-right: 1px;">Potential</th>
             </tr>
         </thead>
         <tbody>
             {{#each getUserLeaderboardPreview}}
                 <tr class="{{#if highlightMyselfOnTable}}balanced{{/if}}" style="{{#if highlightMyselfOnTable}}font-size: larger; font-weight: bolder; {{/if}}">
                     <td>{{getPositionsInLeaderboard _id}}</td>
-                    <td><img class="profile-pic" src="{{ profile.image.small }}"></td>
+                    <td style="padding-bottom: 0px;"><img class="profile-pic" src="{{ profile.image.small }}"></td>
                     <td>{{profile.name}}</td>
                     <td>{{numberFormatBy bank_account '$0,0'}}</td>
                     <!--<td>{{numberFormatBy user_stats.bets_won_percentage '0,0%'}}</td>-->
-                    <td>${{addTwoNumbers user_stats.potential_winnings bank_account}}</td>
+                    <td style="padding-right: 1px;">${{addTwoNumbers user_stats.potential_winnings bank_account}}</td>
                 </tr>
             {{/each}}
             <!--<tr><td>...</td><td></td><td></td><td></td><td></td><td></td></tr>-->
@@ -161,15 +161,20 @@
             {{#unless getSessionValue 'LeaderboardAmIinTop3'}}
             <tr class="balanced" style="font-size: larger; font-weight: bolder;">
                  <td>{{getPositionsInLeaderboard currentUser._id}}</td>
-                <td><img class="profile-pic" src="{{ currentUser.profile.image.small }}"></td>
+                <td style="padding-bottom: 0px;"><img class="profile-pic" src="{{ currentUser.profile.image.small }}"></td>
                 <td>{{currentUser.profile.name}}</td>
                 <td>{{numberFormatBy currentUser.bank_account '$0,0'}}</td>
                 <!--<td>{{numberFormatBy currentUser.user_stats.bets_won_percentage '0,0%'}}</td>-->
-                <td>${{addTwoNumbers currentUser.user_stats.potential_winnings currentUser.bank_account}}</td>
+                <td style="padding-right: 1px;">${{addTwoNumbers currentUser.user_stats.potential_winnings currentUser.bank_account}}</td>
             </tr>
             {{/unless}}
         </tbody>
     </table>
     
+    <div id='login-button-wrapper' class='text-center'>
+    <a id='facebook-login-button-for-guest' class="login-button" title="Login with Facebook">
+  		<img src="/images/facebook-button.png" alt="Login with Facebook">
+  	</a>
+  	</div>
     
 </template>

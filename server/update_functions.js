@@ -167,5 +167,15 @@ Meteor.methods({
         // Update the bet with the calculated statistics
         new_bet.statistics = statistics;    
         Bets.update(bet_id, {$set: new_bet});
+    },
+    
+    'getNextGuestUserId': function(name, def) {
+        var x = ConfigValues.findOne({name: name});
+        if (!x) {
+            ConfigValues.insert({name: name, value: def});
+            x = ConfigValues.findOne({name: name});
+        }
+        ConfigValues.update(x._id, {$inc: {value: 1}});
+        return x.value+1;
     }
 });

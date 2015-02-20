@@ -34,6 +34,7 @@ Router.onBeforeAction(function() {
 
 // Mobile routes
 Router.route('/login/facebook', {name: 'mobile.facebook.login'});
+Router.route('/login/new_user', {name: 'mobile.new.user'});
 Router.route('/login', {name: 'mobile.login'});
 Router.route('/signup', {name: 'mobile.signup'});
 Router.route('/logout', {name: 'mobile.logout'});
@@ -50,3 +51,4 @@ Router.route('/game/:_id/chat/', {name: 'chat',layoutTemplate:'MobileLayout'});
 Router.route('/admin', {name: 'main.admin'});
 Router.route('/admin/games_mgmt', {name: 'games.mgmt'});
 Router.route('/admin/users_view', {name: 'admin.users.view'});
+
