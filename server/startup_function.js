@@ -14,8 +14,35 @@ Meteor.startup(function ()
 //   if (!Meteor.users.findOne("superuser"))
 );
 
+Accounts.validateNewUser(function(user) {
+    
+    console.log("validateNewUser");
+    // console.log(this);
+    // var clientIP = this.connection.clientAddress;
+    // console.log(clientIP);
+    if (this.userId) {console.log(this.userId)}
+    // var x = Meteor.users.findOne({last_ip: clientIP});
+    // // if (x) 
+    // {
+    //     console.log(x ? "yes" : "no")
+    // }
+    
+    return true;
+    
+    
+});
+
 // Add properties to our new users
 Accounts.onCreateUser(function(options, user) {
+    // console.log(this);
+    // var clientIP = this.connection.clientAddress;
+    console.log(this.userId)
+    console.log('+onCreateUser+')
+    // console.log(clientIP)
+    console.log(options);
+    console.log('---')
+    console.log(user);
+    console.log('***');
     user.profile = options.profile || {name:user.username};
     user.bet_amount = 50;  
     user.bank_account = 1000;

@@ -309,29 +309,31 @@ Template.MobileGame.helpers({
 
 Template.LeaderboardPreview.events({
     'click #facebook-login-button-for-guest': function() {
-        alert('hi');
-        var myCurrentId = Meteor.userId();
-        var options = {loginStyle:'redirect'}
-        Meteor.loginWithFacebook(options,onLogin)
         
-        function onLogin(error){
+        var options = {loginStyle:'redirect'}
+        Meteor.linkWithFacebook(options);
+        
+        Meteor.call('/user/update/after_fb_link', function(error) {console.error(error)})
+        return;
+        var myCurrentId = Meteor.userId();
+        
+        var options = {loginStyle:'redirect', originalId:myCurrentId}
+        Session.set('old_meteor_id', myCurrentId);
+        Meteor.loginWithFacebook(options, function(error) {
+          alert('onLogin')
+        
           if (error){
-            onError(error);
+            alert(error)
           } else {
             // This code will never execute, as we are using the redirect flow
             // Leave it here in case the loging flow is changed
             App.track("FB Login Successful");
-            var next_page = Session.get('next_page') || 'mobile.landing'
-            Router.go(next_page);
+            // var next_page = Session.get('next_page') || 'mobile.landing'
+            // Router.go(next_page);
+            
           }
-        }
-    
-        function onError(error){
-          console.log(error)
-          App.track("FB Login Failed",{error:error});
-          $('#error').show().css({visibility:visible});
-          $('#error .message').text(error.reason);
-        }
+        });
+        
     } 
 });
 
@@ -471,10 +473,28 @@ Template.MobileGame.created = function() {
         }
     }, 10000);
 
+    
     Tracker.autorun(function() {
         if (Meteor.user() && !Meteor.loggingIn()) {
             var bet_amount = Meteor.user().profile.bet_amount || 50;
             Session.setDefault('bet_amount', bet_amount);
+            
+            
+            if (Session.get('old_meteor_id') && Meteor.userId() !== Session.get('old_meteor_id')) {
+            
+                Meteor.call('merge_user_with', Session.get('old_meteor_id'), function(error) {
+                    if (error) 
+                        alert(error); 
+                    else
+                        Meteor.loginWithFacebook(options, onLogin);
+                });
+                
+                Session.set('old_meteor_id', null);
+                Session.set('user_logged_out', null);
+            }
+        }
+        else {
+            Session.set('user_logged_out', true);
         }
     });
 

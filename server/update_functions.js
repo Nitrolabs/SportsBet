@@ -7,6 +7,56 @@ Meteor.methods({
      *
      */
 
+    '/user/update/after_fb_link': function() {
+         if(!this.userId) throw new Error('You must be logged in');
+        
+        var u = Meteor.users.findOne(this.userId);
+        
+        u.profile.name = u.services.facebook.name;
+        
+        var id = u.services.facebook.id;
+        var url = "http://graph.facebook.com/"+id+"/picture";
+        
+        u.profile.image = {};
+        u.profile.image.small = url+"?type=small";
+        u.profile.image.normal = url+"?type=normal";
+        u.profile.image.large = url+"?type=large";
+        u.emails[0].address = u.services.facebook.email;
+        
+        Meteor.users.update(u._id, {$set: u});
+        
+    },
+    
+    'merge_user_with': function(old_user_id) {
+        console.log('merge_user_with')
+        if(!this.userId) throw new Error('You must be logged in');
+        
+        var new_user_id = this.userId;
+        
+        var oldUser = Meteor.users.findOne(old_user_id);
+        var newUser = Meteor.users.findOne(new_user_id);
+        
+        oldUser.services = newUser.services;
+        oldUser.profile = newUser.profile;
+        
+        var url = "/images/profile.png";
+        if (newUser.services && newUser.services.facebook){
+            var id = newUser.services.facebook.id;
+            url = "http://graph.facebook.com/"+id+"/picture";
+        }
+        
+        oldUser.profile.image = {};
+        oldUser.profile.image.small = url+"?type=small";
+        oldUser.profile.image.normal = url+"?type=normal";
+        oldUser.profile.image.large = url+"?type=large";
+        
+        Meteor.users.remove(new_user_id);
+        Meteor.users.update(old_user_id, {$set: oldUser});
+        
+        
+        console.log("removed " + new_user_id);
+        console.log("updated " + old_user_id);
+    },
     '/app/game/bet/submit': function (data) {
 
         // Allow this function to non-users too
