@@ -310,8 +310,19 @@ Template.MobileGame.helpers({
 Template.LeaderboardPreview.events({
     'click #facebook-login-button-for-guest': function() {
         
-        var options = {loginStyle:'redirect'}
-        Meteor.linkWithFacebook(options);
+        var options = {/*loginStyle:'redirect'*/}
+        Meteor.linkWithFacebook(options, function(error) {
+            if (error) {
+                console.error(error);
+                Session.set('ErrorLinkWithFacebook',true);
+                App.track("Error Link with Facebook");
+            }
+            else {
+                Session.set('ErrorLinkWithFacebook',null);
+                App.track("Link with Facebook successful");
+                Meteor.call('/user/update/after_fb_link', function(error) {console.error(error)})
+            }
+        });
         
         Meteor.call('/user/update/after_fb_link', function(error) {console.error(error)})
         return;
@@ -376,6 +387,7 @@ Template.LeaderboardPreview.helpers({
         
         return Session.get("total_number_of_players");
     }
+    
 });
 
 

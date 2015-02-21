@@ -171,10 +171,27 @@
         </tbody>
     </table>
     
-    <div id='login-button-wrapper' class='text-center'>
-    <a id='facebook-login-button-for-guest' class="login-button" title="Login with Facebook">
-  		<img src="/images/facebook-button.png" alt="Login with Facebook">
-  	</a>
-  	</div>
+    {{#unless isUsingFacebook}}
+        {{> MobileFacebookLink textAboveButton="To enjoy all features"}}
+  	{{/unless}}
     
+</template>
+
+<template name="MobileFacebookLink">
+    {{#if isFacebookLinkError}}
+            <div id='login-button-wrapper' class='text-center'>
+                <h2 class="error-in-red">Error linking to Facebook account<br>Do you have a separate account?</h2>
+            </div>
+        {{else}}
+            <div id='login-button-wrapper' class='text-center'>
+                <div class="login-button" title="Login with Facebook">
+          		    
+          		    <a id='facebook-login-button-for-guest'>
+          		        <p>{{textAboveButton}}</p>
+          		        <img src="/images/fblogin1.png" alt="Login with Facebook" style="width:200px">
+          		        <p style="margin-top: -10px;">{{textBelowButton}}</p>
+      		        </a>
+          		</div>
+          	</div>
+        {{/if}}
 </template>

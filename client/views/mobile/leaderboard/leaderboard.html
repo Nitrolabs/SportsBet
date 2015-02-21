@@ -3,8 +3,13 @@
         <h1 class="title">Leaderboard</h1>
     </div>
     {{#ionContent}}
-	<br>
     <br>
+    <br>
+    
+{{#if isEq currentUser.guest "guest"}}
+    {{> MobileFacebookLink textAboveButton="To see full leaderboard" textBelowButton="to gain access to all features"}}
+{{else}}        
+	
     <div class="card" style="margin-top: 10px;">
 	  <div id="bet-answer-wrapper" class="item item-text-wrap" style="padding-bottom: 6px;padding-top: 6px;">
           <table class="table table-condensed">
@@ -45,6 +50,7 @@
             </table>
         </div>
     </div>
+{{/if}}
     {{/ionContent}}
     
 </template>

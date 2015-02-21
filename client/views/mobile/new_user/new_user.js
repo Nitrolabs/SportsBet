@@ -33,13 +33,14 @@ Template.MobileNewUser.created = function () {
             if (error)
                 console.error(error);
             else {
-                alert(t);
+                // alert(t);
                 console.log(t);
                 // Create new user
                 Accounts.createUser({
                     username: "Guest_" + t,
                     email: t + "@guest.com",
                     password: "temp" + t,
+                    profile: {guest:"guest"}
                 }, onCreated);
             
                 function onCreated(error){

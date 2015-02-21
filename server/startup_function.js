@@ -43,7 +43,14 @@ Accounts.onCreateUser(function(options, user) {
     console.log('---')
     console.log(user);
     console.log('***');
-    user.profile = options.profile || {name:user.username};
+    if (options && options.profile && options.profile.guest) {
+        user.guest = options.profile.guest;
+        user.profile = {name:user.username};
+    }
+    else {
+        user.profile = options.profile || {name:user.username};
+    }
+    
     user.bet_amount = 50;  
     user.bank_account = 1000;
     user.messages_queue = [];

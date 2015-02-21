@@ -26,6 +26,11 @@ var schema_for_user = new SimpleSchema({
         optional: true,
         blackbox: true
     },
+    guest: {
+        type: String,
+        optional: true,
+        label: "Was user created automatically for a guest. Options: 'guest', 'linked_to_fb' or empty"
+    },
     // Add `roles` to your schema if you use the meteor-roles package.
     // Note that when using this package, you must also specify the
     // `Roles.GLOBAL_GROUP` group whenever you add a user to a role.

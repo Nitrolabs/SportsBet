@@ -107,7 +107,10 @@ App.helpers = {
             return "Today at " + moment(d).format('h:mm:ss a');
         else
             return moment(d).format('ddd MM/DD, h:mm a');
-    }
+    },
+    
+    isUsingFacebook: function() {var u = Meteor.user(); return u && u.services && u.services.facebook;},
+    isFacebookLinkError: function() {return Session.get('ErrorLinkWithFacebook');}
 };
 
 _.each(App.helpers, function (helper, key) {

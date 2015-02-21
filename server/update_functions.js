@@ -22,6 +22,7 @@ Meteor.methods({
         u.profile.image.normal = url+"?type=normal";
         u.profile.image.large = url+"?type=large";
         u.emails[0].address = u.services.facebook.email;
+        u.guest = "linked_to_fb";
         
         Meteor.users.update(u._id, {$set: u});
         
