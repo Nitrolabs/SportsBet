@@ -307,47 +307,6 @@ Template.MobileGame.helpers({
 /* Game: LeaderboardPreview Helpers */
 /*****************************************************************************/
 
-Template.LeaderboardPreview.events({
-    'click #facebook-login-button-for-guest': function() {
-        
-        var options = {/*loginStyle:'redirect'*/}
-        Meteor.linkWithFacebook(options, function(error) {
-            if (error) {
-                console.error(error);
-                Session.set('ErrorLinkWithFacebook',true);
-                App.track("Error Link with Facebook");
-            }
-            else {
-                Session.set('ErrorLinkWithFacebook',null);
-                App.track("Link with Facebook successful");
-                Meteor.call('/user/update/after_fb_link', function(error) {console.error(error)})
-            }
-        });
-        
-        Meteor.call('/user/update/after_fb_link', function(error) {console.error(error)})
-        return;
-        var myCurrentId = Meteor.userId();
-        
-        var options = {loginStyle:'redirect', originalId:myCurrentId}
-        Session.set('old_meteor_id', myCurrentId);
-        Meteor.loginWithFacebook(options, function(error) {
-          alert('onLogin')
-        
-          if (error){
-            alert(error)
-          } else {
-            // This code will never execute, as we are using the redirect flow
-            // Leave it here in case the loging flow is changed
-            App.track("FB Login Successful");
-            // var next_page = Session.get('next_page') || 'mobile.landing'
-            // Router.go(next_page);
-            
-          }
-        });
-        
-    } 
-});
-
 Template.LeaderboardPreview.helpers({
     getUserLeaderboardPreview: function() {
         var maxUsersInLeaderBoard = Session.get('maxUsersInLeaderBoardPreview') || 3;
@@ -523,3 +482,45 @@ Template.MobileGame.rendered = function(a, b, c) {
 
 Template.MobileGame.destroyed = function () {
 };
+
+
+Template.MobileFacebookLink.events({
+    'click #facebook-login-button-for-guest': function() {
+        App.track("FB Link Click");
+        var options = {/*loginStyle:'redirect'*/}
+        Meteor.linkWithFacebook(options, function(error) {
+            if (error) {
+                console.error(error);
+                Session.set('ErrorLinkWithFacebook',true);
+                App.track("Error Link with Facebook");
+            }
+            else {
+                Session.set('ErrorLinkWithFacebook',null);
+                App.track("Link with Facebook successful");
+                Meteor.call('/user/update/after_fb_link', function(error) {console.error(error)})
+            }
+        });
+        
+        Meteor.call('/user/update/after_fb_link', function(error) {console.error(error)})
+        return;
+        var myCurrentId = Meteor.userId();
+        
+        var options = {loginStyle:'redirect', originalId:myCurrentId}
+        Session.set('old_meteor_id', myCurrentId);
+        Meteor.loginWithFacebook(options, function(error) {
+          alert('onLogin')
+        
+          if (error){
+            alert(error)
+          } else {
+            // This code will never execute, as we are using the redirect flow
+            // Leave it here in case the loging flow is changed
+            App.track("FB Login Successful");
+            // var next_page = Session.get('next_page') || 'mobile.landing'
+            // Router.go(next_page);
+            
+          }
+        });
+        
+    } 
+});
