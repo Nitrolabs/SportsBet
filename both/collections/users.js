@@ -47,6 +47,11 @@ var schema_for_user = new SimpleSchema({
         decimal: true,
         label: "User available currency"
     },
+    bank_diamonds: {
+        type: Number,
+        decimal: false,
+        label: "User Diamonds"
+    },
     bank_request_more_funds: {
         type: String,
         optional: true,

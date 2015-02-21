@@ -58,7 +58,17 @@ Template.MobileNewUser.created = function () {
                     
                     var g = Games.findOne({status: "ACTIVE", start_datetime: {$gte:not_over, $lte:soon}}, {sort: {start_datetime: 1}});
                     if (g) {
-                        console.log("I found a game!")  ;
+                        console.log("I found a game!");
+                        Meteor.call('/app/game/participate', g._id, function(error, resp) {
+                           if (error) 
+                                console.error(error);
+                           else {
+                               if (resp) {
+                                    // console.log("Join game " + g._id);
+                                    App.track("Participate in Game", {game_id: g._id});
+                               }
+                           }
+                        });
                         Session.set("user_current_game_id", g._id);
                         Router.go('mobile.game', {_id: g._id});
                     }

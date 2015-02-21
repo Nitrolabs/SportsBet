@@ -1,10 +1,14 @@
 Meteor.publish(null, function() {
     var u = Meteor.users.findOne(this.userId);
     if (!u) return null;
+    var r;
     if (!u.is_admin)
-        return Meteor.users.find({_id: this.userId}, {fields: {secrets: 0}});
+         r = Meteor.users.find({_id: this.userId}, {fields: {secrets: 0}})
     else
-        return Meteor.users.find({}, {fields: {secrets: 0}});
+        r = Meteor.users.find({}, {fields: {secrets: 0}});
+    
+    var s = UserStats.find({user_id:this.userId});
+    return [r, s];
 });
 
 Meteor.publish('admin_get_all_data', function(game_id) {
@@ -17,6 +21,7 @@ Meteor.publish('admin_get_all_data', function(game_id) {
         Meteor.users.find({}, {fields: {secrets: 0}}),
         Games.find(),
         Bets.find(),
+        UserStats.find({game_id: game_id})
         // UserBets.find({game_id: game_id})
     ]
 });
@@ -34,8 +39,10 @@ Meteor.publish('publish_leaderboard', function(game_id, max) {
       fields: {username:1,user_stats:1,roles:1,profile:1,bank_account:1}
       
   });
+  
+  var p = UserStats.find({game_id:game_id}, {sort: {bank_account: -1}, limit: maxUsersInLeaderBoard});
     
-    return t;  
+    return [t,p];  
   });
 
 Meteor.publish('publish_bets', function(game_id) {

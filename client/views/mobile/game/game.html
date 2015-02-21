@@ -37,9 +37,13 @@
 			</button>
 		{{ else }}
 		    {{#unless getSessionValue "usingVerySmallScreen"}}
-		    <div class="bet-amount-div" style="margin-bottom: 0px" align="center">
+		    <div class="bet-amount-div" style="margin-bottom: 0px;margin-right: 50px" align="center">
+		        <button id="game-info-button" style="margin-top: 4px; margin-bottom: 0px; padding-left: 0px; padding-right: 0px; width: 50px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-top: 0px; height: 48px; line-height: 1.1; font-size: 12px; vertical-align: middle;" class="btn btn-large btn-default pull-left">
+		            <p style="overflow-wrap: normal;margin-bottom: 0;white-space: normal;">{{getGameName}}</p>
+		        </button>
     		    <button id="bet-amount-button-neg" class="btn btn-lg btn-danger" style="margin-top:4px;margin-bottom:4px">-</button>
-    			<button id="bet-amount-button" style="margin-top:4px;margin-bottom:4px" class="button button-positive" >
+    			<button id="bet-amount-button" style="margin-top:4px; margin-bottom:4px;padding-left: 0px;padding-right: 0px;width: 80px;" 
+    			        class="button button-positive" >
     	 	 		<p class="bet-amount-value">{{ formatted_bet_amount }}</p>
     	 	 		<p class="bet-amount-label">Bet amount</p>
     			</button>
@@ -109,7 +113,7 @@
 		    <div class="bet-ongoing-stats">
 		  	     <span>{{ number_bets }} bets 
 		  	    <!--(total <span class="text-info">${{ value_bets}}</span>) -->
-		  	    pending -- can win additional <span class="text-info">{{numberFormatBy currentUser.user_stats.potential_winnings '$0,0'}}</span>!</span>
+		  	    pending -- can win additional <span class="text-info">{{numberFormatBy getMyStats.user_stats.potential_winnings '$0,0'}}</span>!</span>
 		    </div>
 		  {{/if}}
 	  </div>
@@ -123,7 +127,7 @@
 
 
 <template name="LeaderboardPreview">
-    <h1 style="margin-bottom: 0px;font-size: 18px;text-align:center;">You are currently <span class="text-info">#{{getPositionsInLeaderboard currentUser._id}}</span> of {{getTotalNumOfUsers}} Players</h1>
+    <h1 style="margin-bottom: 0px;font-size: 18px;text-align:center;">You are currently <span class="text-info">#{{getMyPositionInLeaderboard}}</span> of {{getTotalNumOfUsers}} Players</h1>
     <span id='leaderboard-subtext'>See full leaderboard by clicking on the menu icon below</span>
     <!--<h2>If you win all your bets, you'll have <span class="text-info">${{addTwoNumbers currentUser.user_stats.potential_winnings currentUser.bank_account}}</span></h2>-->
     <!--<h2>Click on the Leaderboard icon below to see how others are doing</h2>-->
@@ -134,42 +138,7 @@
     
     <!--<br>-->
     
-    <table class="table table-condensed" style="margin-bottom: 2px;">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th></th>
-                <th>{{> ionIcon icon='android-contact' class='leaderboard-person' }}</th>
-                <th>{{> ionIcon icon='social-usd' class='leaderboard-money' }}</th>
-                <!--<th>{{> ionIcon icon='checkmark' class='leaderboard-tick' }}</th>-->
-                <th style="padding-right: 1px;">Potential</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each getUserLeaderboardPreview}}
-                <tr class="{{#if highlightMyselfOnTable}}balanced{{/if}}" style="{{#if highlightMyselfOnTable}}font-size: larger; font-weight: bolder; {{/if}}">
-                    <td>{{getPositionsInLeaderboard _id}}</td>
-                    <td style="padding-bottom: 0px;"><img class="profile-pic" src="{{ profile.image.small }}"></td>
-                    <td>{{profile.name}}</td>
-                    <td>{{numberFormatBy bank_account '$0,0'}}</td>
-                    <!--<td>{{numberFormatBy user_stats.bets_won_percentage '0,0%'}}</td>-->
-                    <td style="padding-right: 1px;">${{addTwoNumbers user_stats.potential_winnings bank_account}}</td>
-                </tr>
-            {{/each}}
-            <!--<tr><td>...</td><td></td><td></td><td></td><td></td><td></td></tr>-->
-            
-            {{#unless getSessionValue 'LeaderboardAmIinTop3'}}
-            <tr class="balanced" style="font-size: larger; font-weight: bolder;">
-                 <td>{{getPositionsInLeaderboard currentUser._id}}</td>
-                <td style="padding-bottom: 0px;"><img class="profile-pic" src="{{ currentUser.profile.image.small }}"></td>
-                <td>{{currentUser.profile.name}}</td>
-                <td>{{numberFormatBy currentUser.bank_account '$0,0'}}</td>
-                <!--<td>{{numberFormatBy currentUser.user_stats.bets_won_percentage '0,0%'}}</td>-->
-                <td style="padding-right: 1px;">${{addTwoNumbers currentUser.user_stats.potential_winnings currentUser.bank_account}}</td>
-            </tr>
-            {{/unless}}
-        </tbody>
-    </table>
+    {{> LeaderboardTable num_users_to_show="3"}}
     
     {{#unless isUsingFacebook}}
         {{> MobileFacebookLink textAboveButton="To enjoy all features"}}

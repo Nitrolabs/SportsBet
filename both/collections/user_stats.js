@@ -30,44 +30,44 @@ var schema = new SimpleSchema({
     },
     
     
-    stats: {
+    user_stats: {
         type: Object,
         optional: true,
         label: "User stats, for this game"
     },
-    "stats.money_on_the_table": {
+    "user_stats.money_on_the_table": {
         type: Number,
         decimal: true,
         optional: true,
         label: "Total money on the table"
     },
-    "stats.total_number_of_bets_placed": {
+    "user_stats.total_number_of_bets_placed": {
         type: Number,
         optional: true,
         label: "Total # of bets placed"
     },
-    "stats.total_number_of_bets_resolved": {
+    "user_stats.total_number_of_bets_resolved": {
         type: Number,
         optional: true,
         label: "Total # of bets resolved"
     },
-    "stats.total_wins_in_a_row": {
+    "user_stats.total_wins_in_a_row": {
         type: Number,
         optional: true,
         label: "total number of wins in a row"
     },
-    "stats.total_number_of_bets_won": {
+    "user_stats.total_number_of_bets_won": {
         type: Number,
         optional: true,
         label: "Total # of bets won"
     },
-    "stats.bets_won_percentage": {
+    "user_stats.bets_won_percentage": {
         type: Number,
         decimal: true,
         optional: true,
         label: "User available currency"
     },
-    "stats.potential_winnings": {
+    "user_stats.potential_winnings": {
         type: Number,
         decimal: true,
         optional: true,

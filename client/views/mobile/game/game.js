@@ -4,8 +4,12 @@
 const DISTANCE_FROM_ME = 2 // in kilometers
 const USERS_IN_PAST_TIME = 2 // in hours
 Template.MobileGame.events({
+    'click #game-info-button':function() {
+        Router.go('mobile.landing')
+    },
     'click #bet-amount-button-pos':function() {
-        var max_bet = Math.floor(Meteor.user().bank_account);
+        var st = App.helpers.getMyStats();
+        var max_bet = Math.floor(st.bank_account);
         var currBetAmount = Session.get('bet_amount');
         var delta = 5;
         if (currBetAmount < 20)        { delta = 5;   }
@@ -22,7 +26,10 @@ Template.MobileGame.events({
         Session.set('bet_amount', newBetAmount); 
     },
     'click #bet-amount-button-neg':function() {
-        var max_bet = Math.floor(Meteor.user().bank_account);
+        
+        var st = App.helpers.getMyStats();
+        var max_bet = Math.floor(st.bank_account);
+        
         var currBetAmount = Session.get('bet_amount');
         
         var delta = 5;
@@ -155,7 +162,7 @@ Template.MobileGame.events({
             
          	// We need to create a new user-bet, with correct bet_id and user_id
          	var user_bet_amount = Session.get('bet_amount');
-         	var user_bank_account = Meteor.user().bank_account;
+         	var user_bank_account = App.helpers.getMyStats().bank_account;
          	if (user_bank_account < 1) return;
          	
          	if (user_bet_amount > user_bank_account)
@@ -178,8 +185,8 @@ Template.MobileGame.events({
                 if (error)
                     alert(error);
                 else {
-                    if (Session.get('bet_amount') > Meteor.user().bank_account && Meteor.user().bank_account > 0) {
-                        Session.set('bet_amount', Meteor.user().bank_account);
+                    if (Session.get('bet_amount') > App.helpers.getMyStats().bank_account && App.helpers.getMyStats().bank_account > 0) {
+                        Session.set('bet_amount', App.helpers.getMyStats().bank_account);
                     }
                     App.track("Bet Place", data);
                 }
@@ -278,11 +285,11 @@ Template.MobileGame.helpers({
     },
 
     disable_based_on_bank_account: function() {
-        return Meteor.user().bank_account >= 1 ? "" : "disabled"
+        return App.helpers.getMyStats().bank_account >= 1 ? "" : "disabled"
     },
 
     formatted_bank_account: function() {
-        var bank_account = Meteor.user().bank_account;
+        var bank_account = App.helpers.getMyStats().bank_account;
         return numeral(bank_account).format('$0,0');
     },
     formatted_win_value: function() {
@@ -290,14 +297,14 @@ Template.MobileGame.helpers({
         return '+' + win;
     },
     is_user_bankrupt: function() {
-        return Meteor.user().bank_account < 1;
+        return App.helpers.getMyStats().bank_account < 1;
     },
     number_bets: function() {
-        var s = Meteor.user().user_stats;
+        var s = App.helpers.getMyStats().user_stats || {};
         return (s.total_number_of_bets_placed - s.total_number_of_bets_resolved);
     },
     value_bets: function() {
-        return Meteor.user().user_stats.money_on_the_table;
+        return App.helpers.getMyStats().user_stats.money_on_the_table;
     }
 });
 
@@ -308,33 +315,27 @@ Template.MobileGame.helpers({
 /*****************************************************************************/
 
 Template.LeaderboardPreview.helpers({
-    getUserLeaderboardPreview: function() {
-        var maxUsersInLeaderBoard = Session.get('maxUsersInLeaderBoardPreview') || 3;
-        var t = Meteor.users.find({},{sort: {bank_account: -1}, limit: maxUsersInLeaderBoard})
-        
-        var amIinTop10 = false;
-        t.forEach(function(y) {amIinTop10 |= (y._id == Meteor.userId());});
-        Session.set('LeaderboardAmIinTop3', amIinTop10);
-                return t;
+    
+    
+    getMyPositionInLeaderboard: function() {
+        var pos = Session.get('LeaderboardMyPos');
+        return pos;
     },
-    highlightMyselfOnTable: function() {
-        return (this._id == Meteor.userId());
-    },
-    getPositionsInLeaderboard: function(id) {
-        var self = this;
-        var index = 0;
-        var t = Meteor.users.find({},{sort: {bank_account: -1}});
-       var found = false;
-        t.forEach(function(y) {
-            if (!found) {
-                index++;
-                found = (y._id == id);
-            }
-        });
-        return index;
-    },
+    // getPositionsInLeaderboard: function(id) {
+    //     var self = this;
+    //     var index = 0;
+    //     var t = Meteor.users.find({},{sort: {bank_account: -1}});
+    //   var found = false;
+    //     t.forEach(function(y) {
+    //         if (!found) {
+    //             index++;
+    //             found = (y._id == id);
+    //         }
+    //     });
+    //     return index;
+    // },
     getTotalNumOfUsers: function() {
-        
+        console.log("getTotalNumOfUsers called")
         Meteor.call('get_total_number_of_players', Session.get("user_current_game_id"), function(error,result) {
             if (error) alert(error);
             else {
@@ -344,7 +345,7 @@ Template.LeaderboardPreview.helpers({
             }
         });
         
-        return Session.get("total_number_of_players");
+        return Math.max(Session.get("total_number_of_players"), UserStats.find({game_id: Session.get("user_current_game_id")}).count());
     }
     
 });
@@ -497,30 +498,30 @@ Template.MobileFacebookLink.events({
             else {
                 Session.set('ErrorLinkWithFacebook',null);
                 App.track("Link with Facebook successful");
-                Meteor.call('/user/update/after_fb_link', function(error) {console.error(error)})
+                Meteor.call('/user/update/after_fb_link', function(error) {if (error) console.error(error)})
             }
         });
         
-        Meteor.call('/user/update/after_fb_link', function(error) {console.error(error)})
+        Meteor.call('/user/update/after_fb_link', function(error) {if (error) console.error(error)})
         return;
-        var myCurrentId = Meteor.userId();
+        // var myCurrentId = Meteor.userId();
         
-        var options = {loginStyle:'redirect', originalId:myCurrentId}
-        Session.set('old_meteor_id', myCurrentId);
-        Meteor.loginWithFacebook(options, function(error) {
-          alert('onLogin')
+        // var options = {loginStyle:'redirect', originalId:myCurrentId}
+        // Session.set('old_meteor_id', myCurrentId);
+        // Meteor.loginWithFacebook(options, function(error) {
+        //   alert('onLogin')
         
-          if (error){
-            alert(error)
-          } else {
-            // This code will never execute, as we are using the redirect flow
-            // Leave it here in case the loging flow is changed
-            App.track("FB Login Successful");
-            // var next_page = Session.get('next_page') || 'mobile.landing'
-            // Router.go(next_page);
+        //   if (error){
+        //     alert(error)
+        //   } else {
+        //     // This code will never execute, as we are using the redirect flow
+        //     // Leave it here in case the loging flow is changed
+        //     App.track("FB Login Successful");
+        //     // var next_page = Session.get('next_page') || 'mobile.landing'
+        //     // Router.go(next_page);
             
-          }
-        });
+        //   }
+        // });
         
     } 
 });

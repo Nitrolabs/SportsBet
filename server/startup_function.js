@@ -53,6 +53,7 @@ Accounts.onCreateUser(function(options, user) {
     
     user.bet_amount = 50;  
     user.bank_account = 1000;
+    user.bank_diamonds = 0;
     user.messages_queue = [];
     user.user_stats = {money_on_the_table: 0, total_number_of_bets_placed: 0, total_number_of_bets_resolved: 0, 
                        total_wins_in_a_row:0, total_number_of_bets_won:0, bets_won_percentage: 0, potential_winnings: 0};

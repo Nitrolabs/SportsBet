@@ -74,6 +74,9 @@ _.extend(App, {
 
 App.helpers = {
     
+    getMyStats: function() {
+        return UserStats.findOne({game_id:Session.get('user_current_game_id'), user_id: Meteor.userId()}) || {};
+    },
     addTwoNumbers: function(a,b) {return Math.floor(a+b);},
     
     numberFormatBy: function(num, format_str) {
@@ -110,7 +113,8 @@ App.helpers = {
     },
     
     isUsingFacebook: function() {var u = Meteor.user(); return u && u.services && u.services.facebook;},
-    isFacebookLinkError: function() {return Session.get('ErrorLinkWithFacebook');}
+    isFacebookLinkError: function() {return Session.get('ErrorLinkWithFacebook');},
+    getGameName: function() {var g = Games.findOne(Session.get('user_current_game_id')); return (g && g.title) || "";}
 };
 
 _.each(App.helpers, function (helper, key) {

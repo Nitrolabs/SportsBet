@@ -38,16 +38,18 @@ Template.MobileLanding.helpers({
     // ASSAF: This is a bit nasty, can you come up with a better way to do this??
     var games;
     var now = new Date();
+    var soon = new Date();
+    soon.setHours(soon.getHours()+24);
     var featured = Template.MobileLanding.__helpers[" featured_game"]();
     if (featured){
       games = Games.find({
         _id: {$ne:featured._id}, 
         status: "ACTIVE",
-        start_datetime: {$lte:now}
+        start_datetime: {$lte:soon}
       });
     } else {
       games = Games.find({
-        start_datetime: {$lte:now},
+        start_datetime: {$lte:soon},
         status: "ACTIVE"
       });
     }
@@ -62,13 +64,13 @@ Template.MobileLanding.helpers({
     if (featured){
       games = Games.find({
         _id: {$ne:featured._id}, 
-        status: "ACTIVE",
+        status: {$in: ["ACTIVE","COMPLETED"]},
         start_datetime: {$gte:now}
       });
     } else {
       games = Games.find({
         start_datetime: {$gte:now},
-        status: "ACTIVE"
+        status: {$in: ["ACTIVE","COMPLETED"]},
       });
     }
     return games;

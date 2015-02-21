@@ -11,53 +11,59 @@ Meteor.methods({
          if(!this.userId) throw new Error('You must be logged in');
         
         var u = Meteor.users.findOne(this.userId);
-        
-        u.profile.name = u.services.facebook.name;
-        
-        var id = u.services.facebook.id;
-        var url = "http://graph.facebook.com/"+id+"/picture";
-        
-        u.profile.image = {};
-        u.profile.image.small = url+"?type=small";
-        u.profile.image.normal = url+"?type=normal";
-        u.profile.image.large = url+"?type=large";
-        u.emails[0].address = u.services.facebook.email;
-        u.guest = "linked_to_fb";
-        
-        Meteor.users.update(u._id, {$set: u});
+        if (u.services && u.services.facebook) {
+            u.profile.name = u.services.facebook.name;
+            
+            var id = u.services.facebook.id;
+            var url = "http://graph.facebook.com/"+id+"/picture";
+            
+            u.profile.image = {};
+            u.profile.image.small = url+"?type=small";
+            u.profile.image.normal = url+"?type=normal";
+            u.profile.image.large = url+"?type=large";
+            u.emails[0].address = u.services.facebook.email;
+            u.guest = "linked_to_fb";
+            
+            Meteor.users.update(u._id, {$set: u});
+            
+            // var xxx = UserStats.find({user_id: this.userId}).fetch();
+            // console.log(xxx);
+            var t = UserStats.update({user_id: this.userId}, {$set: {user_img: u.profile.image.small, user_name: u.profile.name}})
+            // console.log(t);
+        }
         
     },
     
-    'merge_user_with': function(old_user_id) {
-        console.log('merge_user_with')
-        if(!this.userId) throw new Error('You must be logged in');
+    // 'merge_user_with': function(old_user_id) {
+    //     console.log('merge_user_with')
+    //     if(!this.userId) throw new Error('You must be logged in');
         
-        var new_user_id = this.userId;
+    //     var new_user_id = this.userId;
         
-        var oldUser = Meteor.users.findOne(old_user_id);
-        var newUser = Meteor.users.findOne(new_user_id);
+    //     var oldUser = Meteor.users.findOne(old_user_id);
+    //     var newUser = Meteor.users.findOne(new_user_id);
         
-        oldUser.services = newUser.services;
-        oldUser.profile = newUser.profile;
+    //     oldUser.services = newUser.services;
+    //     oldUser.profile = newUser.profile;
         
-        var url = "/images/profile.png";
-        if (newUser.services && newUser.services.facebook){
-            var id = newUser.services.facebook.id;
-            url = "http://graph.facebook.com/"+id+"/picture";
-        }
+    //     var url = "/images/profile.png";
+    //     if (newUser.services && newUser.services.facebook){
+    //         var id = newUser.services.facebook.id;
+    //         url = "http://graph.facebook.com/"+id+"/picture";
+    //     }
         
-        oldUser.profile.image = {};
-        oldUser.profile.image.small = url+"?type=small";
-        oldUser.profile.image.normal = url+"?type=normal";
-        oldUser.profile.image.large = url+"?type=large";
+    //     oldUser.profile.image = {};
+    //     oldUser.profile.image.small = url+"?type=small";
+    //     oldUser.profile.image.normal = url+"?type=normal";
+    //     oldUser.profile.image.large = url+"?type=large";
         
-        Meteor.users.remove(new_user_id);
-        Meteor.users.update(old_user_id, {$set: oldUser});
+    //     Meteor.users.remove(new_user_id);
+    //     Meteor.users.update(old_user_id, {$set: oldUser});
         
         
-        console.log("removed " + new_user_id);
-        console.log("updated " + old_user_id);
-    },
+    //     console.log("removed " + new_user_id);
+    //     console.log("updated " + old_user_id);
+    // },
     '/app/game/bet/submit': function (data) {
 
         // Allow this function to non-users too
@@ -80,6 +86,15 @@ Meteor.methods({
                         "user_stats.potential_winnings": data.wager * data.odds
                 }
             });
+            
+            UserStats.update({user_id: this.userId, game_id: data.game_id}, {
+                $inc: {bank_account: -data.wager,
+                       "user_stats.money_on_the_table": data.wager,
+                       "user_stats.total_number_of_bets_placed": 1,
+                        "user_stats.potential_winnings": data.wager * data.odds
+                }
+            });
+            
             
             var new_user_bet = {
                 game_id: data.game_id,
@@ -126,13 +141,14 @@ Meteor.methods({
             user_name: u.profile.name,
             user_img: u.profile.image.normal,
             bank_account: 1000, //TODO ASSAF - change to default
-            stats: {
+            user_stats: {
                 money_on_the_table: 0, 
                 total_number_of_bets_placed: 0,
                 total_number_of_bets_resolved: 0,
                 total_wins_in_a_row: 0,
                 total_number_of_bets_won: 0,
-                bets_won_percentage: 0
+                bets_won_percentage: 0,
+                potential_winnings: 0
             }
         };
         
@@ -145,8 +161,7 @@ Meteor.methods({
         Meteor.users.update(this.userId,{$pop: {messages_queue: -1}});
     },
     'get_total_number_of_players': function(game_id) {
-        return Meteor.users.find().count();
-        // TODO: ASSAF COUNT ONLY PEOPLE IN THE CURRENT GAME!
+        return UserStats.find({game_id:game_id}).count();
     },
     
     '/admin/bet/resolve': function(bet_id, new_bet) {
@@ -194,11 +209,7 @@ Meteor.methods({
                 "user_stats.potential_winnings": (-userBet.wager *  new_bet.outcomes[userBet.answer - 1].odds)
              },
              $set: {"user_stats.bets_won_percentage": new_success_ratio},
-             $push: {'messages_queue': {
-                    mid: bet_id, 
-                    text: (didWin ? "WIN! " : "LOSE... ") + new_bet.status_update + 
-                    "(" + (didWin ? (" +$" + money_to_add) : (" -$" + userBet.wager)) + ")"}
-                    }
+             
             };
             
             if (didWin) 
@@ -209,8 +220,18 @@ Meteor.methods({
             // console.log("updateQuery");        
             // console.log(updateQuery);
             
-            // update User by adding new message to his/her queue 
+            // Update user_stats
+            UserStats.update({user_id: user._id, game_id: new_bet.game_id}, updateQuery);
+            
+            // update User by adding new message to his/her queue
+            _.extend(updateQuery, 
+                {$push: {'messages_queue': {
+                        mid: bet_id, 
+                        text: (didWin ? "WIN! " : "LOSE... ") + new_bet.status_update + 
+                        "(" + (didWin ? (" +$" + money_to_add) : (" -$" + userBet.wager)) + ")"}
+                        }});
             Meteor.users.update({_id: user._id}, updateQuery);
+            
             
             UserBets.update(bet_id, {$set: {resolved_at: new Date()}});
         });

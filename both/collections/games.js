@@ -14,7 +14,7 @@ var schema = new SimpleSchema({
     },
     status: {
         type: String,
-        label: "Status of the game: one of ACTIVE, INACTIVE",
+        label: "Status of the game: one of ACTIVE, INACTIVE, COMPLETED",
         optional: true
     }
 });
