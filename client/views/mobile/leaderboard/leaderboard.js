@@ -6,6 +6,10 @@ Template.LeaderboardTable.events({
 
 Template.LeaderboardTable.helpers({
   
+  removeUnderscores: function(x) {
+      if (!x) return x;
+      return x.replace("_", " ");
+  },
   getUserLeaderboardPreview: function() {
         // console.log('getUserLeaderboardPreview')
         // console.log(this);

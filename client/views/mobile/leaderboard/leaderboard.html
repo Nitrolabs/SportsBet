@@ -7,7 +7,7 @@
     <br>
     
 {{#if isEq currentUser.guest "guest"}}
-    {{> MobileFacebookLink textAboveButton="To see full leaderboard" textBelowButton="to gain access to all features"}}
+    {{> MobileFacebookLink textAboveButton="To see full leaderboard," textBelowButton="and gain access to all features"}}
 {{else}}        
 	
     <div class="card" style="margin-top: 10px;">
@@ -37,7 +37,7 @@
                 <tr class="{{#if highlightMyselfOnTable}}balanced{{/if}}" style="{{#if highlightMyselfOnTable}}font-size: larger; font-weight: bolder; {{/if}}">
                     <td>{{index_in_list}}</td>
                     <td style="padding-bottom: 0px;"><img class="profile-pic" src="{{ user_img }}"></td>
-                    <td>{{user_name}}</td>
+                    <td>{{removeUnderscores user_name}}</td>
                     <td>{{numberFormatBy bank_account '$0,0'}}</td>
                     <!--<td>{{numberFormatBy user_stats.bets_won_percentage '0,0%'}}</td>-->
                     <td style="padding-right: 1px;">${{addTwoNumbers user_stats.potential_winnings bank_account}}</td>
@@ -49,7 +49,7 @@
             <tr class="balanced" style="font-size: larger; font-weight: bolder;">
                  <td>{{getMyPositionInLeaderboard}}</td>
                 <td style="padding-bottom: 0px;"><img class="profile-pic" src="{{ getMyStats.user_img }}"></td>
-                <td>{{getMyStats.user_name}}</td>
+                <td>{{removeUnderscores getMyStats.user_name}}</td>
                 <td>{{numberFormatBy getMyStats.bank_account '$0,0'}}</td>
                 <!--<td>{{numberFormatBy currentUser.user_stats.bets_won_percentage '0,0%'}}</td>-->
                 <td style="padding-right: 1px;">${{addTwoNumbers getMyStats.user_stats.potential_winnings getMyStats.bank_account}}</td>

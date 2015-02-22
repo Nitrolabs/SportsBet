@@ -37,10 +37,12 @@
 			</button>
 		{{ else }}
 		    {{#unless getSessionValue "usingVerySmallScreen"}}
-		    <div class="bet-amount-div" style="margin-bottom: 0px;margin-right: 50px" align="center">
-		        <button id="game-info-button" style="margin-top: 4px; margin-bottom: 0px; padding-left: 0px; padding-right: 0px; width: 50px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-top: 0px; height: 48px; line-height: 1.1; font-size: 12px; vertical-align: middle;" class="btn btn-large btn-default pull-left">
-		            <p style="overflow-wrap: normal;margin-bottom: 0;white-space: normal;">{{getGameName}}</p>
-		        </button>
+		    <div class="bet-amount-div" style="margin-bottom: 0px;" align="center">
+		    <!--<div class="bet-amount-div" style="margin-bottom: 0px;margin-right: 50px" align="center">-->
+		        <!--RERURN THIS LATER ON! Need both the button and the margin right=50px from the line above-->
+		        <!--<button id="game-info-button" style="margin-top: 4px; margin-bottom: 0px; padding-left: 0px; padding-right: 0px; width: 50px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-top: 0px; height: 48px; line-height: 1.1; font-size: 12px; vertical-align: middle;" class="btn btn-large btn-default pull-left">-->
+		        <!--    <p style="overflow-wrap: normal;margin-bottom: 0;white-space: normal;">{{getGameName}}</p>-->
+		        <!--</button>-->
     		    <button id="bet-amount-button-neg" class="btn btn-lg btn-danger" style="margin-top:4px;margin-bottom:4px">-</button>
     			<button id="bet-amount-button" style="margin-top:4px; margin-bottom:4px;padding-left: 0px;padding-right: 0px;width: 80px;" 
     			        class="button button-positive" >
