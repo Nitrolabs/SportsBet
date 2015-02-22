@@ -7,6 +7,11 @@ var schema = new SimpleSchema({
         label: "Game Title",
         max: 200
     },
+    short_title: {
+        type: String,
+        label: "Short Game Title",
+        max: 200
+    },
     start_datetime: {
         type: Date,
         label: "Time when the game starts",
@@ -16,6 +21,17 @@ var schema = new SimpleSchema({
         type: String,
         label: "Status of the game: one of ACTIVE, INACTIVE, COMPLETED",
         optional: true
+    },
+    tweeter_hashtags: {
+        type: [String],
+        label: "Tweeter #",
+        optional:true
+    },
+    tweeter_user_handles: {
+        type: [String],
+        label: "Tweeter @",
+        optional: true
+        
     }
 });
 

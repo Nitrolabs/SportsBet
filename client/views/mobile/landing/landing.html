@@ -20,10 +20,20 @@
             	<a href="{{pathFor route='mobile.game'}}">
             		<button class="button button-block button-positive button-game-select">
       				    {{title}}
-    				    </button>
+				    </button>
             	</a>
             </div>
           {{/with}}
+        </div>
+        
+        <div class="tutorial-button-wrapper">
+            <div class="tutorial-button-col col col-100">
+            	<a href="{{pathFor route='tutorial'}}">
+            		<button class="button button-block button-dark tutorial-button">
+      				    <i class="fa fa-question"></i> Help & Tutorial
+			    </button>
+            	</a>
+            </div>
         </div>
 
         <div class="active-game-wrapper">
@@ -32,7 +42,7 @@
 	        		<a href="{{pathFor route='mobile.game'}}">
 		        		<button class="button button-block button-balanced button-game-select">
 		  				    {{title}}
-						    </button>
+					    </button>
 		        	</a>
             </div>
 	        {{/each}}
@@ -44,7 +54,7 @@
               <a href="{{pathFor route='mobile.game'}}">
         		    <button class="button button-block button-royal button-game-select">
   				       {{title}}
-				        </button>
+			        </button>
         	  </a>
           </div>
         {{/each}}

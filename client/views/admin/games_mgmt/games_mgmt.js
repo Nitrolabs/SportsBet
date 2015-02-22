@@ -31,6 +31,7 @@ Template.GamesMgmt.events({
        e.preventDefault();
        var x = Template.GamesMgmt.__helpers[" getGameDetailsFromControlsOnScreen"]();
        var id = Session.get('admin_active_game');
+       x.status = Games.findOne(id).status || x.status;
        console.log(x);
        Games.update(id, {$set: x});
    },
@@ -71,6 +72,7 @@ Template.GamesMgmt.helpers({
     
     getGameDetailsFromControlsOnScreen: function() {
         var title = $('#game_title').val();
+        var short_title = ($('#short_game_title').val()) || title; 
         
         var d = new Date($('#game_start_datetime').val())
         d.setTime( d.getTime() + d.getTimezoneOffset()*60000 );
@@ -78,7 +80,12 @@ Template.GamesMgmt.helpers({
         console.log("game date/time:")
         console.log(d);
         
-        var x = {title: title, start_datetime: d, status: "ACTIVE"};
+        var tweeter_hashtags =     $('#tweeter_hashtags').val().trim() ? $('#tweeter_hashtags').val().trim().split(" ") : [];
+        var tweeter_user_handles = $('#tweeter_user_handles').val().trim() ? $('#tweeter_user_handles').val().trim().split(" ") : [];
+        
+        var x = {title: title, short_title:short_title, start_datetime: d, status: "ACTIVE", 
+                 tweeter_hashtags: tweeter_hashtags, 
+                 tweeter_user_handles: tweeter_user_handles};
         
         return x;
     },
@@ -94,7 +101,23 @@ Template.GamesMgmt.helpers({
     showStartDateTime: function(d) {
         if (!d) return null;
         return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().substring(0,19);
-    }
+    },
+    
+    getTweeterHashtags: function() {
+        
+        var t = this.tweeter_hashtags;
+        if (!t || !t.length) return "";
+        return t.join(" ");
+        // var r = "";
+        // t.forEach(function(x) {r+=x + " ";});
+        
+        // return r;
+    },
+    getTweeterUserHandles: function() {
+        var t = this.tweeter_user_handles;
+        if (!t || !t.length) return "";
+        return t.join(" ");
+    },
 });
 
 /*****************************************************************************/

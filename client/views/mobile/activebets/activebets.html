@@ -1,9 +1,24 @@
 <template name="Activebets">
-	{{#ionContent}}
-	<div class="bar bar-header bar-dark">
-		<h1 class="title">Active Bets</h1>
+  <div class="bar bar-header bar-dark has-tabs-top">
+	    <h1 class="title">Active Bets</h1>
 	</div>
-	<br><br>
+	<div class="tabs-striped tabs-top tabs-icon-top tabs-background-dark tabs-color-light">
+        <div class="tabs">
+          <a class="tab-item active" href="#">
+            <i class="icon ion-star"></i>
+            Active Bets
+          </a>
+          <a class="tab-item" href="{{pathFor route='history'}}">
+            <i class="icon ion-ios-time-outline"></i>
+            Bets History
+          </a>
+        </div>
+      </div>
+    
+	{{#ionContent}}
+	
+	 
+	<br><br><br><br><br>
 		<div class="list">
 		{{#each bets }}
 		

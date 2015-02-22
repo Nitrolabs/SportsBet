@@ -67,10 +67,12 @@
                     <tr><td>ID: </td><td>{{_id}}</td></tr>
                     <tr><td>Status:   </td><td><b>{{status}}</b></td></tr>
                     <tr><td>Title: </td><td><input type="text" id="game_title" value="{{title}}"/></td></tr>
+                    <tr><td>Short Title: </td><td><input type="text" id="short_game_title" value="{{short_title}}"/></td></tr>
                     <tr><td>Start Date/Time:</td><td>
                         <input type="datetime-local" id="game_start_datetime" value="{{showStartDateTime start_datetime}}"/>
                     </td></tr>
-                    <!--<tr><td colspan="2"></td></tr>-->
+                    <tr><td>Tweeter #s</td><td><textarea id="tweeter_hashtags"     rows="3" cols="40">{{getTweeterHashtags}}</textarea></td></tr>
+                    <tr><td>Tweeter @s</td><td><textarea id="tweeter_user_handles" rows="3" cols="40">{{getTweeterUserHandles}}</textarea></td></tr>
                     
                 </table>     
                 

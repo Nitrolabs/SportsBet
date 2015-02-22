@@ -2,7 +2,21 @@
     <div class="bar bar-header bar-dark">
 		<h1 class="title">Bet History</h1>
 	</div>
+	<div class="tabs-striped tabs-top tabs-icon-top tabs-background-dark tabs-color-light">
+        <div class="tabs">
+          <a class="tab-item " href="{{pathFor route='activebets'}}">
+            <i class="icon ion-star"></i>
+            Active Bets
+          </a>
+          <a class="tab-item active" href="#">
+            <i class="icon ion-ios-time-outline"></i>
+            Bets History
+          </a>
+        </div>
+      </div>
 	{{#ionContent}}
+	
+	<br><br><br>
 	<br><br>
 	<div class="list">
 	    
