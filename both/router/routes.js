@@ -48,6 +48,7 @@ Router.route('/game/:_id/history/', {name: 'history',layoutTemplate:'MobileLayou
 Router.route('/game/:_id/activebets/', {name: 'activebets',layoutTemplate:'MobileLayout'});
 Router.route('/game/:_id/leaderboard/', {name: 'leaderboard',layoutTemplate:'MobileLayout'});
 Router.route('/game/:_id/chat/', {name: 'chat',layoutTemplate:'MobileLayout'});
+Router.route('/game/:_id/prizes/', {name: 'prizes',layoutTemplate:'MobileLayout'});
 
 // Desktop routes
 Router.route('/admin', {name: 'main.admin'});

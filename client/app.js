@@ -114,7 +114,8 @@ App.helpers = {
     
     isUsingFacebook: function() {var u = Meteor.user(); return u && u.services && u.services.facebook;},
     isFacebookLinkError: function() {return Session.get('ErrorLinkWithFacebook');},
-    getGameName: function() {var g = Games.findOne(Session.get('user_current_game_id')); return (g && g.short_title) || "";}
+    getGameName: function() {var g = Games.findOne(Session.get('user_current_game_id')); return (g && g.short_title) || "";},
+    getCurrentGame: function() {var g = Games.findOne(Session.get('user_current_game_id')); return (g) || {};},
 };
 
 _.each(App.helpers, function (helper, key) {

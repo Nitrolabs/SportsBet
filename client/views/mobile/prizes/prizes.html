@@ -1,0 +1,30 @@
+<template name="Prizes">
+  <div class="bar bar-header bar-dark">
+	<h1 class="title">Prizes</h1>
+  </div>
+	
+  {{#ionContent}}
+	<br><br>
+	
+	<h2>This Game</h2>
+    <h3>1st: <b>$25 Gift Card to Sports Cafe</b></h3>
+    <h3>2nd: <b>$10 Gift Card to Coupa Cafe</b></h3>
+    <h3>Top 10: <b>100</b> extra coins for all future games</h3>
+    <br>
+    
+    <h2>Final Game</h2>
+    <h3>1st place gets 2 NBA playoff tickets!</h3>
+    <h4>2nd place gets something nice</h4>
+    <h4>3rd place gets something else</h4>
+    <br>
+    
+    <h3>You will start future games with <b>{{calculateNewBankAllocation}}</b> coins</h3>
+    {{#if currentUser.bank_diamonds}}
+        <h4>because you finished top-10 in <b>{{currentUser.bank_diamonds}}</b> games</h4>
+    {{else}}
+        <h4>Get 100 bonus coins to any future game by finishing top-10</h4>
+    {{/if}}
+
+  {{/ionContent}}	
+  
+</template>
