@@ -32,6 +32,11 @@ var schema = new SimpleSchema({
         label: "Tweeter @",
         optional: true
         
+    },
+    tweets: {
+        type: [String],
+        label: "Tweets",
+        optional: true
     }
 });
 

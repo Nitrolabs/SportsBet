@@ -9,6 +9,21 @@ Meteor.startup(function ()
         appId: Meteor.settings.private.facebookAppId,
         secret: Meteor.settings.private.facebookSecret
     });
+
+    var twit = new Twitter({
+      consumer_key: 'aO0JAZTGNqew5ezm4dlRQUwPq',
+      consumer_secret: '3QaL4xix1qlrLEq38I70J6KFlNLDEcsXRXGPh2AK7IFgZIQIJE',
+      access_token_key: '2190711745-FsSpHKIYr5MbmGvqc07x0tNvSuLH67P7T0BM8jG',
+      access_token_secret: 'eIW2qI23NNqcaJhpFw7rfBQrvQCowU63CBUUIoDOYQk42'
+    });
+
+    // twit.stream('statuses/filter', {
+    //     'track': 'ourHashtag'
+    // }, function(stream) {
+    //     stream.on('data', function(data) {
+    //         TweetStream.emit('tweet', data);
+    //     });
+    // });
   }
   
 //   if (!Meteor.users.findOne("superuser"))
