@@ -27,44 +27,51 @@
  			{{users_nearby}}
  		</div> -->
 
- 		{{#if is_user_bankrupt }}
-	 		<button id="buy-chips-button" class="button button-balanced" style="margin-bottom: 0px;margin-top: 10px;">
-	 	 		{{#if currentUser.bank_request_more_funds}}
-	 	 		    <p>No more refills....</p>
-	 	 		{{else}}
-	 	 		    <p>Request Refill (only once)</p>
-	 	 		{{/if}}
-			</button>
+ 		{{#if question }}
+	 		{{#if is_user_bankrupt }}
+		 		<button id="buy-chips-button" class="button button-balanced" style="margin-bottom: 0px;margin-top: 10px;">
+		 	 		{{#if currentUser.bank_request_more_funds}}
+		 	 		    <p>No more refills....</p>
+		 	 		{{else}}
+		 	 		    <p>Request Refill (only once)</p>
+		 	 		{{/if}}
+				</button>
+			{{ else }}
+			    {{#unless getSessionValue "usingVerySmallScreen"}}
+			    <div class="bet-amount-div" style="margin-bottom: 0px;" align="center">
+			    <!--<div class="bet-amount-div" style="margin-bottom: 0px;margin-right: 50px" align="center">-->
+			        <!--RERURN THIS LATER ON! Need both the button and the margin right=50px from the line above-->
+			        <!--<button id="game-info-button" style="margin-top: 4px; margin-bottom: 0px; padding-left: 0px; padding-right: 0px; width: 50px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-top: 0px; height: 48px; line-height: 1.1; font-size: 12px; vertical-align: middle;" class="btn btn-large btn-default pull-left">-->
+			        <!--    <p style="overflow-wrap: normal;margin-bottom: 0;white-space: normal;">{{getGameName}}</p>-->
+			        <!--</button>-->
+	    		    <button id="bet-amount-button-neg" class="btn btn-lg btn-danger" style="margin-top:4px;margin-bottom:4px">-</button>
+	    			<button id="bet-amount-button" style="margin-top:4px; margin-bottom:4px;padding-left: 0px;padding-right: 0px;width: 80px;" 
+	    			        class="button button-positive" >
+	    	 	 		<p class="bet-amount-value">{{ formatted_bet_amount }}</p>
+	    	 	 		<p class="bet-amount-label">Bet amount</p>
+	    			</button>
+	    			<button style="margin-top:4px;margin-bottom:4px" id="bet-amount-button-pos" class="btn btn-lg btn-success">+</button>
+				</div>
+				{{/unless}}
+			{{/if}}
 		{{ else }}
-		    {{#unless getSessionValue "usingVerySmallScreen"}}
-		    <div class="bet-amount-div" style="margin-bottom: 0px;" align="center">
-		    <!--<div class="bet-amount-div" style="margin-bottom: 0px;margin-right: 50px" align="center">-->
-		        <!--RERURN THIS LATER ON! Need both the button and the margin right=50px from the line above-->
-		        <!--<button id="game-info-button" style="margin-top: 4px; margin-bottom: 0px; padding-left: 0px; padding-right: 0px; width: 50px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-top: 0px; height: 48px; line-height: 1.1; font-size: 12px; vertical-align: middle;" class="btn btn-large btn-default pull-left">-->
-		        <!--    <p style="overflow-wrap: normal;margin-bottom: 0;white-space: normal;">{{getGameName}}</p>-->
-		        <!--</button>-->
-    		    <button id="bet-amount-button-neg" class="btn btn-lg btn-danger" style="margin-top:4px;margin-bottom:4px">-</button>
-    			<button id="bet-amount-button" style="margin-top:4px; margin-bottom:4px;padding-left: 0px;padding-right: 0px;width: 80px;" 
-    			        class="button button-positive" >
-    	 	 		<p class="bet-amount-value">{{ formatted_bet_amount }}</p>
-    	 	 		<p class="bet-amount-label">Bet amount</p>
-    			</button>
-    			<button style="margin-top:4px;margin-bottom:4px" id="bet-amount-button-pos" class="btn btn-lg btn-success">+</button>
-			</div>
-			{{/unless}}
+			<h3 id='more-bets-soon' class='text-center'>More Bets Coming Soon!</h3>
 		{{/if}}
-	
- 		<div class="card" style="margin-top: 5px;margin-left:5px;margin-right:5px;margin-bottom:5px;">
-		  <div id="bet-question-wrapper" class="item item-divider" style=" white-space: normal;padding-top:4px;padding-bottom:4px">
+
+		
+ 		<div class="card">
+		  <div id="bet-question-wrapper" style="white-space: normal;">
 		  <!-- MAX: TODO - fix the white-space:normal thing I did above... -->
 		    {{#if question}}
 		        {{ question }}
 		    {{else}}
-		        <h1 class='text-center' style="margin-bottom: 0px;font-size: 22px;">More Bets Coming Soon!</h1>
-		        <!--<span id='leaderboard-subtext'>Check this page often to see new bets</span>-->
+		    	<div class="button-bar card-tabs">
+				  <a class="button button-dark icon-left ion-ios-list">Leaderboard</a>
+				  <a class="button button-dark icon-left ion-social-twitter">Twitter</a>
+				</div>
 		    {{/if}}
 		  </div>
-		  <div id="bet-answer-wrapper" class="item item-text-wrap" style="padding-bottom: 6px;padding-top: 0px;">
+		  <div id="bet-answer-wrapper" class="item item-text-wrap">
 		  {{#if status }} <!-- crude way to check whether there's a status, i.e. there's a bet-->
 		  	  {{#each addIndexesToArray outcomes }}
 		  	    {{#if notEmptyString text}}
@@ -128,25 +135,13 @@
 
 
 
-<template name="LeaderboardPreview">
-    <h1 style="margin-bottom: 0px;font-size: 18px;text-align:center;">You are currently <span class="text-info">#{{getMyPositionInLeaderboard}}</span> of {{getTotalNumOfUsers}} Players</h1>
-    <span id='leaderboard-subtext'>See full leaderboard by clicking on the menu icon below</span>
-    <!--<h2>If you win all your bets, you'll have <span class="text-info">${{addTwoNumbers currentUser.user_stats.potential_winnings currentUser.bank_account}}</span></h2>-->
-    <!--<h2>Click on the Leaderboard icon below to see how others are doing</h2>-->
-    <!--<br>-->
-    <!--<h2>Click the Active Bets or History icons below to see your previous bets</h2>-->
-    <!--<br>-->
-    <!--<h2>Click the Chat icon below to chat and trash talk</h2>-->
-    
-    <!--<br>-->
-    
+<template name="LeaderboardPreview">    
     {{> LeaderboardTable num_users_to_show="3"}}
-    
     {{#unless isUsingFacebook}}
         {{> MobileFacebookLink textAboveButton="To enjoy all features"}}
   	{{/unless}}
-    
 </template>
+
 
 <template name="MobileFacebookLink">
     {{#if isFacebookLinkError}}
