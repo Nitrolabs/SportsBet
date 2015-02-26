@@ -217,10 +217,17 @@ Template.MobileGame.events({
                 else {
                     App.track("Bet Skip", data);
                 }
-            });
-            
-    
-    
+            }); 
+    },
+
+
+    'click #leaderboard-tab': function(){
+        Session.set('show_twitter',false);
+    },
+
+
+    'click #twitter-tab':function(){
+        Session.set('show_twitter',true);
     }
 });
 
@@ -305,7 +312,11 @@ Template.MobileGame.helpers({
     },
     value_bets: function() {
         return App.helpers.getMyStats().user_stats.money_on_the_table;
+    },
+    show_twitter:function(){
+        return Session.get('show_twitter');
     }
+
 });
 
 

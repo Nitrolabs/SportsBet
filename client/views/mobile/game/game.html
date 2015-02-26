@@ -66,8 +66,13 @@
 		        {{ question }}
 		    {{else}}
 		    	<div class="button-bar card-tabs">
-				  <a class="button button-dark icon-left ion-ios-list">Leaderboard</a>
-				  <a class="button button-dark icon-left ion-social-twitter">Twitter</a>
+		    		{{# if show_twitter}}
+				  		<a class="button button-dark icon-left ion-ios-list" id="leaderboard-tab">Leaderboard</a>
+				  		<a class="button button-dark icon-left ion-social-twitter active" id="twitter-tab">Twitter</a>
+				  	{{ else }}
+				  		<a class="button button-dark icon-left ion-ios-list active" id="leaderboard-tab">Leaderboard</a>
+				  		<a class="button button-dark icon-left ion-social-twitter" id="twitter-tab">Twitter</a>
+				  	{{/if}}
 				</div>
 		    {{/if}}
 		  </div>
@@ -100,7 +105,11 @@
 			  <a href="#" id="bet-skip-button" class='button button-stable'>skip</a>
 			  <br>
 		    {{else}} <!--  No current bet-->
-	            {{> LeaderboardPreview }}
+		    	{{#if show_twitter }}
+	            	{{> TwitterFeed }}
+		    	{{else}}
+		    		{{> LeaderboardPreview }}
+		    	{{/if}}
 	        {{/if}}
 		    </div>
 		</div> <!-- END QUESTION -->
@@ -133,6 +142,20 @@
 
 
 
+<template name="TwitterFeed">
+	{{#each tweets}}
+	  <a href="#" class="item item-icon-left">
+	    <i class="icon ion-social-twitter-outline"></i>
+	    {{ body }}
+	  </a>
+	{{ else }}
+		<a href="#" class="item item-icon-left">
+	    	<i class="icon ion-social-twitter-outline"></i>
+	   	 	No Tweets Yet
+	  	</a>
+	{{/each}}
+</template>
+
 
 
 <template name="LeaderboardPreview">    
@@ -141,6 +164,8 @@
         {{> MobileFacebookLink textAboveButton="To enjoy all features"}}
   	{{/unless}}
 </template>
+
+
 
 
 <template name="MobileFacebookLink">
