@@ -4,7 +4,11 @@ PrizesController = RouteController.extend({
   },
 
   data: function () {
-  	return {_id:this.params._id}
+  	var _id = this.params._id;
+  	var game = Games.findOne({_id:_id});
+  	return {_id:_id,
+  			game:game
+  		}
   },
 
   action: function () {

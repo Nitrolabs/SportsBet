@@ -35,14 +35,17 @@
 
 
 #bet-question {
-	min-height: 80px !important;
+	min-height: 40px !important;
 	vertical-align: center;
-	padding: 30px !important;
+	padding: 15px !important;
 }
 #bet-question-wrapper {
 	font-size: 18px;
 }
-
+#bet-answer {
+	padding-top: 4px;
+	padding-bottom: 8px;
+}
 #bet-answer-wrapper {
 	padding-top: 6px;
 	padding-bottom: 6px;
@@ -156,10 +159,14 @@
 	margin: 5px 0;
 }
 
-#bet-amount-div {
+.bet-amount-div {
     display: block;
-    vertical-align: center;
+    vertical-align: middle;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: -10px;
 }
+
 #bet-amount-button {
 	margin: 10px auto;
 	width: 140px;

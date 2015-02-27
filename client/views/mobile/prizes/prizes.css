@@ -1,3 +1,47 @@
 /*****************************************************************************/
 /* Prizes: Style */
 /*****************************************************************************/
+
+.prizes .bronze {
+	color: rgb(140 , 120 , 83);
+}
+
+.prizes .silver {
+	color: rgb(192 , 192 , 192 );
+}
+
+.prizes .gold {
+	color: rgb(212 , 175 , 55);
+}
+
+.prizes .green {
+	color: rgb(0, 176, 0);
+}
+.prizes .red {
+	color: rgb(240, 66, 66)
+}
+.prizes .pink {
+	color: rgb(255, 109, 134);
+}
+.prizes .blue {
+	color: rgb(26, 213, 199);
+}
+.prizes .trophy {
+	color: rgb(210, 179, 144);
+}
+.prizes .item p{
+	padding-bottom: 2px;
+}
+.prizes .item-avatar {
+	padding-left: 80px;
+}
+
+.prizes .item-avatar h1 {
+	font-size: 24px;
+	margin: 0;
+}
+
+.prizes .item-avatar img {
+	max-width: 50px !important;
+	max-height: 50px !important;
+}

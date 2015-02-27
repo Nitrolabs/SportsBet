@@ -1,30 +1,96 @@
 <template name="Prizes">
-  <div class="bar bar-header bar-dark">
-	<h1 class="title">Prizes</h1>
-  </div>
-	
-  {{#ionContent}}
-	<br><br>
-	
-	<h2>This Game</h2>
-    <h3>1st: <b>$25 Gift Card to Sports Cafe</b></h3>
-    <h3>2nd: <b>$10 Gift Card to Coupa Cafe</b></h3>
-    <h3>Top 10: <b>100</b> extra coins for all future games</h3>
-    <br>
-    
-    <h2>Final Game</h2>
-    <h3>1st place gets 2 NBA playoff tickets!</h3>
-    <h4>2nd place gets something nice</h4>
-    <h4>3rd place gets something else</h4>
-    <br>
-    
-    <h3>You will start future games with <b>{{calculateNewBankAllocation}}</b> coins</h3>
-    {{#if currentUser.bank_diamonds}}
-        <h4>because you finished top-10 in <b>{{currentUser.bank_diamonds}}</b> games</h4>
-    {{else}}
-        <h4>Get 100 bonus coins to any future game by finishing top-10</h4>
-    {{/if}}
+    <div class="bar bar-header bar-dark">
+        <h1 class="title">Prizes</h1>
+    </div>
 
-  {{/ionContent}}	
-  
+    {{#ionContent class="prizes has-header"}}
+
+    <!-- Final game prizes -->
+    <div class="list card">
+        <div class="item item-avatar">
+            <img src="/images/medal1.png">
+            <h1>Final Game</h1>
+            <p>March Madness Playoff</p>
+        </div>
+
+        <a href="#" class="item item-icon-left">
+            <i class="icon ion-trophy trophy"></i>
+            <h2>1st Place</h2>
+            <p>2 NBA playoff tickets</p>
+        </a>
+
+        <a href="#" class="item item-icon-left">
+            <i class="icon ion-heart pink"></i>
+            <h2>2nd Place</h2>
+            <p>Dinner with Steve</p>
+        </a>
+
+        <a href="#" class="item item-icon-left">
+            <i class="icon ion-tshirt-outline red"></i>
+            <h2>3rd Place</h2>
+            <p>All expenses-paid trip to nearest McDonalds</p>
+        </a>
+    </div>
+
+
+    <!-- Prizes for this games -->
+    <div class="list card">
+        <div class="item item-avatar">
+            <img src="/images/medal2.png">
+            <h1>Current Game</h1>
+            <p>{{game.title}}</p>
+        </div>
+
+        <a href="#" class="item item-icon-left">
+            <i class="icon ion-social-usd blue"></i>
+            <h2>1st Place</h2>
+            <p>$25 Gift Card to Sports Cafe</p>
+        </a>
+
+        <a href="#" class="item item-icon-left">
+            <i class="icon ion-social-usd green"></i>
+            <h2>3rd Place</h2>
+            <p>$10 Gift Card to Coupa Cafe</p>
+        </a>
+
+        <a href="#" class="item item-icon-left">
+            <i class="icon ion-social-usd-outline green"></i>
+            <h2>Top 10 Players</h2>
+            <p><b>100</b> extra coins for all future games</p>
+        </a>
+    </div>
+
+    <!-- Achievements so far -->
+    <div class="list card">
+        <div class="item item-avatar">
+            <img src="/images/medal3.png">
+            <h1>Achievements</h1>
+            <p>You start every game with <span class="label label-success">+ {{calculateNewBankAllocation}}</span></p>
+        </div>
+
+        <a href="#" class="item item-icon-left">
+            <i class="icon ion-star bronze"></i>
+            <h2>Bronze Star</h2>
+            <p><span class="label label-success">+ 10</span> every game. Connected with Facebook</p>
+        </a>
+
+        <a href="#" class="item item-icon-left">
+            <i class="icon ion-star silver"></i>
+            <h2>Silver Star</h2>
+            <p><span class="label label-success">+ 50</span> every game - Placed at least 1 bet</p>
+        </a>
+
+        <a href="#" class="item item-icon-left">
+            <i class="icon ion-star gold"></i>
+            <h2>Gold Star</h2>
+            <p><span class="label label-success">+ 100</span> every game - Placed at least 5 bets</p>
+        </a>
+
+        <a href="#" class="item item-icon-left">
+            <i class="icon ion-star platinum"></i>
+            <h2>Platinum Star</h2>
+            <p><span class="label label-success">+ 300</span> every game - Placed at least 50 bets</p>
+        </a>
+    </div>
+    {{/ionContent}}
 </template>

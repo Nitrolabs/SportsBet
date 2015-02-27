@@ -20,3 +20,10 @@
 	color: #ccc !important;
 	background-color: rgb(40, 40, 40) !important;
 }
+
+.tabs-dark .tab-item.active {
+	color: rgb(0, 196, 253);
+}
+.tabs-dark .tab-item:hover {
+	color: rgb(0, 196, 253);
+}

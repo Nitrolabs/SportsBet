@@ -38,7 +38,7 @@
 				</button>
 			{{ else }}
 			    {{#unless getSessionValue "usingVerySmallScreen"}}
-			    <div class="bet-amount-div" style="margin-bottom: 0px;" align="center">
+			    <div class="bet-amount-div" align="center">
 			    <!--<div class="bet-amount-div" style="margin-bottom: 0px;margin-right: 50px" align="center">-->
 			        <!--RERURN THIS LATER ON! Need both the button and the margin right=50px from the line above-->
 			        <!--<button id="game-info-button" style="margin-top: 4px; margin-bottom: 0px; padding-left: 0px; padding-right: 0px; width: 50px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-top: 0px; height: 48px; line-height: 1.1; font-size: 12px; vertical-align: middle;" class="btn btn-large btn-default pull-left">-->
@@ -63,47 +63,50 @@
 		  <div id="bet-question-wrapper" style="white-space: normal;">
 		  <!-- MAX: TODO - fix the white-space:normal thing I did above... -->
 		    {{#if question}}
-		        {{ question }}
+		    	<div id="bet-question">
+		        	{{ question }}
+		        </div>
 		    {{else}}
 		    	<div class="button-bar card-tabs">
 		    		{{# if show_twitter}}
 				  		<a class="button button-dark icon-left ion-ios-list" id="leaderboard-tab">Leaderboard</a>
-				  		<a class="button button-dark icon-left ion-social-twitter active" id="twitter-tab">Twitter</a>
+				  		<a class="button button-dark icon-left ion-social-twitter active" id="twitter-tab">Live Feed</a>
 				  	{{ else }}
 				  		<a class="button button-dark icon-left ion-ios-list active" id="leaderboard-tab">Leaderboard</a>
-				  		<a class="button button-dark icon-left ion-social-twitter" id="twitter-tab">Twitter</a>
+				  		<a class="button button-dark icon-left ion-social-twitter" id="twitter-tab">Live Feed</a>
 				  	{{/if}}
 				</div>
 		    {{/if}}
 		  </div>
 		  <div id="bet-answer-wrapper" class="item item-text-wrap">
 		  {{#if status }} <!-- crude way to check whether there's a status, i.e. there's a bet-->
-		  	  {{#each addIndexesToArray outcomes }}
-		  	    {{#if notEmptyString text}}
-		  	    <div class="bet-option-div" style="padding-bottom: 5px; padding-top: 5px;">
-				  	<button class="button button-balanced bet-option-button" data-index-for-ref="{{index_for_ref}}" {{disable_based_on_bank_account}}>
-				  		{{ text }}
-				  		<p class='clearfix'>
-				  			<span class='odds-text pull-left'>{{ odds }}:1</span>
-				  			<span class='win-text pull-right'>{{ formatted_win_value }}</span>
-				  		</p>
-					</button>
-					{{#unless getSessionValue "usingSmallScreen"}}
-					<div class='user-face-wrapper clearfix'>
-					{{#each users_in_question index_for_ref }}
-						<div class='user-face'>
-							<span class='user-face-grey'>?</span>
-							<img class='user-face-image' src={{ profile.image.small }} />
+		  	  <div class="bet-answer">
+			  	  {{#each addIndexesToArray outcomes }}
+			  	    {{#if notEmptyString text}}
+			  	    <div class="bet-option-div" style="padding-bottom: 5px; padding-top: 5px;">
+					  	<button class="button button-balanced bet-option-button" data-index-for-ref="{{index_for_ref}}" {{disable_based_on_bank_account}}>
+					  		{{ text }}
+					  		<p class='clearfix'>
+					  			<span class='odds-text pull-left'>{{ odds }}:1</span>
+					  			<span class='win-text pull-right'>{{ formatted_win_value }}</span>
+					  		</p>
+						</button>
+						{{#unless getSessionValue "usingSmallScreen"}}
+						<div class='user-face-wrapper clearfix'>
+						{{#each users_in_question index_for_ref }}
+							<div class='user-face'>
+								<span class='user-face-grey'>?</span>
+								<img class='user-face-image' src={{ profile.image.small }} />
+							</div>
+						{{/each}}
 						</div>
-					{{/each}}
+						{{/unless}}
 					</div>
-					{{/unless}}
+					{{/if}}
+				  {{/each}}
+				  <br>
+				  <a href="#" id="bet-skip-button" class='button button-stable'>skip</a>
 				</div>
-				{{/if}}
-			  {{/each}}
-			  <br>
-			  <a href="#" id="bet-skip-button" class='button button-stable'>skip</a>
-			  <br>
 		    {{else}} <!--  No current bet-->
 		    	{{#if show_twitter }}
 	            	{{> TwitterFeed }}
