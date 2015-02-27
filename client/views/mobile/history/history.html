@@ -2,62 +2,60 @@
     <div class="bar bar-header bar-dark">
 		<h1 class="title">Bets History</h1>
 	</div>
-	<div class="tabs-striped tabs-top tabs-icon-top tabs-background-dark tabs-color-light">
-        <div class="tabs">
-          <a class="tab-item " href="{{pathFor route='activebets'}}">
-            <i class="icon ion-star"></i>
-            Active Bets
-          </a>
-          <a class="tab-item active" href="#">
-            <i class="icon ion-ios-time-outline"></i>
-            Bets History
-          </a>
-        </div>
-      </div>
-	{{#ionContent}}
+	{{#ionContent class="has-header"}}
 	
-	<br><br><br>
-	<br><br>
-	<div class="list">
-	    
-	{{#each bets }}
-	
-	    {{#if skipped}}
-	        <a class="item item-thumbnail-left" href="#">
-        		<i class='icon bet-status-icon ion-minus-round skipped'></i>
-          		<h2 style="white-space: normal;">{{ question }}</h2>
-          		<p style="white-space: normal;"><i>{{ status_update }}</i></p>
-          		<p>Your Bet: {{ user_answer }}</p>
-          		<p>Correct Bet: {{ correct_answer }}</p>
-          	</a>
-	    {{else}}
-    		{{#if is_correct}}    	
-    	    	<a class="item item-thumbnail-left" href="#">
-    	    		<i class='icon bet-status-icon ion-checkmark correct'></i>
-    	      		<h2 style="white-space: normal;">{{ question }}</h2>
-    	      		<p style="white-space: normal;"><i>{{ status_update }}</i></p>
-    	      		<p>Your Bet: {{ user_answer }}</p>
-    	      		<p>Correct Bet: {{ correct_answer }}</p>
-    	      		<p style="color:rgb(0, 207, 0)"><b>${{numberFormatBy profit '0,00'}}</b></p>
-    	      	</a>
-          	{{ else }}    	
-        		<a class="item item-thumbnail-left" href="#">
-    	    		<i class='icon bet-status-icon ion-close incorrect'></i>
-    	      		<h2 style="white-space: normal;">{{ question }}</h2>
-    	      		<p style="white-space: normal;"><i>{{ status_update }}</i></p>
-    	      		<p>Your Bet: {{ user_answer }}</p>
-    	      		<p>Correct Bet: {{ correct_answer }}</p>
-    	      		<p style="color:rgb(207, 0, 0)"><b>{{numberFormatBy profit '$0,00'}}</b></p>
-    	      	</a>
-    	    {{/if}}
-    	{{/if}}
-    	
-		{{ else }}
-			<br><br>
-			<a class="item" href="#">
-		    	None of your bets have been resolved
-		    </a>
-		{{/each}}
-		</div>
+  <div class="card">
+    {{>HistoryBetTabs}}
+  	<div class="list">
+  	    
+  	{{#each bets }}
+  	    {{#if skipped}}
+  	        <a class="item item-thumbnail-left" href="#">
+          		<i class='icon bet-status-icon ion-minus-round skipped'></i>
+            		<h2 style="white-space: normal;">{{ question }}</h2>
+            		<p style="white-space: normal;"><i>{{ status_update }}</i></p>
+            		<p>Your Bet: {{ user_answer }}</p>
+            		<p>Correct Bet: {{ correct_answer }}</p>
+            	</a>
+  	    {{else}}
+      		{{#if is_correct}}    	
+      	    	<a class="item item-thumbnail-left" href="#">
+      	    		<i class='icon bet-status-icon ion-checkmark correct'></i>
+      	      		<h2 style="white-space: normal;">{{ question }}</h2>
+      	      		<p style="white-space: normal;"><i>{{ status_update }}</i></p>
+      	      		<p>Your Bet: {{ user_answer }}</p>
+      	      		<p>Correct Bet: {{ correct_answer }}</p>
+      	      		<p style="color:rgb(0, 207, 0)"><b>${{numberFormatBy profit '0,00'}}</b></p>
+      	      	</a>
+            	{{ else }}    	
+          		<a class="item item-thumbnail-left" href="#">
+      	    		<i class='icon bet-status-icon ion-close incorrect'></i>
+      	      		<h2 style="white-space: normal;">{{ question }}</h2>
+      	      		<p style="white-space: normal;"><i>{{ status_update }}</i></p>
+      	      		<p>Your Bet: {{ user_answer }}</p>
+      	      		<p>Correct Bet: {{ correct_answer }}</p>
+      	      		<p style="color:rgb(207, 0, 0)"><b>{{numberFormatBy profit '$0,00'}}</b></p>
+      	      	</a>
+      	    {{/if}}
+      	{{/if}}
+      	
+  		{{ else }}
+  			<a class="item" href="#">
+  		    	None of your bets have been resolved
+  		    </a>
+  		{{/each}}
+  		</div>
+    </div>
 	{{/ionContent}}	
+</template>
+
+
+
+
+
+<template name="HistoryBetTabs">
+  <div class="button-bar card-tabs">
+    <a class="button button-dark icon-left ion-star" href="{{pathFor route='activebets'}}">Active Bets</a>
+    <a class="button button-dark icon-left ion-ios-time-outline active">Bets History</a>
+  </div>
 </template>
