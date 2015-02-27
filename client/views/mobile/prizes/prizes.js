@@ -7,6 +7,9 @@ Template.Prizes.events({
 Template.Prizes.helpers({
   calculateNewBankAllocation: function() {
       return 1000 + Meteor.user().bank_diamonds * 100;
+  },
+  multiplyNum: function(a,b) {
+      return a*b;
   }
 });
 

@@ -9,26 +9,26 @@
     <div class="list card">
         <div class="item item-avatar">
             <img src="/images/medal1.png">
-            <h1>Final Game</h1>
-            <p>March Madness Playoff</p>
+            <h1>PAC-12 Semi-Final</h1>
+            <p>3/13, 8:30 PM PST, LIVE on ESPN</p>
         </div>
 
         <a href="#" class="item item-icon-left">
             <i class="icon ion-trophy trophy"></i>
-            <h2>1st Place</h2>
-            <p>2 NBA playoff tickets</p>
+            <h2>$100 Amazon Gift Card</h2>
+            <p>1st Place</p>
         </a>
 
         <a href="#" class="item item-icon-left">
             <i class="icon ion-heart pink"></i>
-            <h2>2nd Place</h2>
-            <p>Dinner with Steve</p>
+            <h2>$50 Amazon Gift Card</h2>
+            <p>2nd Place</p>
         </a>
 
         <a href="#" class="item item-icon-left">
             <i class="icon ion-tshirt-outline red"></i>
-            <h2>3rd Place</h2>
-            <p>All expenses-paid trip to nearest McDonalds</p>
+            <h2>$25 Amazon Gift Card</h2>
+            <p>3rd Place</p>
         </a>
     </div>
 
@@ -37,26 +37,27 @@
     <div class="list card">
         <div class="item item-avatar">
             <img src="/images/medal2.png">
-            <h1>Current Game</h1>
-            <p>{{game.title}}</p>
+            <h1>{{game.title}}</h1>
+            <p><i>Current Game</i></p>
         </div>
 
         <a href="#" class="item item-icon-left">
             <i class="icon ion-social-usd blue"></i>
-            <h2>1st Place</h2>
-            <p>$25 Gift Card to Sports Cafe</p>
+            <h2>$25 Amazon Gift Card</h2>
+            <p>1st Place</p>
+            
         </a>
 
         <a href="#" class="item item-icon-left">
             <i class="icon ion-social-usd green"></i>
-            <h2>3rd Place</h2>
-            <p>$10 Gift Card to Coupa Cafe</p>
+            <h2>$10 Amazon Gift Card</h2>
+            <p>2nd Place</p>
         </a>
 
         <a href="#" class="item item-icon-left">
             <i class="icon ion-social-usd-outline green"></i>
-            <h2>Top 10 Players</h2>
-            <p><b>100</b> extra coins for all future games</p>
+            <h2><b>100</b> extra coins for all future games</h2>
+            <p>Top 10 Players</p>
         </a>
     </div>
 
@@ -68,29 +69,36 @@
             <p>You start every game with <span class="label label-success">+ {{calculateNewBankAllocation}}</span></p>
         </div>
 
-        <a href="#" class="item item-icon-left">
-            <i class="icon ion-star bronze"></i>
-            <h2>Bronze Star</h2>
-            <p><span class="label label-success">+ 10</span> every game. Connected with Facebook</p>
-        </a>
+        <!--<a href="#" class="item item-icon-left">-->
+        <!--    <i class="icon ion-star bronze"></i>-->
+        <!--    <h2>Bronze Star</h2>-->
+        <!--    <p><span class="label label-success">+ 10</span> every game. Connected with Facebook</p>-->
+        <!--</a>-->
 
-        <a href="#" class="item item-icon-left">
-            <i class="icon ion-star silver"></i>
-            <h2>Silver Star</h2>
-            <p><span class="label label-success">+ 50</span> every game - Placed at least 1 bet</p>
-        </a>
+        <!--<a href="#" class="item item-icon-left">-->
+        <!--    <i class="icon ion-star silver"></i>-->
+        <!--    <h2>Silver Star</h2>-->
+        <!--    <p><span class="label label-success">+ 50</span> every game - Placed at least 1 bet</p>-->
+        <!--</a>-->
 
-        <a href="#" class="item item-icon-left">
-            <i class="icon ion-star gold"></i>
-            <h2>Gold Star</h2>
-            <p><span class="label label-success">+ 100</span> every game - Placed at least 5 bets</p>
-        </a>
-
-        <a href="#" class="item item-icon-left">
-            <i class="icon ion-star platinum"></i>
-            <h2>Platinum Star</h2>
-            <p><span class="label label-success">+ 300</span> every game - Placed at least 50 bets</p>
-        </a>
+        <!--<a href="#" class="item item-icon-left">-->
+        <!--    <i class="icon ion-star gold"></i>-->
+        <!--    <h2>Gold Star</h2>-->
+        <!--    <p><span class="label label-success">+ 100</span> every game - Placed at least 5 bets</p>-->
+        <!--</a>-->
+        {{#if currentUser.bank_diamonds}}
+            <a href="#" class="item item-icon-left">
+                <i class="icon ion-star platinum"></i>
+                <h2>Top 10 Player in <b>{{currentUser.bank_diamonds}}</b> Games</h2>
+                <p><span class="label label-success">+ {{multiplyNum currentUser.bank_diamonds 100}}</span> every game</p>
+            </a>
+        {{else}}
+            <a href="#" class="item item-icon-left">
+                <i class="icon ion-star platinum"></i>
+                <h2>Top 10 Players Get 100 extra coins each game</h2>
+                <p><span class="label label">+ 100</span> every game</p>
+            </a>
+        {{/if}}
     </div>
     {{/ionContent}}
 </template>

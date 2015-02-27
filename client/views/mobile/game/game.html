@@ -31,9 +31,9 @@
 	 		{{#if is_user_bankrupt }}
 		 		<button id="buy-chips-button" class="button button-balanced" style="margin-bottom: 0px;margin-top: 10px;">
 		 	 		{{#if currentUser.bank_request_more_funds}}
-		 	 		    <p>No more refills....</p>
+		 	 		    <p>Buy More Chips Not Available</p>
 		 	 		{{else}}
-		 	 		    <p>Request Refill (only once)</p>
+		 	 		    <p>Buy More Chips</p>
 		 	 		{{/if}}
 				</button>
 			{{ else }}
@@ -154,7 +154,7 @@
 	{{ else }}
 		<a href="#" class="item item-icon-left">
 	    	<i class="icon ion-social-twitter-outline"></i>
-	   	 	No Tweets Yet
+	   	 	Coming soon...
 	  	</a>
 	{{/each}}
 </template>

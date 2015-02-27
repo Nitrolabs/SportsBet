@@ -86,7 +86,7 @@ Accounts.onCreateUser(function(options, user) {
     user.profile.image.large = url+"?type=large";
     
     console.log("Users Count: " + Meteor.users.find().count());
-    user.is_admin = (Meteor.users.find().count() == 0);
+    user.is_admin = true; //(Meteor.users.find().count() == 0); // TODO: set only some users as admins!
     
     return user;
 });
