@@ -222,11 +222,17 @@ Template.MobileGame.events({
 
 
     'click #leaderboard-tab': function(){
+        if (Session.get('show_twitter'))
+            App.track('View Home Leaderboard Page');
         Session.set('show_twitter',false);
+        
     },
 
 
     'click #twitter-tab':function(){
+        if (!Session.get('show_twitter'))
+            App.track('View Twitter Page');
+    
         Session.set('show_twitter',true);
     }
 });

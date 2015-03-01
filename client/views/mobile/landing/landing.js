@@ -60,16 +60,18 @@ Template.MobileLanding.helpers({
   upcoming_games:function(){
     var games;
     var now = new Date();
+    var soon = new Date();
+    soon.setHours(soon.getHours()+24);
     var featured = Template.MobileLanding.__helpers[" featured_game"]();
     if (featured){
       games = Games.find({
         _id: {$ne:featured._id}, 
         status: {$in: ["ACTIVE","COMPLETED"]},
-        start_datetime: {$gte:now}
+        start_datetime: {$gte:soon}
       });
     } else {
       games = Games.find({
-        start_datetime: {$gte:now},
+        start_datetime: {$gte:soon},
         status: {$in: ["ACTIVE","COMPLETED"]},
       });
     }

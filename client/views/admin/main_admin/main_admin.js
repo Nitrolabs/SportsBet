@@ -89,16 +89,30 @@ Template.MainAdmin.events({
 // option4_text: "21+",    odds4: 4
 // }
 
-{title:"Next FT",question:"What will happen during these free throws?", option1_text: "Make both", option2_text: "Miss both", option3_text: "Just 1st",option4_text: "Just 2nd",odds1:3,odds2:8,odds3:5,odds4:5},
-{title:"Buzzer beater",question:"Will there be a buzzer beater this quarter? (FG w/ <1.0 sec)", option1_text: "Yes", option2_text: "No", option3_text: "",option4_text: "",odds1:2,odds2:2,odds3:1,odds4:1},
-{title:"Lebron dunk",question:"Will Lebrow throw down a dunk this quarter?", option1_text: "Yes", option2_text: "No", option3_text: "",option4_text: "",odds1:4,odds2:2,odds3:1,odds4:1},
-{title:"Bosh QTR",question:"How many points will Bosh score this quarter?", option1_text: "0-3", option2_text: "4-7", option3_text: "8-11",option4_text: "12+",odds1:4,odds2:2,odds3:3,odds4:8},
-{title:"Beer choice",question:"What will be the next beer commercial?", option1_text: "Domestic", option2_text: "Import", option3_text: "",option4_text: "",odds1:2,odds2:6,odds3:1,odds4:1},
-{title:"Beer specific",question:"What will be the next beer commercial?", option1_text: "Budweiser", option2_text: "Coors", option3_text: "Miller",option4_text: "Other",odds1:3,odds2:3,odds3:7,odds4:4},
-{title:"Love 3 QTR",question:"Will Kevin Love score a three this quarter?", option1_text: "Yes", option2_text: "No", option3_text: "",option4_text: "",odds1:3,odds2:3,odds3:1,odds4:1},
-{title:"Replay",question:"Replay: Whose ball is it?", option1_text: "Cavs", option2_text: "Heat", option3_text: "",option4_text: "",odds1:2,odds2:2,odds3:1,odds4:1},
-{title:"After 2min mark",question:"What will be the next point after the 2:00 mark?", option1_text: "1-pointer", option2_text: "2-pointer", option3_text: "3-pointer",option4_text: "No points",odds1:3,odds2:3,odds3:1,odds4:1},
-            
+// {title:"Next FT",question:"What will happen during these free throws?", option1_text: "Make both", option2_text: "Miss both", option3_text: "Just 1st",option4_text: "Just 2nd",odds1:3,odds2:8,odds3:5,odds4:5},
+// {title:"Buzzer beater",question:"Will there be a buzzer beater this quarter? (FG w/ <1.0 sec)", option1_text: "Yes", option2_text: "No", option3_text: "",option4_text: "",odds1:2,odds2:2,odds3:1,odds4:1},
+// {title:"Lebron dunk",question:"Will Lebrow throw down a dunk this quarter?", option1_text: "Yes", option2_text: "No", option3_text: "",option4_text: "",odds1:4,odds2:2,odds3:1,odds4:1},
+// {title:"Bosh QTR",question:"How many points will Bosh score this quarter?", option1_text: "0-3", option2_text: "4-7", option3_text: "8-11",option4_text: "12+",odds1:4,odds2:2,odds3:3,odds4:8},
+// {title:"Beer choice",question:"What will be the next beer commercial?", option1_text: "Domestic", option2_text: "Import", option3_text: "",option4_text: "",odds1:2,odds2:6,odds3:1,odds4:1},
+// {title:"Beer specific",question:"What will be the next beer commercial?", option1_text: "Budweiser", option2_text: "Coors", option3_text: "Miller",option4_text: "Other",odds1:3,odds2:3,odds3:7,odds4:4},
+// {title:"Love 3 QTR",question:"Will Kevin Love score a three this quarter?", option1_text: "Yes", option2_text: "No", option3_text: "",option4_text: "",odds1:3,odds2:3,odds3:1,odds4:1},
+// {title:"Replay",question:"Replay: Whose ball is it?", option1_text: "Cavs", option2_text: "Heat", option3_text: "",option4_text: "",odds1:2,odds2:2,odds3:1,odds4:1},
+// {title:"After 2min mark",question:"What will be the next point after the 2:00 mark?", option1_text: "1-pointer", option2_text: "2-pointer", option3_text: "3-pointer",option4_text: "No points",odds1:3,odds2:3,odds3:1,odds4:1},
+
+{title:"Nastic score half",question:"How many points will Nastic score this half?", option1_text: "0-3 pts", option2_text: "4-6 pts", option3_text: "7-9 pts",option4_text: "10+ pts",odds1:5,odds2:3,odds3:4,odds4:6},
+{title:"3-pt brown half",question:"How many three pointers will Anthony Brown make this half?", option1_text: "0", option2_text: "1", option3_text: "2",option4_text: "3+ ",odds1:4,odds2:3,odds3:4,odds4:5},
+{title:"Technical foul half",question:"Will there be a technical foul this half?", option1_text: "Yes", option2_text: "No", option3_text: "",option4_text: "",odds1:10,odds2:2,odds3:1,odds4:1},
+{title:"Randle % half",question:"What will Chasson Randle's shooting percentage be this half?", option1_text: "<25%", option2_text: "25-37%", option3_text: "38%-50%",option4_text: "50%+",odds1:5,odds2:3,odds3:3,odds4:4},
+{title:"airball half",question:"Will there be an air ball in this half?", option1_text: "Yes", option2_text: "No", option3_text: "",option4_text: "",odds1:4,odds2:1.5,odds3:1,odds4:1},
+{title:"Brown total stats half",question:"Anthony Brown (Pts+Rebs+Assists) in half", option1_text: "Over 12.8", option2_text: "Under 12.8", option3_text: "",option4_text: "",odds1:2,odds2:2,odds3:1,odds4:1},
+{title:"Nastic total stats half",question:"Stefan Nastic (Pts + Rebs + Assists) in half", option1_text: "Over 10.7", option2_text: "Under 10.7", option3_text: "",option4_text: "",odds1:2,odds2:2,odds3:1,odds4:1},
+{title:"Play after 14 min",question:"What will be the result of the first play after the 14 minute mark?", option1_text: "Made shot", option2_text: "Free throws", option3_text: "Missed Shot",option4_text: "Turnover",odds1:3,odds2:5,odds3:2,odds4:2},
+{title:"Scores first after TO",question:"Who scores first out of the timeout?", option1_text: "Stanford", option2_text: "Oregon", option3_text: "",option4_text: "",odds1:2,odds2:2,odds3:1,odds4:1},
+{title:"FREE THROWS",question:"What will happen during these free throws", option1_text: "Make both", option2_text: "Miss both", option3_text: "1st only",option4_text: "2nd only",odds1:2,odds2:8,odds3:5,odds4:5},
+{title:"Stanford next shot",question:"What will be the result of Stanford's next shot?", option1_text: "2-pointer", option2_text: "3-pointer", option3_text: "Free throws",option4_text: "Missed shot",odds1:3,odds2:5,odds3:6,odds4:2},
+{title:"Oregon next shot",question:"What will be the result of Oregon's next shot?", option1_text: "2-pointer", option2_text: "3-pointer", option3_text: "Free throws",option4_text: "Missed shot",odds1:3,odds2:5,odds3:6,odds4:2},
+{title:"Event first",question:"What will happen first?", option1_text: "Turnover", option2_text: "Foul", option3_text: "",option4_text: "",odds1:2,odds2:2,odds3:1,odds4:1},
+          
         ];
         $('#bet_title').val(preset_data[idx].title + " " + currTime);
         $('#active_bet_question').val(preset_data[idx].question);
