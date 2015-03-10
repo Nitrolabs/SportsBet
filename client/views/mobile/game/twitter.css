@@ -1,0 +1,56 @@
+.twitter-div {
+	font-size: 20px;
+	float: left;
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	bottom: 10px;
+	color: rgb(0, 207, 0);
+	white-space: normal;
+}
+
+.twitter-profile-pic {
+	width: 30px;
+	height: 30px;
+	border-radius: 150px;
+	border: 1px solid #999;
+	margin: 0;
+}
+
+.twitter-profile-name {
+    align: center;
+    text-align: center;
+    white-space: normal;
+}
+
+.item.twitter-thumbnail-left {
+    min-height: 60px;
+    padding-left: 50px;
+    padding-top: 8px;
+    margin-bottom: 5px;
+}
+
+.twitter-main-text {
+    color:#eee !important;
+    white-space: normal;
+    font-size: 14px !important;
+}
+
+.chat-main-text {
+    color:#eee !important;
+    white-space: normal;
+}
+
+.twitter-date {
+    color:#bbb !important;
+    white-space: normal;
+}
+
+.twitter-user-name-container {
+    color: #bbb !important;
+    white-space: normal;
+}
+.twitter-user-name {
+    color: #5bc0de !important;
+    white-space: normal;
+}

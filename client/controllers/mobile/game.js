@@ -4,6 +4,7 @@ MobileGameController = RouteController.extend({
     //   console.log("Wait On");
     //   console.log(this.params._id);
       Meteor.subscribe('publish_bets', this.params._id);
+      Meteor.subscribe('publish_twitter_feed', this.params._id);
   },
 
   onBeforeAction: function (route) {

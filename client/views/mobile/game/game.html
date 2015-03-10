@@ -153,10 +153,20 @@
 
 <template name="TwitterFeed">
 	{{#each tweets}}
-	  <a href="#" class="item item-icon-left">
-	    <i class="icon ion-social-twitter-outline"></i>
-	    {{ body }}
-	  </a>
+	    <a class="item twitter-thumbnail-left" href="#">
+    		<div class='twitter-div'>
+    		    <img class="twitter-profile-pic" src="{{user.image_url}}"><br>
+    		    <!--<p class="twitter-profile-name">{{user.name}}</p>-->
+    	    </div>
+      		<h2 class="twitter-main-text">{{ text }}</h2>
+      		<p class="twitter-date"><i>{{prettifyDate created_at}}</i></p>
+      		<p class="twitter-user-name-container">By <span class="twitter-user-name">{{user.name}}</span></p>
+      	</a>
+	  <!--<a href="#" class="item item-icon-left">-->
+	  
+	  <!--  <i class="icon ion-social-twitter-outline"></i>-->
+	  <!--  {{ text }}-->
+	  <!--</a>-->
 	{{ else }}
 		<a href="#" class="item item-icon-left">
 	    	<i class="icon ion-social-twitter-outline"></i>

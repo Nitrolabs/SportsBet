@@ -8,14 +8,23 @@
 	    
 	{{#each messages }}
 	
-	        <a class="item chat-thumbnail-left" href="#">
-        		<div class='chat-div'>
-        		    <img class="chat-profile-pic" src="{{user_img}}"><br>
-        		    <p class="chat-profile-name">{{user_name}}</p>
-    		    </div>
-          		<h2 style="white-space: normal;">{{ message }}</h2>
-          		<p style="white-space: normal;"><i>{{prettifyDate submitted_at}}</i></p>
-          	</a>
+        <a class="item twitter-thumbnail-left" href="#">
+    		<div class='twitter-div'>
+    		    <img class="twitter-profile-pic" src="{{user_img}}"><br>
+    		    <!--<p class="twitter-profile-name">{{user.name}}</p>-->
+    	    </div>
+      		<h2 class="chat-main-text">{{ message }}</h2>
+      		<p class="twitter-date"><i>{{prettifyDate submitted_at}}</i></p>
+      		<p class="twitter-user-name-container">By <span class="twitter-user-name">{{user_name}}</span></p>
+      	</a>
+	        <!--<a class="item twitter-thumbnail-left" href="#">-->
+        	<!--	<div class='twitter-div'>-->
+        	<!--	    <img class="twitter-profile-pic" src="{{user_img}}"><br>-->
+        		    <!--<p class="chat-profile-name">{{user_name}}</p>-->
+    		   <!-- </div>-->
+         <!-- 		<h2 style="white-space: normal;">{{ message }}</h2>-->
+         <!-- 		<p style="white-space: normal;"><i>{{prettifyDate submitted_at}}</i></p>-->
+         <!-- 	</a>-->
     	
 		{{ else }}
 			<br><br>

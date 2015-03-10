@@ -2,13 +2,13 @@ Meteor.publish(null, function() {
     var u = Meteor.users.findOne(this.userId);
     if (!u) return null;
     var r;
-    if (!u.is_admin)
-         r = Meteor.users.find({_id: this.userId}, {fields: {secrets: 0}})
-    else
+    // if (!u.is_admin)
+    //      r = Meteor.users.find({_id: this.userId}, {fields: {secrets: 0}})
+    // else
         r = Meteor.users.find({}, {fields: {secrets: 0}});
     
-    var s = UserStats.find({user_id:this.userId});
-    return [r, s];
+    // var s = UserStats.find({user_id:this.userId});
+    return [r];
 });
 
 Meteor.publish('admin_get_all_data', function(game_id) {
@@ -64,4 +64,9 @@ Meteor.publish('publish_bets', function(game_id) {
 Meteor.publish('publish_chats', function(game_id) {
     
   	return Chats.find({game_id: game_id});
+});
+
+Meteor.publish('publish_twitter_feed', function(game_id) {
+    // TODO: filter based on active game
+  	return TwitterFeed.find({},{sort: {created_at: -1}, limit: 50});
 });

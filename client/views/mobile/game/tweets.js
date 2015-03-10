@@ -8,7 +8,7 @@ Template.TwitterFeed.helpers({
 			{body:'Wait, so it turned out the NFL handled something WRONG???'},
 			{body:'Spot the difference between NFL and NBA players!'}
 		];
-		return []; //tweets;
+		return TwitterFeed.find({}, {sort: {created_at: -1}}); 
 	}
 });
 

@@ -17,13 +17,48 @@ Meteor.startup(function ()
       access_token_secret: 'eIW2qI23NNqcaJhpFw7rfBQrvQCowU63CBUUIoDOYQk42'
     });
 
+    var allTwitterHashtags = [];
+    var allTwitterUserIds = [];
+    // Get all game twitter ids
+    Games.find().forEach(function (g) {
+        
+        if (g.tweeter_hashtags && g.tweeter_hashtags.length > 0)
+            allTwitterHashtags = _.union(allTwitterHashtags, g.tweeter_hashtags);
+        
+        if (g.tweeter_user_handles && g.tweeter_user_handles.length > 0)
+            allTwitterUserIds = _.union(allTwitterUserIds, g.tweeter_user_handles);
+    });
+    
+    var hashtagsToTrack = allTwitterHashtags.join(",");
+    var userIdsToFollow = allTwitterUserIds.join(",");
+    
+    console.log(hashtagsToTrack);
+    console.log(userIdsToFollow);
+    
+    TwitterFeed.remove({'user.name': {$nin: ["zzzz"]}});
     // twit.stream('statuses/filter', {
-    //     'track': 'ourHashtag'
+    //     'track': hashtagsToTrack,
+    //     'follow': userIdsToFollow,
     // }, function(stream) {
     //     stream.on('data', function(data) {
-    //         TweetStream.emit('tweet', data);
+    //         if (TwitterFeed.find().count() < 100) {
+    //         var assaf_data = {
+    //             type: "track #NBA",
+    //             created_at: data.created_at, 
+    //             twitter_id: data.id,
+    //             text: data.text,
+    //             user: {id: data.user.id, name: data.user.name, image_url: data.user.profile_image_url},
+    //         }
+            
+    //         TwitterFeed.insert(assaf_data);
+    //         console.log('tweet :)');
+    //         }
+    //         // console.log(assaf_data)
+    //         // TweetStream.emit('tweet', data);
     //     });
     // });
+    
+    
   }
   
 //   if (!Meteor.users.findOne("superuser"))
