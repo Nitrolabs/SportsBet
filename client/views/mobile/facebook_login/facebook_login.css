@@ -10,9 +10,41 @@
 #error {
 	visibility:hidden;
 }
+#top-wrapper {
+    padding: 5% 0;
+}
 #logo-wrapper {
-	height: 35%;
+	height: 45%;
+	padding: 5% 0;
 	/*padding: 8% 0 8% 0;*/
+}
+#logo-wrapper p {
+    font-weight: 700;
+	color: #eee !important;
+	font-size: 20px;
+	font-style: italic;
+}
+
+#logo-wrapper h2 {
+	font-family: 'Arvo', serif;
+	font-weight: 700;
+	color: white !important;
+	text-shadow: -1px -1px black, 1px 1px #333;
+	font-size:36px;
+}
+.highlight-in-blue {
+    color: #5bc0de !important;
+}
+.highlight-quote {
+    color: #ccc !important;
+    font-style: italic;
+}
+#logo-wrapper h3 {
+	font-family: 'Arvo', serif;
+	font-weight: 700;
+	color: #bbb !important;
+	text-shadow: -1px -1px black, 1px 1px #333;
+	font-size: 18px;
 }
 #logo-wrapper img {
 	margin: 10px;
@@ -26,9 +58,13 @@
 	text-shadow: -1px -1px black, 1px 1px #333;
 }
 
-#login-button-wrapper p {
+#quote-wrapper {
+    height: 30%;
+}
+#quote-wrapper p {
 	font-weight: 700;
-	color: white !important;
+	color: #eee !important;
+	font-size: 20px;
 	/*text-shadow: -1px -1px #555, 1px 1px #777;*/
 }
 
@@ -38,11 +74,16 @@
 #login-button-wrapper .login-button {
 	clear: both;
 	width: 300px;
-	margin: 15px auto 15px auto;
+	margin: 15px auto -5px auto;
 	display: block;
 }
 #login-button-wrapper .login-button img{
 	width: 300px;
+}
+.note-in-small-font {
+    font-size: 12px;
+    font-style: italic;
+    color: #ccc !important;
 }
 
 #facebook-login-button img {
@@ -63,6 +104,11 @@
 	opacity: 0.7;
 }
 
+#login-button-wrapper a {
+    font-weight: bold;
+    font-size: 120%;
+    color: #92A5BF !important; 
+}
 #background-wrapper {
 	/* Used to set the color that shines through the picture */
 	position: absolute;

@@ -2,24 +2,33 @@
   {{#ionView class='mobile'}}
     {{#ionContent}}
      
-
+    <!--<div id="top-wrapper" class='text-center'>-->
+    <!--    <h2>NextPlayNow</h2>-->
+    <!--</div>-->
 	<div id='logo-wrapper' class='text-center'>
-	  	<!--<img src="/images/basketball.png">-->
-	  	
-	  </div>
+	  	<h3>NextPlayNow</h3>
+	  	<h2>Putting <span class="highlight-in-blue">You</span><br>in the <span class="highlight-in-blue">Game</span></h2>
+	  	<p>Easy. Fun. Free.</p>
+    </div>
+    <div id="quote-wrapper" class="text-center">
+	  	<p>"I turned into a <span class="highlight-in-blue">maniac</span>. I had to <span class="highlight-in-blue">win!</span>" <i><span class="highlight-quote">(Maurin)</span></i></p>
+	  	<p>"I thought <span class="highlight-in-blue">FanDuel</span> was bad... <span class="highlight-in-blue">I'm hooked!</span>" <i><span class="highlight-quote">(Doug)</span></i></p>
+	  	<!--<p>Real prizes - Free to play</p>-->
+    </div>
 	  <p id='error'>No error yet</p>
 	  <div id='login-button-wrapper' class='text-center'>
 	  	<!-- Facebook login button -->
-	  	<h1>NextPlayNow</h1>
-	  	<p>Real prizes - Free to play</p>
+	  	<!--<h1>NextPlayNow</h1>-->
 	  	<a id='facebook-login-button' class="login-button" title="Login with Facebook">
 	  		<img src="/images/facebook-button.png" alt="Login with Facebook">
 	  	</a>
-
+        <p class="note-in-small-font">We never post anything</p>
 	  	<!-- Username login button -->
-	    <a id='email-login-button' href="{{pathFor route='mobile.signup' }}" class="login-button" title="Login with Email">
-	  		<img src="/images/email-button.png" alt="Login with Email">
-	  	</a>
+	   <!-- <a id='email-login-button' href="{{pathFor route='mobile.signup' }}" class="login-button" title="Login with Email">-->
+	  	<!--	<img src="/images/email-button.png" alt="Login with Email">-->
+	  	<!--</a>-->
+	  	 <a href="{{pathFor route='mobile.signup' }}">Login with Email</a>
+	  		<!--<img src="/images/email-button.png" alt="Login with Email">-->
 	  </div>
 
 	   <div id="background-wrapper">
