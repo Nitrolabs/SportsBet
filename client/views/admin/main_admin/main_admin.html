@@ -112,10 +112,10 @@
                         <table>
                             <tr><td>ID: </td><td>{{_id}}</td></tr>
                             <tr><td>Status:   </td><td><b>{{status}}</b></td></tr>
-                            <br>
+                            <tr></tr>
                             <tr><td>Title: </td><td><input type="text" id="bet_title" value="{{title}}"/></td></tr>
                             <tr><td>Question: </td><td><textarea name="active_bet_question" id=active_bet_question rows="3" cols="60">{{question}}</textarea></td></tr>
-                            <br>
+                            <tr></tr>
                             <tr><td>Option 1:</td><td>
                                 <input size="50" type="text" name="option1_text" id="option1_text" value="{{getOutcomeData 0 'text'}}"/>&nbsp; &nbsp; &nbsp; <input type="text" name="option1_odds" size="4" id="option1_odds" value="{{getOutcomeData 0 'odds'}}" /> : 1
                             </td></tr>
@@ -128,16 +128,17 @@
                             <tr><td>Option 4:</td><td>
                                 <input size="50" type="text" name="option4_text" id="option4_text" value="{{getOutcomeData 3 'text'}}"/>&nbsp; &nbsp; &nbsp; <input type="text" name="option4_odds" size="4" id="option4_odds" value="{{getOutcomeData 3 'odds'}}" /> : 1
                             </td></tr>
-                            <br>
+                            <tr></tr>
                             <tr><td>Actual Result:</td><td>
                                 <input size="10" type="text" name="actual_result" id="actual_result" value="{{actual_result}}"/>
                             </td></tr>
                             <tr><td>Status update:</td><td>
                                 <input type="text" name="status_update" id="status_update" value="{{status_update}}" />
                             </td></tr>
-                            <br>
+                            <tr></tr>
                             <tr><td>Submitted at:</td><td><b>{{prettifyDate submitted_at}}</b></td></tr>
                             <tr><td>Activated at: </td><td><b>{{prettifyDate activated_at}}</b> </td></tr>
+                            <tr><td>Auto-close at: </td><td><b>{{prettifyDate auto_close_at}}</b> </td></tr>
                             <tr><td>Closed at: </td><td><b>{{prettifyDate closed_at}}</b> </td></tr>
                             <tr><td>Resolved at: </td><td><b>{{prettifyDate resolved_at}}</b> </td></tr>
                         </table>     
@@ -153,6 +154,17 @@
                                 {{/unless}}
                                 {{#if isEq status "HIDDEN"}}
                                 <button class="btn btn-success" id="activateBet">Activate</button>
+                                <div class="btn-group" data-toggle="buttons">
+                                  <label class="btn btn-primary active">
+                                    <input type="radio" name="auto_close_options" autocomplete="off" data-auto-close-time="0" checked> Open
+                                  </label>
+                                  <label class="btn btn-primary">
+                                    <input type="radio" name="auto_close_options" autocomplete="off" data-auto-close-time="15"> 15s
+                                  </label>
+                                  <label class="btn btn-primary">
+                                    <input type="radio" name="auto_close_options" autocomplete="off" data-auto-close-time="60"> 60s
+                                  </label>
+                                </div>
                                 {{/if}}
                                 {{#if isEq status "ACTIVE"}}
                                 <button class="btn btn-warning" id="closeBet">Close</button>

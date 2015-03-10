@@ -47,6 +47,11 @@ var schema = new SimpleSchema({
         label: "Activated at",
         optional: true
     },
+    auto_close_at: {
+        type: Date,
+        label: "Auto Close Timer",
+        optional: true
+    },
     closed_at: {
         type: Date,
         label: "Closed at",

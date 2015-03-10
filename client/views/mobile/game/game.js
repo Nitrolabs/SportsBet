@@ -325,6 +325,14 @@ Template.MobileGame.helpers({
     },
     show_twitter:function(){
         return Session.get('show_twitter');
+    },
+    
+    getTimeLeftForQuestion:function() {
+        if (Session.get("auto_close_time") != this.auto_close_at) {
+            Session.set("auto_close_time", this.auto_close_at);
+        }
+        
+        return (Session.get("time_remaining_for_question"));
     }
 
 });
@@ -466,6 +474,26 @@ Template.MobileGame.created = function() {
         }
     }, 10000);
 
+    setInterval(function() {
+        var result = "";
+        var autoCloseTime = Session.get("auto_close_time");
+        if (autoCloseTime) {
+            var serverTime = App.helpers.getServerNow();
+            var remaining = Math.floor((autoCloseTime - serverTime) /1000);
+            if (remaining > 300) {
+                result =  "5+ min";
+            }
+            else if (remaining <= 0) {
+                result = "0:00";
+            }
+            else {
+                var r = numeral(remaining).format("00:00");
+                r = r.substr((r.length - 4),r.length);
+                result = r;
+            }
+        }
+        Session.set("time_remaining_for_question",result)
+    }, 1000);
     
     Tracker.autorun(function() {
         if (Meteor.user() && !Meteor.loggingIn()) {

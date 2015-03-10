@@ -19,12 +19,12 @@
 
     
  	{{#with current_bet }}
- 	{{#if getSessionValue "my_temp_bets"}}
-  		<button id="buy-chips-button" class="button button-balanced" style="margin-bottom: 0px;margin-top: 10px;">
-  		    <p>WAAAA</p>
-		</button>
+ 	<!--{{#if getSessionValue "my_temp_bets"}}-->
+  <!--		<button id="buy-chips-button" class="button button-balanced" style="margin-bottom: 0px;margin-top: 10px;">-->
+  <!--		    <p>WAAAA</p>-->
+		<!--</button>-->
 
- 	{{/if}}
+ 	<!--{{/if}}-->
  	<!-- TODO: "See Nearby People" feature -->
  		<!-- <button id="see-nearby-people">
  			See Nearby People
@@ -71,6 +71,7 @@
 		    {{#if question}}
 		    	<div id="bet-question">
 		        	{{ question }}
+		        	<div id="bet-question-timer">{{getTimeLeftForQuestion}}</div>
 		        </div>
 		    {{else}}
 		    	<div class="button-bar card-tabs">

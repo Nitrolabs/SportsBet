@@ -37,8 +37,21 @@
 #bet-question {
 	min-height: 40px !important;
 	vertical-align: center;
-	padding: 15px !important;
+	padding: 15px 50px 15px 15px !important;
+	position: relative;
 }
+
+#bet-question-timer {
+	font-size: 20px;
+	float: right;
+	position: absolute;
+	top: 15px;
+	right: 10px;
+	bottom: 10px;
+	color: rgb(0, 207, 0);
+	white-space: normal;
+}
+
 @media (min-height: 460px) {
   #bet-question-wrapper {
 	font-size: 26px;

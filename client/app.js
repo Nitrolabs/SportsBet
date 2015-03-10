@@ -74,6 +74,30 @@ _.extend(App, {
 
 App.helpers = {
     
+    getServerNow: function () {
+        var serverTimeDiff = Session.get("server_now_diff");
+        if (serverTimeDiff) {
+            return new Date(Date.now() + serverTimeDiff);
+        }
+        else {
+            var isSync;
+            var serverTime;
+            Tracker.nonreactive(function() {
+                isSync = TimeSync.isSynced();
+                serverTime = TimeSync.serverTime();
+            });
+            
+            if (isSync) {
+                console.log(serverTime);
+                serverTimeDiff = serverTime - Date.now();
+                Session.set("server_now_diff", serverTimeDiff);
+                return new Date(serverTime);
+            }
+            console.err("Time Diff isn't synced...")
+            return new Date(Date.now());
+        }
+        
+    },
     getMyStats: function() {
         return UserStats.findOne({game_id:Session.get('user_current_game_id'), user_id: Meteor.userId()}) || {};
     },

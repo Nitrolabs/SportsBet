@@ -249,5 +249,9 @@ Meteor.methods({
         }
         ConfigValues.update(x._id, {$inc: {value: 1}});
         return x.value+1;
-    }
+    },
+    
+    '/app/getServerTime' : function() {
+        return new Date() //.now();
+    },
 });
