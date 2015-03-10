@@ -44,7 +44,7 @@
 	font-weight: 700;
 	color: #bbb !important;
 	text-shadow: -1px -1px black, 1px 1px #333;
-	font-size: 18px;
+	font-size: 24px;
 }
 #logo-wrapper img {
 	margin: 10px;
@@ -80,6 +80,14 @@
 #login-button-wrapper .login-button img{
 	width: 300px;
 }
+
+#login-button-wrapper p {
+	font-weight: 700;
+	color: #eee !important;
+	font-size: 20px;
+	/*text-shadow: -1px -1px #555, 1px 1px #777;*/
+}
+
 .note-in-small-font {
     font-size: 12px;
     font-style: italic;
