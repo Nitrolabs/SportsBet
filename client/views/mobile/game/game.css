@@ -39,9 +39,20 @@
 	vertical-align: center;
 	padding: 15px !important;
 }
-#bet-question-wrapper {
-	font-size: 18px;
+@media (min-height: 460px) {
+  #bet-question-wrapper {
+	font-size: 26px;
+	line-height: 28px;
+  }
 }
+
+@media (max-height: 459px) {
+  #bet-question-wrapper {
+	font-size: 20px;
+	line-height: 22px;
+  }
+}
+
 #bet-answer {
 	padding-top: 4px;
 	padding-bottom: 8px;
@@ -122,6 +133,7 @@
 	width: 100%;
 	padding: 6px 6px 5px 10px!important;
 	font-size: 20px !important;
+	line-height: 22px;
 }
 .bet-option-button p span {
 	line-height: 10px;
@@ -144,7 +156,11 @@
 	background-color: #bbb;
 }
 
-
+.bet-option-button p.bet-option-p {
+    line-height: 28px;
+    font-size: 22px;
+    padding: 10px 0px;
+}
 
 
 /* Buy chips UI */

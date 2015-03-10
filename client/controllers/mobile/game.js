@@ -18,13 +18,25 @@ MobileGameController = RouteController.extend({
 
   data: function () {
 
-  	var game = Games.findOne({_id: this.params._id});
-  	var bets = Bets.find({game_id: this.params._id});
-  	var myPrevBets = UserBets.find(
+    var game = Games.findOne({_id: this.params._id});
+    var bets = Bets.find({game_id: this.params._id});
+    var myPrevBets = UserBets.find(
   	    {user_id: Meteor.userId()}, 
   	    {fields: {bet_id: 1}}
   	    ).fetch();
   	myPrevBets = _.map(myPrevBets, function(x) {return x.bet_id});
+  	
+  	var myTempBets = Session.get("my_temp_bets");
+  	if (myTempBets && myTempBets.length > 0) {
+  	    var allPrevBets = _.union(myPrevBets, myTempBets);
+  	    if (allPrevBets.length != myPrevBets.length) {
+  	        myPrevBets = allPrevBets;
+  	    }
+  	    else {
+  	        Session.set("my_temp_bets", null);
+  	    }
+  	}
+  	
   	var current_bet = Bets.findOne({_id: {$nin: myPrevBets}, status: "ACTIVE", game_id: this.params._id}) || {};
   	
   	Session.set("user_current_game_id", this.params._id);

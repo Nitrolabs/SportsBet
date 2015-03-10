@@ -19,6 +19,12 @@
 
     
  	{{#with current_bet }}
+ 	{{#if getSessionValue "my_temp_bets"}}
+  		<button id="buy-chips-button" class="button button-balanced" style="margin-bottom: 0px;margin-top: 10px;">
+  		    <p>WAAAA</p>
+		</button>
+
+ 	{{/if}}
  	<!-- TODO: "See Nearby People" feature -->
  		<!-- <button id="see-nearby-people">
  			See Nearby People
@@ -85,7 +91,7 @@
 			  	    {{#if notEmptyString text}}
 			  	    <div class="bet-option-div" style="padding-bottom: 5px; padding-top: 5px;">
 					  	<button class="button button-balanced bet-option-button" data-index-for-ref="{{index_for_ref}}" {{disable_based_on_bank_account}}>
-					  		{{ text }}
+					  		<p class="bet-option-p" >{{ text }}</p>
 					  		<p class='clearfix'>
 					  			<span class='odds-text pull-left'>{{ odds }}:1</span>
 					  			<span class='win-text pull-right'>{{ formatted_win_value }}</span>

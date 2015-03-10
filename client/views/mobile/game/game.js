@@ -181,6 +181,10 @@ Template.MobileGame.events({
                 odds: odds // TODO: ASSAF better to clean this and find it on the backend
             }
 
+            var tb = Session.get("my_temp_bets") || [];
+            tb = tb.concat(Session.get("user_current_bet_id"));
+            Session.set("my_temp_bets", tb);
+            
             Meteor.call('/app/game/bet/submit', data, function (error, result) {
                 if (error)
                     alert(error);
@@ -485,6 +489,22 @@ Template.MobileGame.created = function() {
         else {
             Session.set('user_logged_out', true);
         }
+    });
+    
+    Tracker.autorun(function() {
+       if (Meteor.user() && !Meteor.loggingIn()) {
+           var last_bank_account = Session.get("last_bank_account");
+           var curr_bank_account = Meteor.user().bank_account;
+           if (last_bank_account != curr_bank_account) {
+                   
+               if (last_bank_account > curr_bank_account)
+                     onBankDown(curr_bank_account - last_bank_account);
+               if (last_bank_account < curr_bank_account) 
+                    onBankUp(curr_bank_account - last_bank_account)
+                
+               Session.set("last_bank_account", Meteor.user().bank_account);
+           }
+       }
     });
 
     //$('')
