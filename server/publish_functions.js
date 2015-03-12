@@ -3,12 +3,12 @@ Meteor.publish(null, function() {
     if (!u) return null;
     var r;
     // if (!u.is_admin)
-    //      r = Meteor.users.find({_id: this.userId}, {fields: {secrets: 0}})
+         r = Meteor.users.find({_id: this.userId}, {fields: {secrets: 0}})
     // else
-        r = Meteor.users.find({}, {fields: {secrets: 0}});
+        // r = Meteor.users.find({}, {fields: {secrets: 0}});
     
-    // var s = UserStats.find({user_id:this.userId});
-    return [r];
+    var s = UserStats.find({user_id:this.userId});
+    return [r,s];
 });
 
 Meteor.publish('admin_get_all_data', function(game_id) {
@@ -35,14 +35,14 @@ Meteor.publish('publish_all_games', function() {
 Meteor.publish('publish_leaderboard', function(game_id, max) {
   if(!this.userId) return null;
   var maxUsersInLeaderBoard = max || 30;
-  var t = Meteor.users.find({},{sort: {bank_account: -1}, limit: maxUsersInLeaderBoard,
-      fields: {username:1,user_stats:1,roles:1,profile:1,bank_account:1}
+//   var t = Meteor.users.find({},{sort: {bank_account: -1}, limit: maxUsersInLeaderBoard,
+//       fields: {username:1,user_stats:1,roles:1,profile:1,bank_account:1}
       
-  });
+//   });
   
   var p = UserStats.find({game_id:game_id}, {sort: {bank_account: -1}, limit: maxUsersInLeaderBoard});
     
-    return [t,p];  
+    return [p];  
   });
 
 Meteor.publish('publish_bets', function(game_id) {
@@ -50,6 +50,7 @@ Meteor.publish('publish_bets', function(game_id) {
     var game = Games.find(game_id);
   	var bets = Bets.find({game_id: game_id});
   	var myPrevBets = UserBets.find({user_id: this.userId, game_id: game_id});
+  	var myStats = UserStats.find({game_id:game_id, user_id: this.userId});
 //   	myPrevBets = _.map(myPrevBets, function(x) {return x.bet_id});
 //   	var current_bet = Bets.findOne({_id: {$nin: myPrevBets}, status: "ACTIVE", game_id: this.params._id}) || {};
   	
@@ -57,7 +58,7 @@ Meteor.publish('publish_bets', function(game_id) {
 //   	maxUsersInLeaderBoard
 
     // return game;
-  	return [game,bets,myPrevBets];
+  	return [game,bets,myPrevBets,myStats];
 //   	};
 });
 

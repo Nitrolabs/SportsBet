@@ -333,7 +333,17 @@ Template.MobileGame.helpers({
         }
         
         return (Session.get("time_remaining_for_question"));
-    }
+    },
+    
+    isBetQuestionWithTimer : function() {
+        console.log("this.auto_close_at");
+        console.log(this.auto_close_at);
+        return (this.auto_close_at ? "bet-question-with-timer" : "");
+    },
+    
+    isBetQuestionCrunchTime: function() {
+        return Session.get("time_remaining_for_question_crunch_time") ? "bet-question-timer-crunch-time pulse" : "";
+    },
 
 });
 
@@ -475,24 +485,27 @@ Template.MobileGame.created = function() {
     }, 10000);
 
     setInterval(function() {
-        var result = "";
+        var result = null;
+        var remaining = 99999;
         var autoCloseTime = Session.get("auto_close_time");
         if (autoCloseTime) {
             var serverTime = App.helpers.getServerNow();
-            var remaining = Math.floor((autoCloseTime - serverTime) /1000);
+            remaining = Math.floor((autoCloseTime - serverTime) /1000);
             if (remaining > 300) {
                 result =  "5+ min";
             }
-            else if (remaining <= 0) {
-                result = "0:00";
+            else if (remaining <= 15) {
+                result = "Hurry Up!";
             }
             else {
                 var r = numeral(remaining).format("00:00");
                 r = r.substr((r.length - 4),r.length);
                 result = r;
             }
+            
         }
         Session.set("time_remaining_for_question",result)
+        Session.set("time_remaining_for_question_crunch_time", (remaining <= 15))
     }, 1000);
     
     Tracker.autorun(function() {

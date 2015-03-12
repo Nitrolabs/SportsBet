@@ -164,7 +164,8 @@ Template.MainAdmin.events({
             new_bet.status = "ACTIVE";
             
             var y = $("input[name='auto_close_options']:checked").attr('data-auto-close-time');
-            if (y!==0) {
+            
+            if (1*y!==0) {
                 new_bet.auto_close_at = new Date(App.helpers.getServerNow().getTime() + 1000*y);
             }
             App.track("Admin - activate bet", new_bet);
