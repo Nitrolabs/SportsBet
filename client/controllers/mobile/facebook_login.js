@@ -1,5 +1,6 @@
 MobileFacebookLoginController = RouteController.extend({
   waitOn: function () {
+      Meteor.subscribe('publish_featured_game');
   },
 
   onBeforeAction: function (route) {

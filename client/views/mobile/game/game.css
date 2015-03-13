@@ -42,7 +42,7 @@
 }
 
 .bet-question.bet-question-with-timer {
-    padding-right: 53px !important;
+    padding-right: 60px !important;
 }
 
 .bet-question-timer {
@@ -54,7 +54,7 @@
 	bottom: 10px;
 	color: #eee;
 	white-space: normal;
-	max-width: 49px;
+	max-width: 52px;
 	text-align: center;
 }
 

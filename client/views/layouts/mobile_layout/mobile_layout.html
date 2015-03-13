@@ -14,6 +14,7 @@
 <template name="mobileLayout">
 	{{#ionBody}}
 		{{>newBetsAlert}}
+		{{>boomSplash}}
 	    {{> yield}}
 		{{>navigation}}
 	{{/ionBody}}
@@ -53,4 +54,11 @@
 	{{/if}}
 </template>
 
+<template name="boomSplash">
+  <div class="boom-shakalaka-splash-container {{isShowSplash}}">
+      <img src="http://4.bp.blogspot.com/_dHR2ehthB3A/TB8zyFlCDmI/AAAAAAAAAN8/n0AnW39Wagk/s1600/bs-logo-blog-web.png" class="boom-shakalaka-splash-image {{isAnimateTada}}">
+      <br>
+      <div class="boom-shakalaka-splash-text-wrapper"><p class="boom-shakalaka-splash-text">Won ${{getSessionValue 'show_boom_splash'}}!</p></div>
+  </div>
+</template>
 

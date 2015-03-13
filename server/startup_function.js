@@ -9,6 +9,13 @@ Meteor.startup(function ()
         appId: Meteor.settings.private.facebookAppId,
         secret: Meteor.settings.private.facebookSecret
     });
+    
+    Meteor.setInterval(function() {
+        var now = new Date();
+        var x = Bets.update({status: "ACTIVE", auto_close_at: {$lt:now}}, {$set: {status: "CLOSED", closed_at: now}});
+        // console.log(x)
+        
+    }, 2000);
 
     var twit = new Twitter({
       consumer_key: 'aO0JAZTGNqew5ezm4dlRQUwPq',

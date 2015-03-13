@@ -162,8 +162,21 @@
                                     <input type="radio" name="auto_close_options" autocomplete="off" data-auto-close-time="15"> 15s
                                   </label>
                                   <label class="btn btn-primary">
+                                    <input type="radio" name="auto_close_options" autocomplete="off" data-auto-close-time="20"> 20s
+                                  </label>
+                                  <label class="btn btn-primary">
+                                    <input type="radio" name="auto_close_options" autocomplete="off" data-auto-close-time="30"> 30s
+                                  </label>
+                                  <label class="btn btn-primary">
                                     <input type="radio" name="auto_close_options" autocomplete="off" data-auto-close-time="60"> 60s
                                   </label>
+                                  <label class="btn btn-primary">
+                                    <input type="radio" name="auto_close_options" autocomplete="off" data-auto-close-time="300"> 5min
+                                  </label>
+                                  <label class="btn btn-primary">
+                                    <input type="radio" name="auto_close_options" autocomplete="off" data-auto-close-time="-1"> Custom
+                                  </label>
+                                  <input type="text" id="custom_close_time" />
                                 </div>
                                 {{/if}}
                                 {{#if isEq status "ACTIVE"}}

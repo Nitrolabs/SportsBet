@@ -26,8 +26,12 @@ Router.onBeforeAction(function() {
     
     Session.set('prevPageName', new_page_name)
     
-    if (new_page_name !== prev_page_name)
+    if (new_page_name !== prev_page_name) {
         App.track("Page View",{new_page_name: new_page_name});
+        if (new_page_name == "mobile.facebook.login") {
+            App.track("Facebook Signup Page View");
+        }
+    }
     
     this.next();
 });

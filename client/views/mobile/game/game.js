@@ -540,9 +540,10 @@ Template.MobileGame.created = function() {
                    
                if (last_bank_account > curr_bank_account)
                      onBankDown(curr_bank_account - last_bank_account);
-               if (last_bank_account < curr_bank_account) 
+               if (last_bank_account < curr_bank_account) {
                     onBankUp(curr_bank_account - last_bank_account)
-                
+               }
+               
                Session.set("last_bank_account", Meteor.user().bank_account);
            }
        }

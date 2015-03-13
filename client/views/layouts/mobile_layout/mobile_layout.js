@@ -36,3 +36,30 @@ Deps.autorun(function () {
     }
     
 });
+
+Deps.autorun(function () {
+    if (Meteor.user() && !Meteor.loggingIn()) {
+           var last_bank_account = Session.get("last_bank_account_main_screen");
+           var curr_bank_account = Meteor.user().bank_account;
+           if (last_bank_account != curr_bank_account) {
+                   
+               if ((last_bank_account < curr_bank_account) && (last_bank_account !== undefined) && (last_bank_account !== null)){
+                     App.helpers.setSessionVarWithExpire("show_boom_splash", Math.floor(curr_bank_account - last_bank_account), 5000, null);
+               }
+               
+               Session.set("last_bank_account_main_screen", Meteor.user().bank_account);
+           }
+       }
+});
+
+Template.boomSplash.helpers({
+  isShowSplash: function() {
+      return Session.get("show_boom_splash") ? "visible" : "";
+  },
+  
+  isAnimateTada: function() {
+      return Session.get("show_boom_splash") ? "tada" : "";
+  },
+  
+  
+});

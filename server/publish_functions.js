@@ -71,3 +71,13 @@ Meteor.publish('publish_twitter_feed', function(game_id) {
     // TODO: filter based on active game
   	return TwitterFeed.find({},{sort: {created_at: -1}, limit: 50});
 });
+
+Meteor.publish('publish_featured_game', function() {
+    
+    var soon = new Date();
+    soon.setHours(soon.getHours()+48);
+    var not_over = new Date();
+    not_over.setHours(not_over.getHours()-5);
+    
+    return Games.find({status: "ACTIVE", start_datetime: {$gte:not_over, $lte:soon}}, {sort: {start_datetime: 1}, limit: 1});
+});

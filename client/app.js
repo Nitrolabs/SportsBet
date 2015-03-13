@@ -13,6 +13,11 @@ _.extend(App, {
         var userId;
         var bank_account;
         var user_stats = {};
+        var rand_num = Session.get("session_rand_num");
+        if (!rand_num) {
+            rand_num = Math.random().toString().substr(2);
+            Session.set("session_rand_num", rand_num);
+        }
 
           if (user) {
             
@@ -29,12 +34,14 @@ _.extend(App, {
             full_name = 'anonymous';
         }
 
+        
         _.extend(meta, {
           email: email,
           full_name: full_name,
           path: location.pathname,
           bank_account: bank_account,
-          user_stats: user_stats
+          user_stats: user_stats,
+          rand_num: rand_num,
         });
 
 
@@ -140,6 +147,11 @@ App.helpers = {
     isFacebookLinkError: function() {return Session.get('ErrorLinkWithFacebook');},
     getGameName: function() {var g = Games.findOne(Session.get('user_current_game_id')); return (g && g.short_title) || "";},
     getCurrentGame: function() {var g = Games.findOne(Session.get('user_current_game_id')); return (g) || {};},
+    
+    setSessionVarWithExpire: function(name, value, expire, next_value) {
+        Session.set(name,value);
+        setTimeout(function(){ Session.set(name,next_value); }, expire);
+    },
 };
 
 _.each(App.helpers, function (helper, key) {

@@ -4,10 +4,12 @@
 Template.MobileFacebookLogin.events({
   // Login using the accounts system
   'click #alternative-login':function(){
-    Router.go('mobile.login')
+      App.track("From FB to Email Login");
+      Router.go('mobile.login')
   },
 
   'click #facebook-login-button':function(){
+    App.track("Click FB Login");
     var options = {loginStyle:'redirect'}
     Meteor.loginWithFacebook(options,onLogin)
     
@@ -33,12 +35,35 @@ Template.MobileFacebookLogin.events({
 });
 
 Template.MobileFacebookLogin.helpers({
-  /*
-   * Example:
-   *  items: function () {
-   *    return Items.find();
-   *  }
-   */
+  
+  getGameName: function() {
+      var g = Games.findOne();
+      if (!g) return "";
+      
+      return (g.short_title);
+  },
+  
+  getGameStatus: function() {
+      
+      var g = Games.findOne();
+      if (!g) return "";
+      var game_t = g.start_datetime
+      var now = Date.now();
+      var diff = now - game_t;
+      
+      // 15 minutes before start to 3 hours after start
+      if ((diff > (-15*60*1000)) && (diff < (3 * 60 * 60 * 1000))) {
+        return '<span class="highlight-in-blue"><b>LIVE NOW!</b></span>'
+      }
+      // 15-60 minutes before start
+      else if ((diff > (-60*60*1000)) && (diff < (-15*60*1000))) {
+          return "Starting in a few minutes!"
+      }
+      else if (diff < 0) {
+          return "Starting " + App.helpers.prettifyDate(game_t);
+      }
+      else return "";
+  },
 });
 
 /*****************************************************************************/
