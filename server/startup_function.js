@@ -1,3 +1,5 @@
+twit_percent_through = 0;
+
 Meteor.startup(function ()
   {
     Accounts.loginServiceConfiguration.remove({
@@ -42,28 +44,39 @@ Meteor.startup(function ()
     console.log(hashtagsToTrack);
     console.log(userIdsToFollow);
     
+    cnfg_val = ConfigValues.findOne({name: "twit_percent_through"});
+    twit_percent_through = cnfg_val ? cnfg_val.value : 0;
+    
     TwitterFeed.remove({'user.name': {$nin: ["zzzz"]}});
-    // twit.stream('statuses/filter', {
-    //     'track': hashtagsToTrack,
-    //     'follow': userIdsToFollow,
-    // }, function(stream) {
-    //     stream.on('data', function(data) {
-    //         if (TwitterFeed.find().count() < 100) {
-    //         var assaf_data = {
-    //             type: "track #NBA",
-    //             created_at: data.created_at, 
-    //             twitter_id: data.id,
-    //             text: data.text,
-    //             user: {id: data.user.id, name: data.user.name, image_url: data.user.profile_image_url},
-    //         }
+    twit.stream('statuses/filter', {
+        'track': hashtagsToTrack,
+        'follow': userIdsToFollow,
+    }, function(stream) {
+        stream.on('data', function(data) {
+            if (userIdsToFollow.search(data.user.id_str) < 0) {
+                console.log("garbage tweet: " + data.user.id_str);
+                return;
+            }
+            if (Math.random() <= twit_percent_through) {
+                var assaf_data = {
+                    // type: "track #NBA",
+                    created_at: data.created_at, 
+                    twitter_id: data.id,
+                    text: data.text,
+                    user: {id: data.user.id, name: data.user.name, image_url: data.user.profile_image_url},
+                }
             
-    //         TwitterFeed.insert(assaf_data);
-    //         console.log('tweet :)');
-    //         }
-    //         // console.log(assaf_data)
-    //         // TweetStream.emit('tweet', data);
-    //     });
-    // });
+                TwitterFeed.insert(assaf_data);
+                console.log("tweet");
+                // console.log(data);
+            }
+            else {
+                console.log("skipped tweet");
+            }
+            // console.log(assaf_data)
+            // TweetStream.emit('tweet', data);
+        });
+    });
     
     
   }

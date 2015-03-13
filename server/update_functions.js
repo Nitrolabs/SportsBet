@@ -1,12 +1,5 @@
 Meteor.methods({
-    /*
-     * Example:
-     *  '/app/todos/update/email': function (email) {
-     *    Users.update({_id: this.userId}, {$set: {'profile.email': email}});
-     *  }
-     *
-     */
-
+    
     '/user/update/after_fb_link': function() {
          if(!this.userId) throw new Error('You must be logged in');
         
@@ -253,5 +246,17 @@ Meteor.methods({
     
     '/app/getServerTime' : function() {
         return new Date() //.now();
+    },
+    
+    '/admin/twitter/set_through_rate': function(a) {
+        if (a >= 0 && a <= 1) {
+            twit_percent_through = a;
+            ConfigValues.update({name: "twit_percent_through"}, {$set: {value: twit_percent_through}}, {upsert: true});
+            var cnfg_val = ConfigValues.findOne({name: "twit_percent_through"});
+            console.log("Twitter update passthrough");
+            console.log(cnfg_val ? cnfg_val.value : 0);
+        }
+        else
+            console.error("Bad parameter for twitter - must be between 0 and 1")
     },
 });

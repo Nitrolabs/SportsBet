@@ -336,8 +336,6 @@ Template.MobileGame.helpers({
     },
     
     isBetQuestionWithTimer : function() {
-        console.log("this.auto_close_at");
-        console.log(this.auto_close_at);
         return (this.auto_close_at ? "bet-question-with-timer" : "");
     },
     

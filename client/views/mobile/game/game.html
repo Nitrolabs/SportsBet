@@ -180,7 +180,7 @@
 
 <template name="LeaderboardPreview">    
     {{> LeaderboardTable num_users_to_show="3"}}
-    {{#unless isUsingFacebook}}
+    {{#if isEq currentUser.guest "guest"}}
         {{> MobileFacebookLink textAboveButton="To enjoy all features"}}
   	{{/unless}}
 </template>
