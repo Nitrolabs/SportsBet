@@ -20,3 +20,7 @@ MobileFacebookLoginController = RouteController.extend({
     this.render();
   }
 });
+
+MobileFacebookLoginSportsController = MobileFacebookLoginController;
+MobileFacebookLoginGambleController = MobileFacebookLoginController;
+MobileFacebookLoginCompetitionController = MobileFacebookLoginController;

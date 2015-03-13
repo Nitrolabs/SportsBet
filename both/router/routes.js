@@ -28,8 +28,8 @@ Router.onBeforeAction(function() {
     
     if (new_page_name !== prev_page_name) {
         App.track("Page View",{new_page_name: new_page_name});
-        if (new_page_name == "mobile.facebook.login") {
-            App.track("Facebook Signup Page View");
+        if (new_page_name.substring(0,21) == "mobile.facebook.login") {
+            App.track("Facebook Signup Page View", {login_page_version: new_page_name.substring(22)});
         }
     }
     
@@ -38,6 +38,10 @@ Router.onBeforeAction(function() {
 
 // Mobile routes
 Router.route('/login/facebook', {name: 'mobile.facebook.login'});
+Router.route('/login/facebook2', {name: 'mobile.facebook.login.gamble'});
+Router.route('/login/facebook3', {name: 'mobile.facebook.login.sports'});
+Router.route('/login/facebook4', {name: 'mobile.facebook.login.competition'});
+
 Router.route('/login/new_user', {name: 'mobile.new.user'});
 Router.route('/login', {name: 'mobile.login'});
 Router.route('/signup', {name: 'mobile.signup'});
