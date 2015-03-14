@@ -126,6 +126,9 @@
 	{{/with}}
 	
     {{/ionContent}}
+    
+
+  
     {{#ionFooterBar class="large-footer"}}
 		<div id="footer-content" class="text-center">
 		  <div class="recess bet-user-bank">  	
@@ -146,6 +149,7 @@
 		  {{/if}}
 	  </div>
 	{{/ionFooterBar}}
+	
   {{/ionView}}
 </template>
 
@@ -182,7 +186,7 @@
     {{> LeaderboardTable num_users_to_show="3"}}
     {{#if isEq currentUser.guest "guest"}}
         {{> MobileFacebookLink textAboveButton="To enjoy all features"}}
-  	{{/unless}}
+  	{{/if}}
 </template>
 
 

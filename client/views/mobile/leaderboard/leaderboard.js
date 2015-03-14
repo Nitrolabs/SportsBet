@@ -18,7 +18,7 @@ Template.LeaderboardTable.helpers({
         var maxUsersInLeaderBoard = Session.get('maxUsersInLeaderBoardPreview') || 30;
         // var t = Meteor.users.find({},{sort: {bank_account: -1}, limit: maxUsersInLeaderBoard})
         var t = UserStats.find({game_id:Session.get('user_current_game_id')},{sort: {bank_account: -1}, limit: maxUsersInLeaderBoard})
-        
+        console.log(t.count());
         var z = t.fetch();
         var index = 0;
         var my_pos = maxUsersInLeaderBoard + 1;
